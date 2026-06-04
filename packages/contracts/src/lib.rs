@@ -1,6 +1,6 @@
 pub mod math_core;
 pub mod distribution_amm;
-pub mod binary_router;
+// pub mod binary_router;
 
 // NOTE: To export the ABI for a specific contract using `cargo stylus export-abi`,
 // only one contract can have a public entrypoint exported in `src/main.rs`.

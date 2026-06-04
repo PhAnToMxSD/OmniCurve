@@ -29,3 +29,8 @@ coverage/
 
 # OS
 .DS_Store
+
+# Foundry
+cache/
+broadcast/
+packages/contracts/lib/
