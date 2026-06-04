@@ -1,0 +1,12 @@
+{
+  "name": "omnicurve",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev:node": "anvil",
+    "dev:contracts": "cd packages/contracts && forge build",
+    "dev:backend": "cd packages/backend && pnpm dev",
+    "dev:frontend": "cd packages/frontend && pnpm dev"
+  }
+}

@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.*
+
+# Build artifacts
+build/
+dist/
+out/
+coverage/
+.next/
+.turbo/
+.cache/
+.parcel-cache/
+.vite/
+
+# Rust
+/target/
+**/target/
+
+# OS
+.DS_Store

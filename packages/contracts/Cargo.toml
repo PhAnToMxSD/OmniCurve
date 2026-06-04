@@ -1,0 +1,16 @@
+[package]
+name = "omnicurve-contracts"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["export-abi"]
+export-abi = ["stylus-sdk/export-abi"]
+
+[dependencies]
+stylus-sdk = { version = "0.6.0", default-features = false, features = ["export-abi"] }
+alloy-primitives = { version = "0.7.0", default-features = false }
