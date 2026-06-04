@@ -1,6 +1,7 @@
 #![cfg_attr(not(feature = "export-abi"), no_std)]
 
 pub mod math_core;
+pub mod distribution_amm;
 
 pub use math_core::{gaussian_cdf, gaussian_pdf};
 
