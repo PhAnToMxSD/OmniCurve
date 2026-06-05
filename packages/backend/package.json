@@ -9,7 +9,8 @@
     "graphql-request": "^7.4.0"
   },
   "scripts": {
-    "start:indexer": "node src/server.js",
-    "deploy:subgraph:amm": "goldsky subgraph deploy omnicurve-amm/1.0.2 --from-abi ./goldsky-amm.json"
+    "start:indexer": "node src/indexer/indexer.js",
+    "deploy:subgraph:amm": "goldsky subgraph deploy omnicurve-amm/1.0.2 --from-abi ./goldsky-amm.json",
+    "start:api": "node src/server/app.js"
   }
 }
