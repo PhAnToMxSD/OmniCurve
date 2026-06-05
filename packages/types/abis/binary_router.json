@@ -1,4 +1,72 @@
-
-======= <stdin>:IBinaryRouter =======
-Contract JSON ABI
-[{"inputs": [{"internalType": "int256", "name": "target_price", "type": "int256"}], "name": "buyYes", "outputs": [], "stateMutability": "nonpayable", "type": "function"}, {"inputs": [{"internalType": "int256", "name": "_target_price", "type": "int256"}], "name": "getBinaryOdds", "outputs": [{"internalType": "int256", "name": "", "type": "int256"}], "stateMutability": "view", "type": "function"}, {"inputs": [{"internalType": "address", "name": "addr", "type": "address"}], "name": "setAmmAddress", "outputs": [], "stateMutability": "nonpayable", "type": "function"}, {"type": "event", "name": "TradeExecuted", "inputs": [{"indexed": true, "internalType": "address", "name": "user", "type": "address"}, {"indexed": false, "internalType": "uint256", "name": "target_price", "type": "uint256"}, {"indexed": false, "internalType": "bool", "name": "is_yes", "type": "bool"}], "anonymous": false}]
+[
+    {
+        "inputs": [
+            {
+                "internalType": "int256",
+                "name": "target_price",
+                "type": "int256"
+            }
+        ],
+        "name": "buyYes",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "int256",
+                "name": "_target_price",
+                "type": "int256"
+            }
+        ],
+        "name": "getBinaryOdds",
+        "outputs": [
+            {
+                "internalType": "int256",
+                "name": "",
+                "type": "int256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "addr",
+                "type": "address"
+            }
+        ],
+        "name": "setAmmAddress",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "type": "event",
+        "name": "TradeExecuted",
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "target_price",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "is_yes",
+                "type": "bool"
+            }
+        ],
+        "anonymous": false
+    }
+]
