@@ -519,6 +519,7 @@ name = "omnicurve-contracts"
 version = "0.0.0"
 dependencies = [
  "alloy-primitives",
+ "alloy-sol-types",
  "stylus-sdk",
 ]
 
