@@ -1,0 +1,23 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .: {}
+
+  packages/backend:
+    dependencies:
+      '@omnicurve/types':
+        specifier: workspace:*
+        version: link:../types
+
+  packages/frontend:
+    dependencies:
+      '@omnicurve/types':
+        specifier: workspace:*
+        version: link:../types
+
+  packages/types: {}
