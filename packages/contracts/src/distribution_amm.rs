@@ -15,18 +15,22 @@ sol! {
     event LiquidityAdded(address indexed provider, uint256 amount_wad);
     event LiquidityRemoved(address indexed provider, uint256 amount_wad);
     event WinningsClaimed(address indexed user, uint256 amount_wad);
+    event MarketResolved(uint256 indexed winning_id);
+    event FeeDistributed(uint256 amount_wad);
 }
 
 sol_storage! {
     #[entrypoint]
     pub struct DistributionAmm {
         address owner;
+        address pending_owner;
         int256 global_mu;
         int256 global_sigma;
         int256 sigma_min;
         int256 available_liquidity;
         int256 locked_collateral;
         address usdc_token;
+        address router_address;
         int256 acc_fee_per_share;
         int256 total_shares;
         mapping(address => int256) shares;
@@ -34,6 +38,10 @@ sol_storage! {
         bool is_resolved;
         uint256 winning_token_id;
         
+        bool trades_started;
+        uint256 resolution_time;
+        uint256 proposed_winning_id;
+
         mapping(uint256 => int256) token_liabilities;
     }
 }
@@ -43,6 +51,7 @@ pub enum Error {
     UsdcTransferFailed,
     Unauthorized,
     InsufficientLiquidity,
+    Overflow,
 }
 
 impl From<Error> for Vec<u8> {
@@ -52,6 +61,7 @@ impl From<Error> for Vec<u8> {
             Error::UsdcTransferFailed => b"UsdcTransferFailed".to_vec(),
             Error::Unauthorized => b"Unauthorized".to_vec(),
             Error::InsufficientLiquidity => b"InsufficientLiquidity".to_vec(),
+            Error::Overflow => b"Overflow".to_vec(),
         }
     }
 }
@@ -64,12 +74,31 @@ impl DistributionAmm {
         Ok(())
     }
 
+    pub fn transfer_ownership(&mut self, new_owner: Address) -> Result<(), Vec<u8>> {
+        if self.vm().msg_sender() != self.owner.get() { return Err(Error::Unauthorized.into()); }
+        self.pending_owner.set(new_owner);
+        Ok(())
+    }
+
+    pub fn accept_ownership(&mut self) -> Result<(), Vec<u8>> {
+        if self.vm().msg_sender() != self.pending_owner.get() { return Err(Error::Unauthorized.into()); }
+        self.owner.set(self.pending_owner.get());
+        self.pending_owner.set(Address::ZERO);
+        Ok(())
+    }
+
     pub fn global_mu(&self) -> Result<I256, Vec<u8>> { Ok(self.global_mu.get()) }
     pub fn global_sigma(&self) -> Result<I256, Vec<u8>> { Ok(self.global_sigma.get()) }
 
     pub fn set_usdc_token(&mut self, token: Address) -> Result<(), Vec<u8>> {
         if self.vm().msg_sender() != self.owner.get() { return Err(Error::Unauthorized.into()); }
         self.usdc_token.set(token);
+        Ok(())
+    }
+
+    pub fn set_router_address(&mut self, addr: Address) -> Result<(), Vec<u8>> {
+        if self.vm().msg_sender() != self.owner.get() { return Err(Error::Unauthorized.into()); }
+        self.router_address.set(addr);
         Ok(())
     }
 
@@ -81,6 +110,7 @@ impl DistributionAmm {
 
     pub fn set_distribution(&mut self, mu: I256, sigma: I256) -> Result<(), Vec<u8>> {
         if self.vm().msg_sender() != self.owner.get() { return Err(Error::Unauthorized.into()); }
+        if self.trades_started.get() { return Err(Error::Unauthorized.into()); }
         if sigma <= self.sigma_min.get() { return Err(Error::VarianceTooLow.into()); }
         self.global_mu.set(mu);
         self.global_sigma.set(sigma);
@@ -96,13 +126,15 @@ impl DistributionAmm {
     }
 
     pub fn distribute_fee(&mut self, fee_amount: U256) -> Result<(), Vec<u8>> {
+        if self.vm().msg_sender() != self.router_address.get() { return Err(Error::Unauthorized.into()); }
         let total_shares = self.total_shares.get();
         if total_shares > I256::ZERO {
-            let fee_i256 = I256::from_raw(fee_amount.into());
+            let fee_i256 = I256::try_from(fee_amount).map_err(|_| Error::Overflow)?;
             let current_acc = self.acc_fee_per_share.get();
             let inc = (fee_i256 * wad()) / total_shares;
             self.acc_fee_per_share.set(current_acc + inc);
             self.available_liquidity.set(self.available_liquidity.get() + fee_i256);
+            self.vm().log(FeeDistributed { amount_wad: fee_amount });
         }
         Ok(())
     }
@@ -115,8 +147,7 @@ impl DistributionAmm {
             if pending > I256::ZERO {
                 self.available_liquidity.set(self.available_liquidity.get() - pending);
                 let mut reward_debt = self.reward_debt.setter(user);
-                let current_rd = reward_debt.get();
-                reward_debt.set(current_rd + pending);
+                reward_debt.set((shares * self.acc_fee_per_share.get()) / wad());
 
                 let pending_usdc = U256::from(pending.into_raw());
                 let usdc = IERC20::new(self.usdc_token.get());
@@ -135,23 +166,25 @@ impl DistributionAmm {
 
         let _ = self.claim_fees();
 
-        let amount_i256 = I256::from_raw(amount_wad.into());
+        let amount_i256 = I256::try_from(amount_wad).map_err(|_| Error::Overflow)?;
         
         let old_liquidity = self.available_liquidity.get();
-        if old_liquidity > I256::ZERO {
-            let w_old = (old_liquidity * wad()) / (old_liquidity + amount_i256);
-            let w_new = wad() - w_old;
-            
-            let old_mu = self.global_mu.get();
-            let new_mu = (old_mu * w_old) / wad() + (target_mu * w_new) / wad();
-            self.global_mu.set(new_mu);
-            
-            let old_sigma = self.global_sigma.get();
-            let new_sigma = (old_sigma * w_old) / wad() + (target_sigma * w_new) / wad();
-            self.global_sigma.set(new_sigma);
-        } else {
-            self.global_mu.set(target_mu);
-            self.global_sigma.set(target_sigma);
+        if !self.trades_started.get() {
+            if old_liquidity > I256::ZERO {
+                let w_old = (old_liquidity * wad()) / (old_liquidity + amount_i256);
+                let w_new = wad() - w_old;
+                
+                let old_mu = self.global_mu.get();
+                let new_mu = (old_mu * w_old) / wad() + (target_mu * w_new) / wad();
+                self.global_mu.set(new_mu);
+                
+                let old_sigma = self.global_sigma.get();
+                let new_sigma = (old_sigma * w_old) / wad() + (target_sigma * w_new) / wad();
+                self.global_sigma.set(new_sigma);
+            } else {
+                self.global_mu.set(target_mu);
+                self.global_sigma.set(target_sigma);
+            }
         }
 
         self.available_liquidity.set(self.available_liquidity.get() + amount_i256);
@@ -160,10 +193,11 @@ impl DistributionAmm {
         let user = self.vm().msg_sender();
         let mut shares = self.shares.setter(user);
         let current_shares = shares.get();
-        shares.set(current_shares + amount_i256);
+        let new_shares = current_shares + amount_i256;
+        shares.set(new_shares);
 
         let mut reward_debt = self.reward_debt.setter(user);
-        reward_debt.set((shares.get() * self.acc_fee_per_share.get()) / wad());
+        reward_debt.set((new_shares * self.acc_fee_per_share.get()) / wad());
 
         let amount_usdc = amount_wad / U256::from(1_000_000_000_000u128);
         let usdc = IERC20::new(self.usdc_token.get());
@@ -181,7 +215,7 @@ impl DistributionAmm {
     pub fn remove_liquidity(&mut self, shares_to_remove: U256) -> Result<(), Vec<u8>> {
         let _ = self.claim_fees();
 
-        let shares_i256 = I256::from_raw(shares_to_remove.into());
+        let shares_i256 = I256::try_from(shares_to_remove).map_err(|_| Error::Overflow)?;
         let user = self.vm().msg_sender();
         let mut shares = self.shares.setter(user);
         
@@ -189,14 +223,15 @@ impl DistributionAmm {
             return Err(b"Insufficient shares".to_vec());
         }
 
+        let amount_to_return = shares_i256;
+        let required_solvency = self.locked_collateral.get() / I256::try_from(10).map_err(|_| Error::Overflow)?;
+        if self.available_liquidity.get() - amount_to_return < required_solvency {
+            return Err(Error::InsufficientLiquidity.into());
+        }
+
         let current_shares = shares.get();
         shares.set(current_shares - shares_i256);
         self.total_shares.set(self.total_shares.get() - shares_i256);
-        
-        let amount_to_return = shares_i256;
-        if self.available_liquidity.get() < amount_to_return {
-            return Err(Error::InsufficientLiquidity.into());
-        }
         self.available_liquidity.set(self.available_liquidity.get() - amount_to_return);
 
         let mut reward_debt = self.reward_debt.setter(user);
@@ -215,16 +250,17 @@ impl DistributionAmm {
     }
 
     pub fn underwrite_trade(&mut self, token_id: U256, premium_wad: U256, max_liability_wad: U256) -> Result<(), Vec<u8>> {
-        let premium_i256 = I256::from_raw(premium_wad.into());
-        let liability_i256 = I256::from_raw(max_liability_wad.into());
+        if self.vm().msg_sender() != self.router_address.get() { return Err(Error::Unauthorized.into()); }
+        self.trades_started.set(true);
+        let premium_i256 = I256::try_from(premium_wad).map_err(|_| Error::Overflow)?;
+        let liability_i256 = I256::try_from(max_liability_wad).map_err(|_| Error::Overflow)?;
         
-        self.available_liquidity.set(self.available_liquidity.get() + premium_i256);
-        
-        if self.available_liquidity.get() < liability_i256 {
+        let pre_liquidity = self.available_liquidity.get();
+        if pre_liquidity < liability_i256 {
             return Err(Error::InsufficientLiquidity.into());
         }
         
-        self.available_liquidity.set(self.available_liquidity.get() - liability_i256);
+        self.available_liquidity.set(pre_liquidity + premium_i256 - liability_i256);
         self.locked_collateral.set(self.locked_collateral.get() + liability_i256);
         
         let mut tl = self.token_liabilities.setter(token_id);
@@ -234,11 +270,34 @@ impl DistributionAmm {
         Ok(())
     }
 
-    pub fn resolve_market(&mut self, winning_id: U256) -> Result<(), Vec<u8>> {
+    pub fn propose_resolution(&mut self, winning_id: U256) -> Result<(), Vec<u8>> {
+        if self.vm().msg_sender() != self.router_address.get() { return Err(Error::Unauthorized.into()); }
+        if self.is_resolved.get() { return Err(b"Already resolved".to_vec()); }
+        if self.resolution_time.get() > U256::ZERO { return Err(b"Already proposed".to_vec()); }
+
+        self.proposed_winning_id.set(winning_id);
+        self.resolution_time.set(U256::from(self.vm().block_timestamp() + 86400));
+        Ok(())
+    }
+
+    pub fn cancel_resolution(&mut self) -> Result<(), Vec<u8>> {
+        if self.vm().msg_sender() != self.owner.get() { return Err(Error::Unauthorized.into()); }
+        if self.is_resolved.get() { return Err(b"Already finalised".to_vec()); }
+        self.resolution_time.set(U256::ZERO);
+        self.proposed_winning_id.set(U256::ZERO);
+        Ok(())
+    }
+
+    pub fn execute_resolution(&mut self) -> Result<(), Vec<u8>> {
         if self.vm().msg_sender() != self.owner.get() { return Err(Error::Unauthorized.into()); }
         if self.is_resolved.get() { return Err(b"Already resolved".to_vec()); }
+        let res_time = self.resolution_time.get();
+        if res_time == U256::ZERO || U256::from(self.vm().block_timestamp()) < res_time { 
+            return Err(b"Time-lock active".to_vec()); 
+        }
 
         self.is_resolved.set(true);
+        let winning_id = self.proposed_winning_id.get();
         self.winning_token_id.set(winning_id);
 
         let total_locked = self.locked_collateral.get();
@@ -248,14 +307,17 @@ impl DistributionAmm {
         self.available_liquidity.set(self.available_liquidity.get() + release);
         self.locked_collateral.set(winning_liability);
 
+        self.vm().log(MarketResolved { winning_id });
+
         Ok(())
     }
 
     pub fn payout_winnings(&mut self, user: Address, token_id: U256, amount_wad: U256) -> Result<(), Vec<u8>> {
+        if self.vm().msg_sender() != self.router_address.get() { return Err(Error::Unauthorized.into()); }
         if !self.is_resolved.get() { return Err(b"Market not resolved".to_vec()); }
         if token_id != self.winning_token_id.get() { return Err(b"Token did not win".to_vec()); }
 
-        let amount_i256 = I256::from_raw(amount_wad.into());
+        let amount_i256 = I256::try_from(amount_wad).map_err(|_| Error::Overflow)?;
         if self.locked_collateral.get() < amount_i256 {
             return Err(Error::InsufficientLiquidity.into());
         }
@@ -271,6 +333,27 @@ impl DistributionAmm {
         }
 
         self.vm().log(WinningsClaimed { user, amount_wad });
+        Ok(())
+    }
+
+    pub fn sweep_dust(&mut self) -> Result<(), Vec<u8>> {
+        if self.vm().msg_sender() != self.owner.get() { return Err(Error::Unauthorized.into()); }
+        let usdc = IERC20::new(self.usdc_token.get());
+        
+        let config_bal = Call::new();
+        let actual_balance = usdc.balance_of(self.vm(), config_bal, self.vm().contract_address()).map_err(|_| Error::UsdcTransferFailed)?;
+        
+        let expected_balance_wad = self.available_liquidity.get() + self.locked_collateral.get();
+        if expected_balance_wad < I256::ZERO { return Ok(()); }
+        
+        let expected_usdc = U256::from(expected_balance_wad.into_raw()) / U256::from(1_000_000_000_000u128);
+        if actual_balance > expected_usdc {
+            let dust = actual_balance - expected_usdc;
+            if dust > U256::from(1_000_000) {
+                let config = Call::new_mutating(&mut *self);
+                usdc.transfer(self.vm(), config, self.owner.get(), dust).map_err(|_| Error::UsdcTransferFailed)?;
+            }
+        }
         Ok(())
     }
 }

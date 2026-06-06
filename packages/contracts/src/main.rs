@@ -6,5 +6,5 @@ pub extern "C" fn main() {}
 
 #[cfg(feature = "export-abi")]
 fn main() {
-    omnicurve_contracts::binary_router::print_from_args();
+    omnicurve_contracts::factory::print_from_args();
 }
