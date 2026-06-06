@@ -1,0 +1,4 @@
+
+======= <stdin>:IOmniCurveFactory =======
+Contract JSON ABI
+[{"inputs":[],"name":"acceptOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"usdc","type":"address"},{"internalType":"int256","name":"sigma_min","type":"int256"}],"name":"createMarket","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"amm_impl","type":"address"},{"internalType":"address","name":"router_impl","type":"address"}],"name":"initialize","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"new_owner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}]

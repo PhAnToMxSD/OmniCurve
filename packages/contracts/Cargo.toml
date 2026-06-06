@@ -1,4 +1,4 @@
-cargo-features = ["panic-immediate-abort"]
+
 
 [package]
 name = "omnicurve-contracts"
@@ -11,10 +11,10 @@ codegen-units = 1
 strip = true
 lto = true
 opt-level = "s"
-panic = "immediate-abort"
+panic = "abort"
 
 [profile.dev]
-panic = "immediate-abort"
+# panic = "immediate-abort"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
