@@ -4,7 +4,6 @@
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "ignoreDeprecations": "6.0",
     "verbatimModuleSyntax": false,
     "strict": true,
     "esModuleInterop": true,

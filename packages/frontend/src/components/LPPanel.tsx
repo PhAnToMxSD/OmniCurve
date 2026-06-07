@@ -62,7 +62,7 @@ const LPPanel: React.FC<LPPanelProps> = ({ currentMu, currentSigma }) => {
       abi: ERC20_ABI,
       functionName: 'approve',
       args: [CONTRACTS.DISTRIBUTION_AMM, maxUint256],
-    });
+    } as any);
   };
 
   const handleAddLiquidity = () => {
@@ -75,7 +75,7 @@ const LPPanel: React.FC<LPPanelProps> = ({ currentMu, currentSigma }) => {
       abi: DISTRIBUTION_AMM_ABI,
       functionName: 'addLiquidity',
       args: [parseUnits(amount, 18), parseUnits(targetMu, 15), parseUnits(targetSigma, 15)],
-    });
+    } as any);
   };
 
   return (

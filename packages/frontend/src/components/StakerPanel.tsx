@@ -87,7 +87,7 @@ const StakerPanel: React.FC<StakerPanelProps> = ({ marketId, onXChange }) => {
       abi: ERC20_ABI,
       functionName: 'approve',
       args: [CONTRACTS.BINARY_ROUTER, maxUint256],
-    });
+    } as any);
   };
 
   const handleStake = async () => {
@@ -106,7 +106,7 @@ const StakerPanel: React.FC<StakerPanelProps> = ({ marketId, onXChange }) => {
       abi: BINARY_ROUTER_ABI,
       functionName: direction === 'ABOVE' ? 'buyYes' : 'buyNo',
       args: [scaledX, amountWad],
-    });
+    } as any);
   };
 
   return (
