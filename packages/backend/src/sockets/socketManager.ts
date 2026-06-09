@@ -46,3 +46,17 @@ export const broadcastMarketUpdate = (
     console.warn('[Socket.io] Socket server not initialized yet');
   }
 };
+
+/**
+ * Broadcasts a market resolution event to all clients in the market's room
+ */
+export const broadcastMarketResolved = (
+  marketId: string,
+  data: { winningTokenId: string }
+) => {
+  if (io) {
+    io.to(marketId).emit('marketResolved', data);
+  } else {
+    console.warn('[Socket.io] Socket server not initialized yet');
+  }
+};

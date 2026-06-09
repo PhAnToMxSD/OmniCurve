@@ -8,6 +8,7 @@ import marketRoutes from './routes/marketRoutes';
 import webhookRoutes from './webhooks/goldskyHandler';
 import { errorHandler } from './middlewares/errorHandler';
 import { initializeSocket } from './sockets/socketManager';
+import { startChainWatcher } from './services/chainService';
 
 const app = express();
 
@@ -34,6 +35,29 @@ app.use(errorHandler);
 const httpServer = createServer(app);
 initializeSocket(httpServer);
 
+// Store unwatch functions for graceful shutdown
+let unwatchers: (() => void)[] = [];
+
 httpServer.listen(config.PORT, () => {
   console.log(`Server is running on port ${config.PORT}`);
+
+  // Start the on-chain event watcher
+  startChainWatcher()
+    .then((fns) => {
+      unwatchers = fns;
+      console.log('⛓️  Chain watcher started successfully');
+    })
+    .catch((err) => {
+      console.error('⚠️  Chain watcher failed to start:', err);
+    });
 });
+
+// Graceful shutdown
+const shutdown = () => {
+  console.log('\n🛑 Shutting down...');
+  unwatchers.forEach((unwatch) => unwatch());
+  httpServer.close(() => process.exit(0));
+};
+
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
