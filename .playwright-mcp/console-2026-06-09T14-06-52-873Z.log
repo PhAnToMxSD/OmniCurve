@@ -1,0 +1,31 @@
+[     129ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[     129ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[     132ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[     132ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[     132ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[     132ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[     133ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[     133ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[     199ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=5adbac2d:21608
+[     242ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=5adbac2d:4426
+[   19418ms] [WARNING] MetaMask - RPC Error: User rejected the request. {code: 4001, message: User rejected the request., data: Object, stack: Error: User rejected the request.
+    at u (chrome…dbefgpgknn/5765.753b060250d3593c5ead.js:3:487491)} @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:6
+[   65446ms] [WARNING] MetaMask - RPC Error: Unrecognized chain ID "0x66eee". Try adding the chain using wallet_addEthereumChain first. {code: 4902, message: Unrecognized chain ID "0x66eee". Try adding the chain using wallet_addEthereumChain first., stack: Error: Unrecognized chain ID "0x66eee". Try adding…dbefgpgknn/6624.6731ba0b6f0f626fb90b.js:17:34547)} @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:6
+[   73121ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[   73121ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[   74124ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[   75127ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[   76130ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[   77133ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[   78136ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[   79138ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[   80223ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[   80223ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[   80264ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[   80264ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[   80264ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[   80264ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[   80265ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[   80265ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[   81181ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=7290855b:21608
+[   81261ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=01786bd8:4426

@@ -1,0 +1,166 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "OMNICURVE" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img [ref=e8]
+        - generic [ref=e12]: OMNICURVE
+      - navigation [ref=e13]:
+        - link "Markets" [ref=e14] [cursor=pointer]:
+          - /url: /markets
+        - link "Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Docs" [ref=e16] [cursor=pointer]:
+          - /url: /docs
+      - button "Connect Wallet" [ref=e17] [cursor=pointer]
+  - main [ref=e18]:
+    - generic [ref=e19]:
+      - complementary [ref=e20]:
+        - generic [ref=e21]:
+          - paragraph [ref=e22]: Contents
+          - navigation [ref=e23]:
+            - link "The Problem" [ref=e24] [cursor=pointer]:
+              - /url: "#problem"
+            - link "The Solution" [ref=e25] [cursor=pointer]:
+              - /url: "#solution"
+            - link "How Pricing Works" [ref=e26] [cursor=pointer]:
+              - /url: "#pricing"
+            - link "For Traders" [ref=e27] [cursor=pointer]:
+              - /url: "#traders"
+            - link "For LPs" [ref=e28] [cursor=pointer]:
+              - /url: "#lps"
+            - link "Architecture" [ref=e29] [cursor=pointer]:
+              - /url: "#architecture"
+            - link "Known Risks" [ref=e30] [cursor=pointer]:
+              - /url: "#risks"
+      - main [ref=e31]:
+        - generic [ref=e32]:
+          - heading "Documentation" [level=1] [ref=e33]
+          - paragraph [ref=e34]: How OmniCurve works, from first principles to contract architecture.
+        - generic [ref=e35]:
+          - heading "The Problem" [level=2] [ref=e36]
+          - generic [ref=e37]:
+            - paragraph [ref=e38]: "Traditional prediction markets create discrete binary pools: \"Will BTC hit $100k? Yes/No.\" Each price point needs its own pool — fragmenting liquidity across hundreds of separate markets."
+            - paragraph [ref=e39]: A market-maker offering prices at $90k, $95k, $100k, $105k, and $110k needs five separate pools, each with its own liquidity providers and depth. This means capital is locked up inefficiently, and thin pools produce poor price discovery.
+        - generic [ref=e40]:
+          - heading "The Solution" [level=2] [ref=e41]
+          - generic [ref=e42]:
+            - paragraph [ref=e43]:
+              - text: OmniCurve replaces N binary pools with a single pool governed by a
+              - strong [ref=e44]: Gaussian probability distribution
+              - text: . One pool serves all strike prices simultaneously.
+            - img [ref=e47]:
+              - generic [ref=e51]:
+                - generic [ref=e54]: "50"
+                - generic [ref=e56]: "100"
+                - generic [ref=e58]: "150"
+            - paragraph [ref=e59]: Liquidity providers deposit once into the single pool and earn fees from all strikes. The distribution's mean (μ) represents the market's expected outcome, and sigma (σ) represents uncertainty. Both are set by LPs.
+        - generic [ref=e60]:
+          - heading "How Pricing Works" [level=2] [ref=e61]
+          - generic [ref=e62]:
+            - paragraph [ref=e63]: "The probability of any outcome is derived from the cumulative distribution function (CDF) of the Gaussian distribution:"
+            - generic [ref=e64]:
+              - paragraph [ref=e65]: P_YES(x) = 1 − CDF(x, μ, σ)
+              - paragraph [ref=e66]: P_NO(x) = CDF(x, μ, σ)
+            - paragraph [ref=e67]: "Drag the slider below to see how the strike price changes the probability split between YES and NO:"
+            - generic [ref=e69]:
+              - img [ref=e71]:
+                - generic [ref=e72]:
+                  - generic [ref=e76]: μ
+                  - generic [ref=e77]: P(NO) 50.0%
+                  - generic [ref=e78]: P(YES) 50.0%
+                  - generic [ref=e79]:
+                    - generic [ref=e82]: "40"
+                    - generic [ref=e84]: "60"
+                    - generic [ref=e86]: "80"
+                    - generic [ref=e88]: "100"
+                    - generic [ref=e90]: "120"
+                    - generic [ref=e92]: "140"
+                    - generic [ref=e94]: "160"
+              - generic [ref=e95]:
+                - generic [ref=e97]: "Strike: 100.0"
+                - slider [ref=e102] [cursor=pointer]: "100"
+              - generic [ref=e103]:
+                - generic [ref=e104]:
+                  - paragraph [ref=e105]: P(YES)
+                  - paragraph [ref=e106]: 50.00%
+                  - paragraph [ref=e107]: 1 − CDF(100, μ, σ)
+                - generic [ref=e108]:
+                  - paragraph [ref=e109]: P(NO)
+                  - paragraph [ref=e110]: 50.00%
+                  - paragraph [ref=e111]: CDF(100, μ, σ)
+            - paragraph [ref=e112]: The CDF is computed entirely on-chain using an Abramowitz & Stegun 5-coefficient error function approximation, providing ~11 significant digits of precision with fixed-point (WAD, 1e18) arithmetic.
+        - generic [ref=e113]:
+          - heading "For Traders" [level=2] [ref=e114]
+          - generic [ref=e115]:
+            - paragraph [ref=e116]:
+              - text: To trade on a market, choose a
+              - strong [ref=e117]: strike price
+              - text: "and a direction: YES (outcome exceeds strike) or NO (outcome at or below strike)."
+            - paragraph [ref=e118]: You pay USDC proportional to the probability. If the market resolves in your direction, you can redeem your tokens 1:1 for USDC. A 1% fee is deducted from each trade and distributed to liquidity providers.
+            - paragraph [ref=e119]:
+              - text: Settlement is currently manual — the market owner calls
+              - code [ref=e120]: settleByPrice(finalPrice)
+              - text: . A two-phase resolution with a 24-hour timelock provides a dispute window.
+        - generic [ref=e121]:
+          - heading "For Liquidity Providers" [level=2] [ref=e122]
+          - generic [ref=e123]:
+            - paragraph [ref=e124]: Deposit USDC into a market's AMM contract to receive non-transferable LP tokens representing your share of the pool. Before the first trade, you can also set the distribution parameters (μ, σ) to shift the market's expected outcome.
+            - paragraph [ref=e125]:
+              - text: Fees from all trades are distributed to LPs using a
+              - strong [ref=e126]: MasterChef-style accumulator
+              - text: ": a global acc_fee_per_share value increases with each trade, and each LP's pending fees = their shares × acc_fee_per_share − their reward_debt."
+            - paragraph [ref=e127]: LP tokens are non-transferable by design — this simplifies fee accounting and prevents complex reward_debt migration logic.
+        - generic [ref=e128]:
+          - heading "Architecture" [level=2] [ref=e129]
+          - generic [ref=e130]:
+            - paragraph [ref=e131]:
+              - text: OmniCurve contracts are written in
+              - strong [ref=e132]: Rust
+              - text: and compiled to
+              - strong [ref=e133]: WASM
+              - text: using
+              - strong [ref=e134]: Arbitrum Stylus SDK v0.10.7
+              - text: .
+            - paragraph [ref=e135]:
+              - text: Each market deploys three
+              - strong [ref=e136]: EIP-1167 minimal proxy
+              - text: "contracts via CREATE2: an AMM, a Router, and an LP Token. All proxies delegate to singleton implementation contracts, sharing code while maintaining independent storage."
+            - generic [ref=e137]:
+              - paragraph [ref=e138]: OmniCurveFactory
+              - paragraph [ref=e139]: ├── AMM Implementation (singleton)
+              - paragraph [ref=e140]: ├── Router Implementation (singleton)
+              - paragraph [ref=e141]: "└── Market #N"
+              - paragraph [ref=e142]: ├── AMM Proxy ──DELEGATECALL──▶ AMM Impl
+              - paragraph [ref=e143]: └── Router Proxy ──DELEGATECALL──▶ Router Impl
+        - generic [ref=e144]:
+          - heading "Known Risks" [level=2] [ref=e145]
+          - generic [ref=e147]:
+            - generic [ref=e148]:
+              - generic [ref=e149]: High
+              - generic [ref=e150]:
+                - paragraph [ref=e151]: claim_fees WAD bug
+                - paragraph [ref=e152]: The claimFees function sends WAD amounts as USDC (missing /1e12 conversion). Trading fees may be permanently locked in the contract.
+            - generic [ref=e153]:
+              - generic [ref=e154]: High
+              - generic [ref=e155]:
+                - paragraph [ref=e156]: Manual oracle
+                - paragraph [ref=e157]: Resolution is fully manual — the market owner calls settleByPrice(). There is no on-chain price oracle or automation.
+            - generic [ref=e158]:
+              - generic [ref=e159]: Medium
+              - generic [ref=e160]:
+                - paragraph [ref=e161]: No slippage protection
+                - paragraph [ref=e162]: Trades have no maximum cost parameter. In theory, a price manipulation could result in overpayment.
+            - generic [ref=e163]:
+              - generic [ref=e164]: Medium
+              - generic [ref=e165]:
+                - paragraph [ref=e166]: Non-upgradeable proxies
+                - paragraph [ref=e167]: EIP-1167 proxies cannot be upgraded. If a bug is found, a new market must be created and liquidity manually migrated.
+  - contentinfo [ref=e168]:
+    - generic [ref=e169]:
+      - paragraph [ref=e170]: OmniCurve — Arbitrum Sepolia Testnet
+      - generic [ref=e171]:
+        - link "Factory ↗" [ref=e172] [cursor=pointer]:
+          - /url: https://sepolia.arbiscan.io/address/0x1bbdb700863309ab2588c9d64786bd0ac376d150
+        - generic [ref=e173]: ·
+        - generic [ref=e174]: v0.1.0

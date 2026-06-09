@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@libsql/client": "^0.17.3",
     "@omnicurve/types": "workspace:*",
+    "@prisma/adapter-libsql": "^7.8.0",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "cors": "^2.8.6",
@@ -21,7 +23,7 @@
     "zod": "^3.25.67"
   },
   "scripts": {
-    "start": "pnpm db:migrate && pnpm db:seed && pnpm start:api",
+    "start": "pnpm db:push && pnpm db:seed && pnpm start:api",
     "start:api": "tsx src/server.ts",
     "db:seed": "tsx src/db/seed.ts",
     "db:migrate": "prisma migrate deploy",

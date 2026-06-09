@@ -1,0 +1,341 @@
+[     110ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[     110ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[     905ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[     983ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[    1021ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[    1021ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[    1021ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[    1021ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[    1419ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[    1419ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  277431ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[  277563ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  277564ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  277602ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  277603ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  277603ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  277603ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  277604ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  277604ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  277650ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[  277692ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[  802924ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[  803089ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  803089ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  803143ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  803143ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  803143ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  803144ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  803144ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  803144ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[  803168ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[  803229ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[ 1580442ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1580442ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1580472ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1580472ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1580473ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1580473ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1580473ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1580473ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1580489ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[ 1580526ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[ 1623506ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1623506ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1623509ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1623509ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1623510ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1623510ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1623510ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1623510ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1623530ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[ 1623568ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[ 1662248ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1662248ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1662251ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1662251ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1662251ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1662251ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1662252ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1662252ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 1662269ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[ 1662307ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[ 1831130ms] [WARNING] MetaMask - RPC Error: MetaMask Tx Signature: User denied transaction signature. {code: 4001, message: MetaMask Tx Signature: User denied transaction signature., data: Object, stack: Error: MetaMask Tx Signature: User denied transact…odbefgpgknn/6624.6731ba0b6f0f626fb90b.js:23:29342} @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:6
+[ 2152141ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2152141ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2152153ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2152153ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2152154ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2152154ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2152154ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2152154ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2152185ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[ 2152249ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[ 2861683ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[ 2861840ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2861840ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2861885ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2861885ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2861885ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2861886ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2861886ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2861886ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[ 2861902ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[ 2861979ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[10083871ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[10084001ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10084001ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10084033ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[10084075ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10084075ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10084076ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10084076ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10084076ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10084076ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10084086ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[10264532ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[10264662ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10264662ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10264665ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10264665ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10264666ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10264666ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10264666ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10264666ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10264705ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[10264761ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[10456784ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10456784ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10456817ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10456817ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10456818ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10456818ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10456818ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10456818ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10456838ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[10456885ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[10916289ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[10916453ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10916453ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10916456ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10916457ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10916457ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10916457ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10916457ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10916457ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[10916490ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[10916556ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[11168198ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[11168198ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[11168233ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[11168233ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[11168234ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[11168234ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[11168234ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[11168234ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[11168254ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[11168296ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[13839411ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[13839413ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[13840547ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[13840548ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[13840554ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[13840554ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[13840554ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[13840554ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[13840554ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[13840555ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[13840697ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[13840755ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426
+[14206492ms] ReferenceError: gaussianPDF is not defined
+    at http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:58:22
+    at Array.map (<anonymous>)
+    at http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:56:38
+    at commitHookEffectListMount (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:16963:34)
+    at commitPassiveMountOnFiber (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:18206:19)
+    at commitPassiveMountEffects_complete (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:18179:17)
+    at commitPassiveMountEffects_begin (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:18169:15)
+    at commitPassiveMountEffects (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:18159:11)
+    at flushPassiveEffectsImpl (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19543:11)
+    at flushPassiveEffects (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19500:22)
+[14206494ms] ReferenceError: gaussianPDF is not defined
+    at http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:58:22
+    at Array.map (<anonymous>)
+    at http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:56:38
+    at commitHookEffectListMount (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:16963:34)
+    at invokePassiveEffectMountInDEV (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:18374:19)
+    at invokeEffectsInDev (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19754:19)
+    at commitDoubleInvokeEffectsInDEV (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19739:15)
+    at flushPassiveEffectsImpl (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19556:13)
+    at flushPassiveEffects (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19500:22)
+    at commitRootImpl (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19469:13)
+[14206495ms] [ERROR] Error handled by React Router default ErrorBoundary: ReferenceError: gaussianPDF is not defined
+    at http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:58:22
+    at Array.map (<anonymous>)
+    at http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:56:38
+    at commitHookEffectListMount (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:16963:34)
+    at invokePassiveEffectMountInDEV (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:18374:19)
+    at invokeEffectsInDev (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19754:19)
+    at commitDoubleInvokeEffectsInDEV (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19739:15)
+    at flushPassiveEffectsImpl (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19556:13)
+    at flushPassiveEffects (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19500:22)
+    at commitRootImpl (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19469:13) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4063
+[14206495ms] [ERROR] Error handled by React Router default ErrorBoundary: ReferenceError: gaussianPDF is not defined
+    at http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:58:22
+    at Array.map (<anonymous>)
+    at http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:56:38
+    at commitHookEffectListMount (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:16963:34)
+    at invokePassiveEffectMountInDEV (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:18374:19)
+    at invokeEffectsInDev (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19754:19)
+    at commitDoubleInvokeEffectsInDEV (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19739:15)
+    at flushPassiveEffectsImpl (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19556:13)
+    at flushPassiveEffects (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19500:22)
+    at commitRootImpl (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19469:13) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4063
+[14206497ms] [ERROR] The above error occurred in the <GaussianChart> component:
+
+    at GaussianChart (http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:28:3)
+    at div
+    at div
+    at MarketDetail (http://localhost:5173/src/pages/MarketDetail.tsx?t=1781029661847:38:24)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4122:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4528:26)
+    at main
+    at div
+    at ToastProvider (http://localhost:5173/src/components/ui/Toast.tsx:149:33)
+    at PageWrapper
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4122:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4592:5)
+    at App
+    at Root (http://localhost:5173/src/main.tsx:39:3)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4122:5)
+    at RenderErrorBoundary (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4082:5)
+    at DataRoutes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:5265:5)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4535:15)
+    at RouterProvider (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:5079:5)
+    at div
+    at ModalProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:17003:26)
+    at ShowBalanceProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:12045:32)
+    at TransactionStoreProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:12499:3)
+    at ModalSizeProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:12663:3)
+    at I18nProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:11746:23)
+    at WalletButtonProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:12639:33)
+    at RainbowKitChainProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:12010:3)
+    at RainbowKitProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:13466:3)
+    at QueryClientProvider (http://localhost:5173/node_modules/.vite/deps/chunk-FPOEEIXH.js?v=50a6c112:3235:3)
+    at Hydrate (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=50a6c112:3390:11)
+    at WagmiProvider (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=50a6c112:3414:11)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary. @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:14079
+[14206497ms] [ERROR] React Router caught the following error during render ReferenceError: gaussianPDF is not defined
+    at http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:58:22
+    at Array.map (<anonymous>)
+    at http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:56:38
+    at commitHookEffectListMount (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:16963:34)
+    at commitPassiveMountOnFiber (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:18206:19)
+    at commitPassiveMountEffects_complete (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:18179:17)
+    at commitPassiveMountEffects_begin (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:18169:15)
+    at commitPassiveMountEffects (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:18159:11)
+    at flushPassiveEffectsImpl (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19543:11)
+    at flushPassiveEffects (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19500:22) {componentStack: 
+    at GaussianChart (http://localhost:5173/src/c…/.vite/deps/chunk-NTAX7WYR.js?v=50a6c112:3414:11)} @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4108
+[14206497ms] [ERROR] The above error occurred in the <GaussianChart> component:
+
+    at GaussianChart (http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:28:3)
+    at div
+    at div
+    at MarketDetail (http://localhost:5173/src/pages/MarketDetail.tsx?t=1781029661847:38:24)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4122:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4528:26)
+    at main
+    at div
+    at ToastProvider (http://localhost:5173/src/components/ui/Toast.tsx:149:33)
+    at PageWrapper
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4122:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4592:5)
+    at App
+    at Root (http://localhost:5173/src/main.tsx:39:3)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4122:5)
+    at RenderErrorBoundary (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4082:5)
+    at DataRoutes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:5265:5)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4535:15)
+    at RouterProvider (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:5079:5)
+    at div
+    at ModalProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:17003:26)
+    at ShowBalanceProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:12045:32)
+    at TransactionStoreProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:12499:3)
+    at ModalSizeProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:12663:3)
+    at I18nProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:11746:23)
+    at WalletButtonProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:12639:33)
+    at RainbowKitChainProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:12010:3)
+    at RainbowKitProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=50a6c112:13466:3)
+    at QueryClientProvider (http://localhost:5173/node_modules/.vite/deps/chunk-FPOEEIXH.js?v=50a6c112:3235:3)
+    at Hydrate (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=50a6c112:3390:11)
+    at WagmiProvider (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=50a6c112:3414:11)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary. @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:14079
+[14206497ms] [ERROR] React Router caught the following error during render ReferenceError: gaussianPDF is not defined
+    at http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:58:22
+    at Array.map (<anonymous>)
+    at http://localhost:5173/src/components/market/GaussianChart.tsx?t=1781029725058:56:38
+    at commitHookEffectListMount (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:16963:34)
+    at invokePassiveEffectMountInDEV (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:18374:19)
+    at invokeEffectsInDev (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19754:19)
+    at commitDoubleInvokeEffectsInDEV (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19739:15)
+    at flushPassiveEffectsImpl (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19556:13)
+    at flushPassiveEffects (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19500:22)
+    at commitRootImpl (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:19469:13) {componentStack: 
+    at GaussianChart (http://localhost:5173/src/c…/.vite/deps/chunk-NTAX7WYR.js?v=50a6c112:3414:11)} @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4108
+[14411707ms] [ERROR] WebSocket connection to 'ws://localhost:5173/?token=fV_FXE3KqD7V' failed:  @ http://localhost:5173/@vite/client:801
+[14411707ms] [ERROR] WebSocket connection to 'ws://localhost:3001/socket.io/?EIO=4&transport=websocket&sid=STObl_pNB3xOUTxtAAAq' failed:  @ http://localhost:5173/node_modules/.vite/deps/chunk-L5PTG6M4.js?v=50a6c112:1062
+[14411707ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:5173/@vite/client:963
+[14411721ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14411722ms] [WARNING] [object Object] Resetting the streams. @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14062
+[14411722ms] [LOG] [ChromeTransport] chromePort disconnected @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:6
+[14411799ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14412725ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14412725ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14412725ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14412801ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14412939ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14412939ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14412987ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=z8ig0f14:0
+[14413158ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14413804ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14414809ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14415814ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14415965ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=z8kr3sl6:0
+[14416818ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14417829ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14418851ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14419337ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/api/markets/0:0
+[14419893ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14420291ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=z8o3an0g:0
+[14420342ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/api/markets/0:0
+[14420929ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14422086ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14423159ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14424724ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14425296ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=z8ryam9w:0
+[14426639ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14429446ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14433666ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14434690ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14435351ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/api/markets/0:0
+[14435720ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14436356ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5173/api/markets/0:0
+[14436779ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14437852ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14438908ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14439983ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14441280ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14442524ms] [ERROR] WebSocket connection to 'ws://localhost:5173/' failed:  @ http://localhost:5173/@vite/client:1034
+[14444072ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14444073ms] [WARNING] MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14444077ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14444077ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14444077ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14444077ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14444077ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14444077ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[14444490ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=50a6c112:21608
+[14444538ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=50a6c112:4426

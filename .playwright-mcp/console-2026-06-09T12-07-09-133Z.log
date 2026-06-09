@@ -1,0 +1,92 @@
+[      65ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:21608
+[     101ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4426
+[     109ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lhcj50ye:0
+[     151ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:5173/node_modules/.vite/deps/chunk-N3IZMBQS.js?v=a3aadc8c:22
+[     153ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://api.web3modal.org/appkit/v1/config?projectId=omnicurve-dev&st=appkit&sv=html-core-1.7.8:0
+[     154ms] [WARNING] [Reown Config] Failed to fetch remote project configuration. Using local/default values. Error: HTTP status code: 403
+    at fetchData (http://localhost:5173/node_modules/.vite/deps/chunk-J5UHLUVT.js?v=a3aadc8c:2979:17)
+    at async FetchUtil.get (http://localhost:5173/node_modules/.vite/deps/chunk-J5UHLUVT.js?v=a3aadc8c:2993:22)
+    at async Object.fetchProjectConfig (http://localhost:5173/node_modules/.vite/deps/chunk-J5UHLUVT.js?v=a3aadc8c:6127:22)
+    at async Object.fetchRemoteFeatures (http://localhost:5173/node_modules/.vite/deps/core-B7AJGXTL.js?v=a3aadc8c:969:26)
+    at async AppKit.initialize (http://localhost:5173/node_modules/.vite/deps/core-B7AJGXTL.js?v=a3aadc8c:1172:27) @ http://localhost:5173/node_modules/.vite/deps/core-B7AJGXTL.js?v=a3aadc8c:971
+[     602ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://pulse.walletconnect.org/e?projectId=omnicurve-dev&st=appkit&sv=html-core-1.7.8:0
+[     901ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lhd56vyt:0
+[    3075ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lhetqkb4:0
+[    8084ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lhioqte4:0
+[   13089ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lhmjvkwl:0
+[   18096ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lhqexmc6:0
+[   23102ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lhu9z131:0
+[   28107ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lhy506q4:0
+[   33111ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=li202zu2:0
+[   38118ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=li5v38p5:0
+[   43124ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=li9q58gj:0
+[   48130ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lidl7as8:0
+[   53134ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lihg9ah2:0
+[   58140ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lilb9bb6:0
+[   63146ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lip6ax1m:0
+[   68149ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lit1cb6f:0
+[   73154ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=liwwcpaj:0
+[   78160ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lj0rdf6a:0
+[   83165ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lj4mffbs:0
+[   88171ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lj8hgm0p:0
+[   93176ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=ljcchgxx:0
+[   98182ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=ljg7jske:0
+[  103190ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=ljk2l6br:0
+[  108196ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=ljnxpiyf:0
+[  113199ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=ljrsqxv2:0
+[  118205ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=ljvnqx8f:0
+[  123209ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=ljzirj3p:0
+[  128215ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lk3ds4zd:0
+[  133220ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lk78umo4:0
+[  138226ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lkb3veqr:0
+[  143232ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lkeyxldd:0
+[  148237ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lkity2g2:0
+[  153242ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lkmp0396:0
+[  158247ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lkqk03kn:0
+[  163253ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lkuf2z4c:0
+[  168259ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lkya4w8n:0
+[  173264ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=ll256qy8:0
+[  178270ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=ll607w5m:0
+[  183274ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=ll9v7xvn:0
+[  188280ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lldq92j2:0
+[  193285ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=llhlbqlj:0
+[  198290ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lllgbjbm:0
+[  203296ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=llpbdvud:0
+[  208302ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=llt6fmdm:0
+[  213307ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=llx1gxj4:0
+[  218313ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lm0wiqaz:0
+[  223318ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lm4rkdej:0
+[  228324ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lm8mltak:0
+[  233328ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lmchnxho:0
+[  238334ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lmgcnaro:0
+[  243340ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lmk7pmo5:0
+[  248346ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lmo2r688:0
+[  253352ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lmrxtsk8:0
+[  258356ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lmvsv1sw:0
+[  263362ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lmznvc13:0
+[  268367ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=ln3ixcjm:0
+[  273371ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=ln7dyfmn:0
+[  278377ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lnb8ywmu:0
+[  283383ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lnf400vd:0
+[  288387ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lniz152q:0
+[  293392ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lnmu1cvh:0
+[  298397ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lnqp33dk:0
+[  303402ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lnuk32xw:0
+[  307383ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5173/api/markets:0
+[  308390ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5173/api/markets:0
+[  308406ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lnyf4p51:0
+[  313408ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lo2a4ns4:0
+[  314623ms] [LOG] {time: 1781007143756, level: 60, context: core/relayer, msg: Fatal socket error: WebSocket connection closed ab…mally with code: 3000 (Unauthorized: invalid key)} @ http://localhost:5173/node_modules/.vite/deps/chunk-PAGFIJI2.js?v=a3aadc8c:5649
+[  314624ms] [LOG] {time: 1781007143756, level: 60, context: core/relayer, msg: Fatal socket error received, closing transport} @ http://localhost:5173/node_modules/.vite/deps/chunk-PAGFIJI2.js?v=a3aadc8c:5649
+[  316396ms] [LOG] {time: 1781007145529, level: 60, context: core/relayer, msg: Fatal socket error: WebSocket connection closed ab…mally with code: 3000 (Unauthorized: invalid key)} @ http://localhost:5173/node_modules/.vite/deps/chunk-PAGFIJI2.js?v=a3aadc8c:5649
+[  316397ms] [LOG] {time: 1781007145529, level: 60, context: core/relayer, msg: Fatal socket error received, closing transport} @ http://localhost:5173/node_modules/.vite/deps/chunk-PAGFIJI2.js?v=a3aadc8c:5649
+[  318411ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lo653mbt:0
+[  321394ms] [LOG] {time: 1781007150526, level: 60, context: core/relayer, msg: Fatal socket error: WebSocket connection closed ab…mally with code: 3000 (Unauthorized: invalid key)} @ http://localhost:5173/node_modules/.vite/deps/chunk-PAGFIJI2.js?v=a3aadc8c:5649
+[  321394ms] [LOG] {time: 1781007150526, level: 60, context: core/relayer, msg: Fatal socket error received, closing transport} @ http://localhost:5173/node_modules/.vite/deps/chunk-PAGFIJI2.js?v=a3aadc8c:5649
+[  323418ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=loa02kqd:0
+[  327488ms] [LOG] {time: 1781007156620, level: 60, context: core/relayer, msg: Fatal socket error: WebSocket connection closed ab…mally with code: 3000 (Unauthorized: invalid key)} @ http://localhost:5173/node_modules/.vite/deps/chunk-PAGFIJI2.js?v=a3aadc8c:5649
+[  327488ms] [LOG] {time: 1781007156620, level: 60, context: core/relayer, msg: Fatal socket error received, closing transport} @ http://localhost:5173/node_modules/.vite/deps/chunk-PAGFIJI2.js?v=a3aadc8c:5649
+[  328421ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lodv4kav:0
+[  331386ms] [LOG] {time: 1781007160519, level: 60, context: core/relayer, msg: Fatal socket error: WebSocket connection closed ab…mally with code: 3000 (Unauthorized: invalid key)} @ http://localhost:5173/node_modules/.vite/deps/chunk-PAGFIJI2.js?v=a3aadc8c:5649
+[  331386ms] [LOG] {time: 1781007160519, level: 60, context: core/relayer, msg: Fatal socket error received, closing transport} @ http://localhost:5173/node_modules/.vite/deps/chunk-PAGFIJI2.js?v=a3aadc8c:5649
+[  333427ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/socket.io/?EIO=4&transport=polling&t=lohq5voy:0

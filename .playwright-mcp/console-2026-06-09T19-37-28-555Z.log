@@ -1,0 +1,5 @@
+[      98ms] [LOG] Snow detected a new realm creation attempt in MetaMask. Performing scuttling on new realm. Window @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[     101ms] [LOG] Snow detected a new realm creation attempt in MetaMask. Performing scuttling on new realm. Window @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[     290ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[    1705ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://tokens.api.cx.metamask.io/v3/assets?assetIds=eip155%3A421614%2Ferc20%3A0xb817743db6919599977df86942d50355fa34daa1&includeIconUrl=true:0
+[    4347ms] [ERROR] SES_UNHANDLED_REJECTION: a: Transaction with id a570a620-643a-11f1-a81d-4782e39d3d10 not found @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19

@@ -17,7 +17,7 @@ sol_interface! {
         function globalSigma() external view returns (int256);
         function distributeFee(uint256 fee_amount) external;
         function payoutWinnings(address user, uint256 token_id, uint256 amount_wad) external;
-        function underwriteTrade(uint256 token_id, uint256 premium_wad, uint256 max_liability_wad) external;
+        function underwriteTrade(uint256 token_id, int256 target_x, uint256 premium_wad, uint256 max_liability_wad) external;
         function releaseCollateral(uint256 token_id) external;
     }
 }
@@ -351,9 +351,12 @@ impl BinaryRouter {
         let config_fee = Call::new_mutating(&mut *self);
         amm.distribute_fee(self.vm(), config_fee, fee_wad).map_err(|_| Error::AmmCallFailed)?;
         
-        // Underwrite the trade: premium = net_stake, liability = tokens_minted
+        // Underwrite the trade: premium = net_stake, liability = tokens_minted.
+        // target_price (the strike) is passed so the AMM can fold this bet into the
+        // stake-weighted curve (weight = net_stake, x = strike). Pricing above used
+        // the pre-update μ/σ; the curve shifts only after the trade is underwritten.
         let config_trade = Call::new_mutating(&mut *self);
-        amm.underwrite_trade(self.vm(), config_trade, token_id, net_stake_wad, tokens_minted_wad).map_err(|_| Error::AmmCallFailed)?;
+        amm.underwrite_trade(self.vm(), config_trade, token_id, target_price, net_stake_wad, tokens_minted_wad).map_err(|_| Error::AmmCallFailed)?;
 
         // Mint tokens to user
         let mut user_balances = self.staker_balances.setter(user);

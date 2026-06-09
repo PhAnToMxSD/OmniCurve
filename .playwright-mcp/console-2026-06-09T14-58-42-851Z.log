@@ -1,0 +1,34 @@
+[      97ms] [LOG] Snow detected a new realm creation attempt in MetaMask. Performing scuttling on new realm. Window @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[     100ms] [LOG] Snow detected a new realm creation attempt in MetaMask. Performing scuttling on new realm. Window @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[     287ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[     428ms] [LOG] Snow detected a new realm creation attempt in MetaMask. Performing scuttling on new realm. Window @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[     434ms] [WARNING] Timer '[ExtensionStore]: Reading from local store' already exists @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/js-2c7117ce.c4e34cfecf0ab27b2e9d.js:106
+[     527ms] [WARNING] Rive source file or data buffer required @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[     549ms] [TIMEEND] [ExtensionStore]: Reading from local store: 115.035888671875 ms @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/js-2c7117ce.c4e34cfecf0ab27b2e9d.js:106
+[     558ms] [WARNING] ObjectMultiplex - orphaned data for stream "app-init-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[     559ms] [WARNING] ObjectMultiplex - orphaned data for stream "background-liveness" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[     559ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/contentscript.js:14082
+[     560ms] [WARNING] Removing intrinsics.Promise.try @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     560ms] [WARNING] Removing intrinsics.Uint8Array.fromBase64 @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     560ms] [WARNING] Removing intrinsics.Uint8Array.fromHex @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     560ms] [WARNING] Removing intrinsics.Iterator.concat @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     560ms] [WARNING] Removing intrinsics.%InitialMath%.f16round @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     560ms] [WARNING] Removing intrinsics.%InitialMath%.sumPrecise @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     560ms] [WARNING] Removing intrinsics.%SharedMath%.f16round @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     560ms] [WARNING] Removing intrinsics.%SharedMath%.sumPrecise @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     560ms] [WARNING] Removing intrinsics.%AsyncIteratorPrototype%.@@asyncDispose @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     560ms] [WARNING] Removing intrinsics.%IteratorPrototype%.@@dispose @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     561ms] [WARNING] Removing intrinsics.%DataViewPrototype%.getFloat16 @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     561ms] [WARNING] Removing intrinsics.%DataViewPrototype%.setFloat16 @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     561ms] [WARNING] Removing intrinsics.%MapPrototype%.getOrInsert @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     561ms] [WARNING] Removing intrinsics.%MapPrototype%.getOrInsertComputed @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     561ms] [WARNING] Removing intrinsics.%Uint8ArrayPrototype%.toBase64 @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     561ms] [WARNING] Removing intrinsics.%Uint8ArrayPrototype%.setFromBase64 @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     561ms] [WARNING] Removing intrinsics.%Uint8ArrayPrototype%.toHex @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     561ms] [WARNING] Removing intrinsics.%Uint8ArrayPrototype%.setFromHex @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     561ms] [WARNING] Removing intrinsics.%WeakMapPrototype%.getOrInsert @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     561ms] [WARNING] Removing intrinsics.%WeakMapPrototype%.getOrInsertComputed @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     561ms] [WARNING] Removing intrinsics.%DatePrototype%.toTemporalInstant @ https://metamask.github.io/phishing-warning/v5.1.0/lockdown-install.js:0
+[     583ms] [LOG] Service worker registered! @ https://metamask.github.io/phishing-warning/v5.1.0/bundle.js:13
+[     588ms] [WARNING] Timer '[ExtensionStore]: Reading from local store' does not exist @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/js-2c7117ce.c4e34cfecf0ab27b2e9d.js:106
+[   11677ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://tokens.api.cx.metamask.io/v3/assets?assetIds=eip155%3A421614%2Ferc20%3A0x7cd2d6c56fbc52552c5014b00fc30176e388fb0f&includeIconUrl=true:0

@@ -11,7 +11,11 @@ Traditional prediction markets create discrete binary pools: "Will BTC hit $100k
 - **P_YES(x)** = 1 − CDF(x, μ, σ) — probability that the outcome exceeds strike price x
 - **P_NO(x)** = CDF(x, μ, σ) — probability that the outcome is at or below strike price x
 
-Where μ (mu) is the market's expected value (mean) and σ (sigma) is the market's uncertainty (standard deviation). These parameters are set by liquidity providers and frozen once trading begins.
+Where μ (mu) is the market's expected value (mean) and σ (sigma) is the market's uncertainty (standard deviation).
+
+**μ/σ are demand-responsive: bettors move the curve, LPs do not.** The owner seeds an initial μ/σ (a prior), and from then on every bet folds into a **stake-weighted distribution of strike prices** — `μ = Σ(wᵢ·xᵢ)/Σwᵢ`, `σ = sqrt(E[x²] − μ²)` where each bet contributes weight `wᵢ` = its net stake at strike `xᵢ`. This means the curve reflects the *aggregate belief of the market*, and moving it always requires putting capital at risk on a position (manipulation-resistant). **Liquidity providers are pure collateral/underwriters: their deposits never shift μ/σ** — a belief input without directional risk would be a free manipulation lever, so it is disallowed by construction (LP deposits simply never touch the curve accumulators). See *Key Design Decisions* for the full rationale.
+
+**Settlement is against the real world, not μ.** μ is the market's *belief*, not the boundary it settles on. A market resolves against an externally-observed final price (manual for this hackathon PoC — no oracle), set via the Router's `set_final_price`. Each YES position at strike X pays $1/token iff `final_price ≥ X`.
 
 ### Why it matters
 
@@ -31,7 +35,7 @@ Where μ (mu) is the market's expected value (mean) and σ (sigma) is the market
 | Backend API | Node.js, TypeScript, Express 5, Socket.io |
 | Database | Prisma ORM + PostgreSQL, migrations in `prisma/migrations/` |
 | Indexer | Goldsky subgraph (from-ABI deployment), GraphQL |
-| Frontend | React + TypeScript + Tailwind + Wagmi/Viem (placeholder, not yet built) |
+| Frontend | React + TypeScript + Vite + Tailwind + Wagmi/Viem + d3 (built) |
 | Shared Types | TypeScript package with ABI exports |
 | Deployment | Arbitrum Sepolia testnet |
 
@@ -101,7 +105,9 @@ OmniCurve/
 │   │   ├── prisma.config.ts           # Prisma config
 │   │   └── package.json
 │   │
-│   ├── frontend/           # Placeholder — not yet built
+│   ├── frontend/           # React + Vite app (built) — pages, hooks, GaussianChart, wallet
+│   │   ├── src/            # config, lib, hooks, components/{ui,layout,market}, pages
+│   │   ├── CLAUDE.md       # Frontend build instructions / design system
 │   │   └── package.json
 │   │
 │   └── types/              # Shared TypeScript types & ABIs
@@ -210,22 +216,30 @@ sol_storage! {
         mapping(address => int256) reward_debt;
         bool is_resolved;
         uint256 winning_token_id;    // 1 = YES, 2 = NO
-        bool trades_started;         // Freezes curve after first trade
+        bool trades_started;         // True after first trade (locks set_distribution / set_prior_weight)
         uint256 resolution_time;     // Timelock expiry (unix timestamp)
         uint256 proposed_winning_id;
         mapping(uint256 => int256) token_liabilities; // Per-token liability tracking
+
+        // Stake-weighted curve accumulators (bettors move μ/σ, LPs do not):
+        int256 acc_stake_weight;     // Σ wᵢ            (WAD)
+        int256 acc_weighted_x;       // Σ wad_mul(wᵢ, xᵢ)
+        int256 acc_weighted_x_sq;    // Σ wad_mul(wᵢ, xᵢ²)
+        int256 prior_weight;         // virtual stake backing the owner-seeded μ/σ (default 100 WAD)
     }
 }
 ```
 
 **Key functions:**
 - `initialize(owner)` — One-time setup
-- `set_distribution(mu, sigma)` — Set curve params (owner only, pre-trading only)
-- `add_liquidity(amount_wad, target_mu, target_sigma)` — Deposit USDC, receive LP tokens; shifts curve (pre-trading only)
+- `set_distribution(mu, sigma)` — Seed the prior μ/σ (owner only, pre-trading only); seeds the stake-weighted accumulators with `prior_weight` of virtual stake at this μ/σ
+- `set_prior_weight(weight)` — Owner/pre-trading: tune how strongly the seeded μ/σ resists demand (higher = stickier)
+- `add_liquidity(amount_wad, target_mu, target_sigma)` — Deposit USDC, receive LP tokens. **Curve-neutral**: `target_mu`/`target_sigma` are accepted for ABI back-compat but **ignored** — LPs always provide at the current μ/σ and never move the curve
 - `remove_liquidity(shares_to_remove)` — Burn LP tokens, withdraw USDC (solvency checked)
 - `get_price_for_x(x, is_yes)` — Read-only: returns CDF-derived price for a strike
 - `distribute_fee(fee_amount)` — Called by Router: updates fee accumulator
-- `underwrite_trade(token_id, premium_wad, max_liability_wad)` — Called by Router: locks collateral
+- `underwrite_trade(token_id, target_x, premium_wad, max_liability_wad)` — Called by Router: locks collateral **and folds the bet into the stake-weighted curve** (weight = `premium_wad`, x = `target_x`), then recomputes μ/σ and emits `CurveUpdated`
+- `recompute_curve()` *(internal)* — Recomputes μ = Σwx/Σw and σ = sqrt(E[x²]−μ²) from the accumulators, floored at `sigma_min`
 - `propose_resolution(winning_id)` → `execute_resolution()` — Two-phase market settlement
 - `payout_winnings(user, token_id, amount_wad)` — Called by Router: pays USDC to winners
 - `claim_fees()` — LPs claim accumulated trading fees
@@ -235,8 +249,9 @@ sol_storage! {
 
 The user-facing trade execution contract:
 
-- **Reads** μ and σ from the AMM
+- **Reads** μ and σ from the AMM (the *pre-update* curve — pricing uses the state before this bet shifts it)
 - **Computes** CDF-derived prices on-chain using `math_core::gaussian_cdf`
+- **Passes** the strike into `underwrite_trade(token_id, target_x, ...)` so the bet moves μ/σ after pricing
 - **Executes** USDC transfers (user → AMM) and position bookkeeping
 - **Manages** YES/NO position balances (non-transferable)
 - **1% fee** deducted from each trade, sent to AMM for LP distribution
@@ -245,10 +260,11 @@ The user-facing trade execution contract:
 **Token IDs:** YES = 1, NO = 2
 
 **Key functions:**
-- `buy_yes(target_price, amount_wad)` / `buy_no(target_price, amount_wad)` — Execute trades
-- `claim_winnings(is_yes, amount_wad)` — Post-resolution: redeem winning positions for USDC
-- `settle_by_price(final_price)` — Owner settles: if `final_price >= mu`, YES wins
-- `get_balance(user, token_id)` — Read position balance
+- `buy_yes(target_price, stake_usdc)` / `buy_no(target_price, stake_usdc)` — Execute trades (user inputs a USDC stake; tokens minted = net_stake / price)
+- `set_final_price(final_price)` — Owner records the real-world outcome (no oracle; manual)
+- `claim_winnings(target_x, is_yes)` — Pull-based: redeems a winning position (YES wins iff `final_price ≥ target_x`) for USDC
+- `release_losing_collateral(target_x, is_yes)` — Permissionless: frees LP collateral locked by a losing position
+- `balance_of(account, id)` — ERC-1155 position balance for a token id
 
 **Trade cost calculation:**
 ```
@@ -293,34 +309,43 @@ All functions use I256 (signed 256-bit integer) with 18-decimal fixed-point (WAD
 
 ## Deployed Addresses (Arbitrum Sepolia)
 
+**Current deployment (stake-weighted-curve contracts — 2026-06-09).** These run the new
+mechanism where bettors move μ/σ and LPs do not. Verified on-chain: a 2 USDC YES bet at
+strike 3000 moved μ 3500 → 3358.17 and σ 800 → 713.62, while an 8 USDC liquidity add left
+μ unchanged.
+
 ### Implementation Contracts (singletons)
 | Contract | Address |
 |----------|---------|
-| AMM Implementation | `0xd74a08ebf625f864200bd63a88c43a12841c0c4c` |
-| Router Implementation | `0x53ad98ecf5e8f9d80a2ec037297679bb3abf802e` |
-| LP Token Implementation | `0xcf8f9aef697550f67aa64369ed23dd1a8160baf2` |
-| Factory | `0x1bbdb700863309ab2588c9d64786bd0ac376d150` |
+| AMM Implementation | `0x0d08e6c457bfe0794b258e66c20a788cc8a8fa32` |
+| Router Implementation | `0x98846991e02802b20bf947cfe11b4ac6ff463d9f` |
+| LP Token Implementation | `0xce5ce25964af3c917ebca5c972abec94022b868a` (reused — unchanged) |
+| Factory | `0xf6bfadc33c3c42755d9634defbfcc52b8b2d5e24` |
 
-### Market #0 Proxies
+### Market #0 Proxies — "What will eth price be by the end of 2026?"
 | Contract | Address |
 |----------|---------|
-| AMM Proxy | `0x7cd2d6c56fbC52552C5014b00FC30176E388fB0f` |
-| Router Proxy | `0xF1FB7FA83E5Cdfbe975ad139dbD35b223E554CdB` |
-| LP Token Proxy | `0x2Cd7b0016134D5dcf92da81A981e0dFcaC3e6250` |
+| AMM Proxy | `0x9736E98CA898Bf69daA126e715Eb639D2DaBFb46` |
+| Router Proxy | `0xA65b5453a177d3C34654Ec4Be60754d0aD7ec6A5` |
+| LP Token Proxy | `0x731489Ab2A0029a22a95b5Ea3f72335b18D40CCf` |
 
-**Owner:** `0xE958DaE545e5dAd0b4bE2E58432298dfd5178342`
+**Owner (AMM + Router + Factory):** `0xE958DaE545e5dAd0b4bE2E58432298dfd5178342`
+**Market #0 state:** μ≈3358, σ≈714, prior_weight=5 WAD, ~8 USDC liquidity, `trades_started=true`.
 
-### Legacy Addresses (pre-factory, in .env files)
-| Contract | Address | Notes |
-|----------|---------|-------|
-| Old AMM | `0xb4f1cf16d4da2c35956706c25fc194c0df14260e` | In root .env and backend .env |
-| Old Router | `0x334cec716c70f2aaace00e321ecc67bbe4a01c14` | In root .env and backend .env |
-| USDC | `0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d` | Arbitrum Sepolia USDC |
+### Previous deployment (frozen-curve, superseded)
+| Contract | Address |
+|----------|---------|
+| Old Factory | `0xfd6df452d106c6bf5ee1cf6749d4d0afbacf40d9` |
+| Old AMM Impl | `0xbb3f4468928bc97e50c78c19688554a838d18906` |
+| Old Router Impl | `0xae756b1e3d2eb887758f47545d91fdda8604677e` |
+| Old Market #0 AMM Proxy | `0xB817743dB6919599977dF86942d50355FA34dAA1` |
+| Old Market #0 Router Proxy | `0x093299B9F0A8cd57319e3A3611BA867b9B5b1323` |
+| USDC (unchanged) | `0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d` |
 
 ### Goldsky Subgraph
 - Endpoint: `https://api.goldsky.com/api/public/project_cmq17mffxi3ym01zj0wsd8eib/subgraphs/omnicurve-amm-arbitrum-sepolia/1.0.2/gn`
 - Indexes: CurveUpdated events from AMM, TradeExecuted events from Router
-- Note: Currently points to the old pre-factory addresses
+- ⚠️ Still points to the **old** pre-redeploy addresses — re-deploy the subgraph against the new factory/proxies to index the live market.
 
 ---
 
@@ -379,17 +404,14 @@ Position: positionId (PK), userAddress (FK), marketId (FK), targetValueX,
 3. **No slippage protection**: Trades have no max cost parameter
 
 ### Medium Priority
-4. **ABI drift**: Two ABI directories (`types/abis/` root vs `packages/types/abis/`) with different naming and potentially different contents
-5. **Backend .env points to old contract addresses**: Needs updating to factory-deployed proxies
-6. **1% fee hardcoded**: No governance or per-market configuration
-7. **`execute_settlement` is dead code**: Does nothing, misleading for integrators
-8. **`create_market` is owner-only**: Prevents permissionless market creation
+4. **Two ABI directories**: `types/abis/` (root, PascalCase) and `packages/types/abis/` (canonical, snake/camel). Now synced to the same contents; the canonical one is what the frontend imports
+5. **1% fee hardcoded**: No governance or per-market configuration
+6. **`execute_settlement` is dead code**: Does nothing, misleading for integrators
 
 ### Not Yet Built
-- **Frontend**: Only a placeholder `package.json` exists
 - **docker-compose.yml**: Mentioned in DEVELOPER_CONTEXT.md but not created
 - **Integration tests**: No end-to-end tests across contract interactions
-- **Oracle integration**: Resolution is fully manual (owner calls `settleByPrice`)
+- **Oracle integration**: Resolution is fully manual (owner calls `set_final_price`). The frontend's ETH spot line (`useEthPrice` → Coinbase API) is display-only and does not feed settlement
 - **Position transfers**: Positions are non-transferable
 
 ---
@@ -431,7 +453,7 @@ pnpm --filter @omnicurve/backend deploy:subgraph:amm
 
 1. **Gaussian CDF for pricing**: Probability = area under Gaussian curve, computed on-chain via Abramowitz & Stegun erf approximation with 18-term Taylor series exponential. Provides ~11 significant digits of precision.
 
-2. **Curve freezes on first trade**: `trades_started` flag becomes true when `underwrite_trade` is first called. After this, LP deposits still accept USDC and mint LP tokens, but the `target_mu`/`target_sigma` parameters are silently ignored. This prevents curve manipulation post-trading.
+2. **Demand-responsive curve (bettors only)**: μ/σ are a **stake-weighted distribution of strike prices**. The owner seeds an initial μ/σ (held with `prior_weight` of virtual stake); every bet then contributes `(weight = net stake, x = strike)` to running accumulators, and `recompute_curve()` derives `μ = Σwx/Σw`, `σ = sqrt(E[x²] − μ²)` (floored at `sigma_min`). The curve therefore tracks aggregate belief, and moving it always requires capital at risk on a position — manipulation-resistant by construction. **LPs cannot move the curve**: `add_liquidity` is curve-neutral (its `target_mu`/`target_sigma` are ignored), because a belief input with no directional risk would be a free manipulation lever. Pricing is *pre-update*: the Router prices a bet against the curve state *before* that bet shifts it. `trades_started` still locks `set_distribution`/`set_prior_weight` once trading begins (the owner can no longer reset the prior). Earlier versions froze the curve on first trade; that is no longer the case.
 
 3. **MasterChef-style fee distribution**: Trading fees are distributed to LPs proportionally via a global accumulator pattern. Each LP's pending fees = `shares × acc_fee_per_share - reward_debt`.
 
@@ -439,7 +461,7 @@ pnpm --filter @omnicurve/backend deploy:subgraph:amm
 
 5. **Two-phase resolution with timelock**: Resolution requires `proposeResolution` (starts 24h timer) → `executeResolution` (after timer). Owner can `cancelResolution` during the window. This provides a dispute period but is currently hardcoded to 24h.
 
-6. **WIN/LOSE determined by μ**: In `settle_by_price(final_price)`, YES wins if `final_price >= global_mu`. The mean is both the expected value and the settlement boundary.
+6. **WIN/LOSE determined by the real-world price, per position — not μ**: The Router's `set_final_price(final_price)` records an externally-observed outcome (manual for this PoC; no oracle). Each position is then judged against **its own strike**: a YES position at strike X wins iff `final_price ≥ X`, a NO position wins iff `final_price < X` (`claim_winnings` / `release_losing_collateral`). μ is only the market's *belief*, never the settlement boundary — so a bet that drags μ around cannot change who wins. (The frontend draws the live ETH spot price as a vertical reference line on market #0's chart to make this belief-vs-reality distinction visible.)
 
 7. **USDC (6 decimals) vs WAD (18 decimals)**: All internal accounting uses WAD (1e18). USDC transfers convert via `/1e12`. The `sweep_dust` function recovers rounding remainders.
 

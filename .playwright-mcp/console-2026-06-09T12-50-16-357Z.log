@@ -1,0 +1,474 @@
+[     107ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:21608
+[     148ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4426
+[     211ms] [WARNING] Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information. @ http://localhost:5173/node_modules/.vite/deps/chunk-N3IZMBQS.js?v=a3aadc8c:22
+[     815ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://api.web3modal.org/appkit/v1/config?projectId=omnicurve-dev&st=appkit&sv=html-core-1.7.8:0
+[     815ms] [WARNING] [Reown Config] Failed to fetch remote project configuration. Using local/default values. Error: HTTP status code: 403
+    at fetchData (http://localhost:5173/node_modules/.vite/deps/chunk-J5UHLUVT.js?v=a3aadc8c:2979:17)
+    at async FetchUtil.get (http://localhost:5173/node_modules/.vite/deps/chunk-J5UHLUVT.js?v=a3aadc8c:2993:22)
+    at async Object.fetchProjectConfig (http://localhost:5173/node_modules/.vite/deps/chunk-J5UHLUVT.js?v=a3aadc8c:6127:22)
+    at async Object.fetchRemoteFeatures (http://localhost:5173/node_modules/.vite/deps/core-B7AJGXTL.js?v=a3aadc8c:969:26)
+    at async AppKit.initialize (http://localhost:5173/node_modules/.vite/deps/core-B7AJGXTL.js?v=a3aadc8c:1172:27) @ http://localhost:5173/node_modules/.vite/deps/core-B7AJGXTL.js?v=a3aadc8c:971
+[    1424ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://pulse.walletconnect.org/e?projectId=omnicurve-dev&st=appkit&sv=html-core-1.7.8:0
+[  450516ms] [ERROR] Warning: You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it. @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:520
+[  473668ms] [ERROR] Warning: React has detected a change in the order of Hooks called by %s. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://reactjs.org/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+%s   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+%s LPPanel 1. useContext                 useContext
+2. useRef                     useRef
+3. useRef                     useRef
+4. useMemo                    useMemo
+5. useSyncExternalStore       useSyncExternalStore
+6. useEffect                  useEffect
+7. useDebugValue              useDebugValue
+8. useMemo                    useMemo
+9. useState                   useState
+10. useState                  useState
+11. useState                  useState
+12. useState                  useState
+13. useState                  useState
+14. useContext                useContext
+15. useRef                    useRef
+16. useRef                    useRef
+17. useMemo                   useMemo
+18. useSyncExternalStore      useSyncExternalStore
+19. useEffect                 useEffect
+20. useDebugValue             useDebugValue
+21. useMemo                   useMemo
+22. useContext                useContext
+23. useState                  useRef
+ 
+    at LPPanel (http://localhost:5173/src/components/market/LPPanel.tsx?t=1781009889988:33:27)
+    at div
+    at div
+    at MarketDetail (http://localhost:5173/src/pages/MarketDetail.tsx?t=1781009410164:37:24)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4528:26)
+    at main
+    at div
+    at ToastProvider (http://localhost:5173/src/components/ui/Toast.tsx:149:33)
+    at PageWrapper
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4592:5)
+    at App
+    at Root (http://localhost:5173/src/main.tsx?t=1781009866848:39:3)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at RenderErrorBoundary (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4082:5)
+    at DataRoutes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:5265:5)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4535:15)
+    at RouterProvider (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:5079:5)
+    at div
+    at ModalProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:26409:26)
+    at ShowBalanceProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21451:32)
+    at TransactionStoreProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21905:3)
+    at ModalSizeProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22069:3)
+    at I18nProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21152:23)
+    at WalletButtonProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22045:33)
+    at RainbowKitChainProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21416:3)
+    at RainbowKitProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22872:3)
+    at QueryClientProvider (http://localhost:5173/node_modules/.vite/deps/chunk-FPOEEIXH.js?v=a3aadc8c:3235:3)
+    at Hydrate (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:3390:11)
+    at WagmiProvider (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:3414:11) @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:520
+[  473669ms] TypeError: Cannot read properties of undefined (reading '1')
+    at updateMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12252:39)
+    at Object.useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12774:24)
+    at useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1094:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:193:19)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useLP (http://localhost:5173/src/hooks/useLP.ts?t=1781009889988:9:24)
+    at LPPanel (http://localhost:5173/src/components/market/LPPanel.tsx?t=1781009889988:41:62)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26)
+    at updateFunctionComponent (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:14630:28)
+    at beginWork (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:15972:22)
+[  473669ms] [ERROR] Error handled by React Router default ErrorBoundary: TypeError: Cannot read properties of undefined (reading '1')
+    at updateMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12252:39)
+    at Object.useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12774:24)
+    at useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1094:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:193:19)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useLP (http://localhost:5173/src/hooks/useLP.ts?t=1781009889988:9:24)
+    at LPPanel (http://localhost:5173/src/components/market/LPPanel.tsx?t=1781009889988:41:62)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26)
+    at updateFunctionComponent (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:14630:28)
+    at beginWork (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:15972:22) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4063
+[  473669ms] [ERROR] Error handled by React Router default ErrorBoundary: TypeError: Cannot read properties of undefined (reading '1')
+    at updateMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12252:39)
+    at Object.useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12774:24)
+    at useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1094:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:193:19)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useLP (http://localhost:5173/src/hooks/useLP.ts?t=1781009889988:9:24)
+    at LPPanel (http://localhost:5173/src/components/market/LPPanel.tsx?t=1781009889988:41:62)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26)
+    at updateFunctionComponent (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:14630:28)
+    at beginWork (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:15972:22) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4063
+[  473671ms] TypeError: Cannot read properties of undefined (reading '1')
+    at updateMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12252:39)
+    at Object.useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12774:24)
+    at useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1094:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:193:19)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useLP (http://localhost:5173/src/hooks/useLP.ts?t=1781009889988:9:24)
+    at LPPanel (http://localhost:5173/src/components/market/LPPanel.tsx?t=1781009889988:41:62)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26)
+    at updateFunctionComponent (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:14630:28)
+    at beginWork (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:15972:22)
+[  473670ms] [ERROR] Error handled by React Router default ErrorBoundary: TypeError: Cannot read properties of undefined (reading '1')
+    at updateMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12252:39)
+    at Object.useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12774:24)
+    at useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1094:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:193:19)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useLP (http://localhost:5173/src/hooks/useLP.ts?t=1781009889988:9:24)
+    at LPPanel (http://localhost:5173/src/components/market/LPPanel.tsx?t=1781009889988:41:62)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26)
+    at updateFunctionComponent (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:14630:28)
+    at beginWork (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:15972:22) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4063
+[  473670ms] [ERROR] Error handled by React Router default ErrorBoundary: TypeError: Cannot read properties of undefined (reading '1')
+    at updateMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12252:39)
+    at Object.useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12774:24)
+    at useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1094:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:193:19)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useLP (http://localhost:5173/src/hooks/useLP.ts?t=1781009889988:9:24)
+    at LPPanel (http://localhost:5173/src/components/market/LPPanel.tsx?t=1781009889988:41:62)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26)
+    at updateFunctionComponent (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:14630:28)
+    at beginWork (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:15972:22) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4063
+[  473671ms] [ERROR] The above error occurred in the <LPPanel> component:
+
+    at LPPanel (http://localhost:5173/src/components/market/LPPanel.tsx?t=1781009889988:33:27)
+    at div
+    at div
+    at MarketDetail (http://localhost:5173/src/pages/MarketDetail.tsx?t=1781009410164:37:24)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4528:26)
+    at main
+    at div
+    at ToastProvider (http://localhost:5173/src/components/ui/Toast.tsx:149:33)
+    at PageWrapper
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4592:5)
+    at App
+    at Root (http://localhost:5173/src/main.tsx?t=1781009866848:39:3)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at RenderErrorBoundary (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4082:5)
+    at DataRoutes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:5265:5)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4535:15)
+    at RouterProvider (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:5079:5)
+    at div
+    at ModalProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:26409:26)
+    at ShowBalanceProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21451:32)
+    at TransactionStoreProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21905:3)
+    at ModalSizeProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22069:3)
+    at I18nProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21152:23)
+    at WalletButtonProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22045:33)
+    at RainbowKitChainProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21416:3)
+    at RainbowKitProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22872:3)
+    at QueryClientProvider (http://localhost:5173/node_modules/.vite/deps/chunk-FPOEEIXH.js?v=a3aadc8c:3235:3)
+    at Hydrate (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:3390:11)
+    at WagmiProvider (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:3414:11)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary. @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:14079
+[  473671ms] [ERROR] React Router caught the following error during render TypeError: Cannot read properties of undefined (reading '1')
+    at updateMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12252:39)
+    at Object.useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12774:24)
+    at useMemo (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1094:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:193:19)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useLP (http://localhost:5173/src/hooks/useLP.ts?t=1781009889988:9:24)
+    at LPPanel (http://localhost:5173/src/components/market/LPPanel.tsx?t=1781009889988:41:62)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26)
+    at updateFunctionComponent (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:14630:28)
+    at beginWork (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:15972:22) {componentStack: 
+    at LPPanel (http://localhost:5173/src/compone…/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:3414:11)} @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4108
+[  518978ms] [ERROR] Warning: React has detected a change in the order of Hooks called by %s. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://reactjs.org/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+%s   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+%s StakerPanel 1. useContext                 useContext
+2. useRef                     useRef
+3. useRef                     useRef
+4. useMemo                    useMemo
+5. useSyncExternalStore       useSyncExternalStore
+6. useEffect                  useEffect
+7. useDebugValue              useDebugValue
+8. useMemo                    useMemo
+9. useState                   useState
+10. useState                  useState
+11. useState                  useState
+12. useState                  useState
+13. useState                  useState
+14. useRef                    useRef
+15. useEffect                 useEffect
+16. useEffect                 useEffect
+17. useContext                useContext
+18. useRef                    useRef
+19. useRef                    useRef
+20. useMemo                   useMemo
+21. useSyncExternalStore      useSyncExternalStore
+22. useEffect                 useEffect
+23. useDebugValue             useDebugValue
+24. useMemo                   useMemo
+25. useContext                useContext
+26. useState                  useRef
+ 
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:26:31)
+    at div
+    at div
+    at MarketDetail (http://localhost:5173/src/pages/MarketDetail.tsx?t=1781009410164:37:24)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4528:26)
+    at main
+    at div
+    at ToastProvider (http://localhost:5173/src/components/ui/Toast.tsx:149:33)
+    at PageWrapper
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4592:5)
+    at App
+    at Root (http://localhost:5173/src/main.tsx?t=1781009866848:39:3)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at RenderErrorBoundary (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4082:5)
+    at DataRoutes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:5265:5)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4535:15)
+    at RouterProvider (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:5079:5)
+    at div
+    at ModalProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:26409:26)
+    at ShowBalanceProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21451:32)
+    at TransactionStoreProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21905:3)
+    at ModalSizeProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22069:3)
+    at I18nProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21152:23)
+    at WalletButtonProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22045:33)
+    at RainbowKitChainProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21416:3)
+    at RainbowKitProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22872:3)
+    at QueryClientProvider (http://localhost:5173/node_modules/.vite/deps/chunk-FPOEEIXH.js?v=a3aadc8c:3235:3)
+    at Hydrate (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:3390:11)
+    at WagmiProvider (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:3414:11) @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:520
+[  518978ms] TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26)
+[  518978ms] [ERROR] Error handled by React Router default ErrorBoundary: TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4063
+[  518978ms] [ERROR] Error handled by React Router default ErrorBoundary: TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4063
+[  518978ms] TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26)
+[  518979ms] [ERROR] Error handled by React Router default ErrorBoundary: TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4063
+[  518979ms] [ERROR] Error handled by React Router default ErrorBoundary: TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4063
+[  518979ms] [ERROR] The above error occurred in the <StakerPanel> component:
+
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:26:31)
+    at div
+    at div
+    at MarketDetail (http://localhost:5173/src/pages/MarketDetail.tsx?t=1781009410164:37:24)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4528:26)
+    at main
+    at div
+    at ToastProvider (http://localhost:5173/src/components/ui/Toast.tsx:149:33)
+    at PageWrapper
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4592:5)
+    at App
+    at Root (http://localhost:5173/src/main.tsx?t=1781009866848:39:3)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at RenderErrorBoundary (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4082:5)
+    at DataRoutes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:5265:5)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4535:15)
+    at RouterProvider (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:5079:5)
+    at div
+    at ModalProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:26409:26)
+    at ShowBalanceProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21451:32)
+    at TransactionStoreProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21905:3)
+    at ModalSizeProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22069:3)
+    at I18nProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21152:23)
+    at WalletButtonProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22045:33)
+    at RainbowKitChainProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21416:3)
+    at RainbowKitProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22872:3)
+    at QueryClientProvider (http://localhost:5173/node_modules/.vite/deps/chunk-FPOEEIXH.js?v=a3aadc8c:3235:3)
+    at Hydrate (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:3390:11)
+    at WagmiProvider (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:3414:11)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary. @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:14079
+[  518979ms] [ERROR] React Router caught the following error during render TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26) {componentStack: 
+    at StakerPanel (http://localhost:5173/src/com…/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:3414:11)} @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4108
+[  518979ms] TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26)
+[  518980ms] [ERROR] Error handled by React Router default ErrorBoundary: TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4063
+[  518980ms] [ERROR] Error handled by React Router default ErrorBoundary: TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4063
+[  518980ms] TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26)
+[  518980ms] [ERROR] Error handled by React Router default ErrorBoundary: TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4063
+[  518980ms] [ERROR] Error handled by React Router default ErrorBoundary: TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26) @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4063
+[  518980ms] [ERROR] The above error occurred in the <StakerPanel> component:
+
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:26:31)
+    at div
+    at div
+    at MarketDetail (http://localhost:5173/src/pages/MarketDetail.tsx?t=1781009410164:37:24)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4528:26)
+    at main
+    at div
+    at ToastProvider (http://localhost:5173/src/components/ui/Toast.tsx:149:33)
+    at PageWrapper
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4592:5)
+    at App
+    at Root (http://localhost:5173/src/main.tsx?t=1781009866848:39:3)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4122:5)
+    at RenderErrorBoundary (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4082:5)
+    at DataRoutes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:5265:5)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4535:15)
+    at RouterProvider (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:5079:5)
+    at div
+    at ModalProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:26409:26)
+    at ShowBalanceProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21451:32)
+    at TransactionStoreProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21905:3)
+    at ModalSizeProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22069:3)
+    at I18nProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21152:23)
+    at WalletButtonProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22045:33)
+    at RainbowKitChainProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:21416:3)
+    at RainbowKitProvider (http://localhost:5173/node_modules/.vite/deps/@rainbow-me_rainbowkit.js?v=b7adc851:22872:3)
+    at QueryClientProvider (http://localhost:5173/node_modules/.vite/deps/chunk-FPOEEIXH.js?v=a3aadc8c:3235:3)
+    at Hydrate (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:3390:11)
+    at WagmiProvider (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:3414:11)
+
+React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary. @ http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:14079
+[  518980ms] [ERROR] React Router caught the following error during render TypeError: Cannot read properties of undefined (reading 'hasValue')
+    at memoizedSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:200:48)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:219:24
+    at updateSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11966:30)
+    at Object.useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:12829:22)
+    at useSyncExternalStore (http://localhost:5173/node_modules/.vite/deps/chunk-B6OZ36QT.js?v=a3aadc8c:1120:29)
+    at exports.useSyncExternalStoreWithSelector (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:228:21)
+    at usePublicClient (http://localhost:5173/node_modules/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:5019:69)
+    at useTrade (http://localhost:5173/src/hooks/useTrade.ts?t=1781009935299:9:24)
+    at StakerPanel (http://localhost:5173/src/components/market/StakerPanel.tsx?t=1781009935299:41:51)
+    at renderWithHooks (http://localhost:5173/node_modules/.vite/deps/chunk-45HWO5LR.js?v=a3aadc8c:11596:26) {componentStack: 
+    at StakerPanel (http://localhost:5173/src/com…/.vite/deps/chunk-NTAX7WYR.js?v=a3aadc8c:3414:11)} @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=54698640:4108

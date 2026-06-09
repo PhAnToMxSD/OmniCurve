@@ -7,9 +7,14 @@ use alloc::vec;
 extern crate alloc;
 
 use crate::interfaces::{IERC20, ILpToken};
-use crate::math_core::{normal_cdf, safe_to_u256, wad_mul, sqrt_wad};
+use crate::math_core::{normal_cdf, safe_to_u256, wad_mul, wad_div, sqrt_wad};
 
 #[inline(always)] fn wad() -> I256 { I256::try_from(1_000_000_000_000_000_000i128).unwrap() }
+
+// Default virtual stake (in WAD) backing the owner-seeded μ/σ when no explicit
+// prior_weight has been set. ~100 units of conviction: large enough that a single
+// small bet can't yank the curve, small enough that real demand visibly moves it.
+#[inline(always)] fn default_prior_weight() -> I256 { I256::try_from(100_000_000_000_000_000_000i128).unwrap() }
 
 sol! {
     event CurveUpdated(uint256 indexed new_mu, uint256 indexed new_sigma);
@@ -47,6 +52,21 @@ sol_storage! {
 
         // C5: Reentrancy guard
         bool locked;
+
+        // ── Stake-weighted curve (bettors move μ/σ, LPs do not) ──────────────
+        // The curve is a stake-weighted distribution of strike prices. Every bet
+        // contributes (weight = net stake, x = strike) so μ/σ track demand.
+        // Liquidity deposits are pure collateral and never touch these.
+        //   μ      = Σ(wᵢ·xᵢ)   / Σwᵢ
+        //   E[x²]  = Σ(wᵢ·xᵢ²)  / Σwᵢ
+        //   σ      = sqrt(E[x²] − μ²), floored at sigma_min
+        // The owner's initial set_distribution seeds a `prior_weight` of virtual
+        // stake at the declared μ/σ so the first real bet can't swing the curve
+        // to a single point.
+        int256 acc_stake_weight;    // Σ wᵢ           (WAD)
+        int256 acc_weighted_x;      // Σ wad_mul(wᵢ, xᵢ)
+        int256 acc_weighted_x_sq;   // Σ wad_mul(wᵢ, xᵢ²)
+        int256 prior_weight;        // virtual stake backing the seeded μ/σ
     }
 }
 
@@ -107,6 +127,18 @@ impl DistributionAmm {
     pub fn winning_token_id(&self) -> Result<U256, Vec<u8>> { Ok(self.winning_token_id.get()) }
     pub fn global_mu(&self) -> Result<I256, Vec<u8>> { Ok(self.global_mu.get()) }
     pub fn global_sigma(&self) -> Result<I256, Vec<u8>> { Ok(self.global_sigma.get()) }
+    pub fn prior_weight(&self) -> Result<I256, Vec<u8>> { Ok(self.prior_weight.get()) }
+    pub fn acc_stake_weight(&self) -> Result<I256, Vec<u8>> { Ok(self.acc_stake_weight.get()) }
+
+    /// Owner-only, pre-trading: how much virtual stake the seeded μ/σ carries.
+    /// Higher = the initial belief resists demand more; lower = bets move μ faster.
+    pub fn set_prior_weight(&mut self, weight: I256) -> Result<(), Vec<u8>> {
+        if self.vm().msg_sender() != self.owner.get() { return Err(Error::Unauthorized.into()); }
+        if self.trades_started.get() { return Err(Error::TradesAlreadyStarted.into()); }
+        if weight <= I256::ZERO { return Err(Error::NegativeValue.into()); }
+        self.prior_weight.set(weight);
+        Ok(())
+    }
 
     pub fn set_usdc_token(&mut self, token: Address) -> Result<(), Vec<u8>> {
         if self.vm().msg_sender() != self.owner.get() { return Err(Error::Unauthorized.into()); }
@@ -143,6 +175,16 @@ impl DistributionAmm {
         if sigma <= self.sigma_min.get() { return Err(Error::VarianceTooLow.into()); }
         self.global_mu.set(mu);
         self.global_sigma.set(sigma);
+
+        // Seed the stake-weighted accumulators with `prior_weight` of virtual stake
+        // at this μ/σ. Reconstructing μ/σ from the accumulators reproduces these
+        // exactly: E[x²] = μ² + σ². Real bets then pull the curve away from here.
+        let pw = if self.prior_weight.get() <= I256::ZERO { default_prior_weight() } else { self.prior_weight.get() };
+        let ex2 = wad_mul(mu, mu) + wad_mul(sigma, sigma);
+        self.acc_stake_weight.set(pw);
+        self.acc_weighted_x.set(wad_mul(pw, mu));
+        self.acc_weighted_x_sq.set(wad_mul(pw, ex2));
+
         self.vm().log(CurveUpdated { new_mu: safe_to_u256(mu), new_sigma: safe_to_u256(sigma) });
         Ok(())
     }
@@ -190,13 +232,15 @@ impl DistributionAmm {
         res
     }
 
-    // M7: Variance-weighted σ combination + M6: Round-up USDC transfer
-    // C5: Reentrancy guarded
-    pub fn add_liquidity(&mut self, amount_wad: U256, target_mu: I256, target_sigma: I256) -> Result<(), Vec<u8>> {
-        if target_sigma <= self.sigma_min.get() { return Err(Error::VarianceTooLow.into()); }
+    // Liquidity is pure collateral and does NOT move the curve — only bettors do.
+    // `target_mu`/`target_sigma` are accepted for ABI back-compat but ignored: LPs
+    // always provide at the current μ/σ. This is the core anti-manipulation rule —
+    // capital with no position at risk can never shift the market's belief.
+    // M6: Round-up USDC transfer. C5: Reentrancy guarded.
+    pub fn add_liquidity(&mut self, amount_wad: U256, _target_mu: I256, _target_sigma: I256) -> Result<(), Vec<u8>> {
         if self.locked.get() { return Err(Error::Reentrancy.into()); }
         self.locked.set(true);
-        let res = self.add_liquidity_internal(amount_wad, target_mu, target_sigma);
+        let res = self.add_liquidity_internal(amount_wad);
         self.locked.set(false);
         res
     }
@@ -211,7 +255,7 @@ impl DistributionAmm {
         res
     }
 
-    pub fn underwrite_trade(&mut self, token_id: U256, premium_wad: U256, max_liability_wad: U256) -> Result<(), Vec<u8>> {
+    pub fn underwrite_trade(&mut self, token_id: U256, target_x: I256, premium_wad: U256, max_liability_wad: U256) -> Result<(), Vec<u8>> {
         if self.vm().msg_sender() != self.router_address.get() { return Err(Error::Unauthorized.into()); }
         if !self.trades_started.get() {
             self.trades_started.set(true);
@@ -219,19 +263,33 @@ impl DistributionAmm {
         }
         let premium_i256 = I256::try_from(premium_wad).map_err(|_| Error::Overflow)?;
         let liability_i256 = I256::try_from(max_liability_wad).map_err(|_| Error::Overflow)?;
-        
+
         let pre_liquidity = self.available_liquidity.get();
         if pre_liquidity < liability_i256 {
             return Err(Error::InsufficientLiquidity.into());
         }
-        
+
         self.available_liquidity.set(pre_liquidity + premium_i256 - liability_i256);
         self.locked_collateral.set(self.locked_collateral.get() + liability_i256);
-        
+
         let mut tl = self.token_liabilities.setter(token_id);
         let current_tl = tl.get();
         tl.set(current_tl + liability_i256);
-        
+
+        // Stake-weighted curve update: this bet contributes (weight = net stake,
+        // x = strike) so μ/σ track aggregate demand. The router already priced this
+        // trade against the *pre-update* curve, so updating here is pre-update pricing.
+        // Only bets reach this path — LP deposits never call underwrite_trade — which
+        // is exactly why liquidity cannot move the curve.
+        let weight = premium_i256;
+        if weight > I256::ZERO {
+            let x_sq = wad_mul(target_x, target_x);
+            self.acc_stake_weight.set(self.acc_stake_weight.get() + weight);
+            self.acc_weighted_x.set(self.acc_weighted_x.get() + wad_mul(weight, target_x));
+            self.acc_weighted_x_sq.set(self.acc_weighted_x_sq.get() + wad_mul(weight, x_sq));
+            self.recompute_curve();
+        }
+
         Ok(())
     }
 
@@ -315,6 +373,25 @@ impl DistributionAmm {
 }
 
 impl DistributionAmm {
+    /// Recompute μ/σ from the stake-weighted accumulators and emit CurveUpdated.
+    /// Called after every bet. σ is floored at sigma_min so the CDF stays well-defined.
+    fn recompute_curve(&mut self) {
+        let total_weight = self.acc_stake_weight.get();
+        if total_weight <= I256::ZERO { return; }
+
+        let mu = wad_div(self.acc_weighted_x.get(), total_weight);
+        let ex2 = wad_div(self.acc_weighted_x_sq.get(), total_weight);
+        let variance = ex2 - wad_mul(mu, mu);
+
+        let mut sigma = if variance > I256::ZERO { sqrt_wad(variance) } else { I256::ZERO };
+        let sigma_floor = self.sigma_min.get();
+        if sigma < sigma_floor { sigma = sigma_floor; }
+
+        self.global_mu.set(mu);
+        self.global_sigma.set(sigma);
+        self.vm().log(CurveUpdated { new_mu: safe_to_u256(mu), new_sigma: safe_to_u256(sigma) });
+    }
+
     // H5: Fixed — now divides by 1e12 before USDC transfer
     fn claim_fees_internal(&mut self) -> Result<(), Vec<u8>> {
         let user = self.vm().msg_sender();
@@ -347,43 +424,13 @@ impl DistributionAmm {
         Ok(())
     }
 
-    // M7: Variance-weighted σ combination
-    // M6: Round up USDC transfer
-    fn add_liquidity_internal(&mut self, amount_wad: U256, target_mu: I256, target_sigma: I256) -> Result<(), Vec<u8>> {
+    // M6: Round up USDC transfer.
+    // Curve-neutral: liquidity only adds collateral + mints LP shares. μ/σ are
+    // untouched here — they are driven exclusively by bettors via underwrite_trade.
+    fn add_liquidity_internal(&mut self, amount_wad: U256) -> Result<(), Vec<u8>> {
         self.claim_fees_internal()?;
 
         let amount_i256 = I256::try_from(amount_wad).map_err(|_| Error::Overflow)?;
-        
-        let old_liquidity = self.available_liquidity.get();
-        if !self.trades_started.get() {
-            if old_liquidity > I256::ZERO {
-                let w_old = (old_liquidity * wad()) / (old_liquidity + amount_i256);
-                let w_new = wad() - w_old;
-                
-                let old_mu = self.global_mu.get();
-                let new_mu = (old_mu * w_old) / wad() + (target_mu * w_new) / wad();
-                self.global_mu.set(new_mu);
-                
-                // M7: Variance-weighted σ combination
-                // σ²_combined = w_old * σ²_old + w_new * σ²_new + w_old * w_new * (μ_old - μ_new)²
-                let old_sigma = self.global_sigma.get();
-                let old_var = wad_mul(old_sigma, old_sigma);                        // σ²_old
-                let new_var = wad_mul(target_sigma, target_sigma);                  // σ²_new
-                let mu_diff = old_mu - target_mu;
-                let mu_diff_sq = wad_mul(mu_diff, mu_diff);                        // (μ_old - μ_new)²
-                
-                // wad_mul already divides by WAD once; no second division needed
-                let combined_var = wad_mul(w_old, old_var)
-                    + wad_mul(w_new, new_var)
-                    + wad_mul(wad_mul(w_old, w_new), mu_diff_sq);
-                
-                let combined_sigma = sqrt_wad(combined_var);
-                self.global_sigma.set(combined_sigma);
-            } else {
-                self.global_mu.set(target_mu);
-                self.global_sigma.set(target_sigma);
-            }
-        }
 
         self.available_liquidity.set(self.available_liquidity.get() + amount_i256);
 

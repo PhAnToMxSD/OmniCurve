@@ -1,0 +1,35 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "OMNICURVE" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img [ref=e8]
+        - generic [ref=e12]: OMNICURVE
+      - navigation [ref=e13]:
+        - link "Markets" [ref=e14] [cursor=pointer]:
+          - /url: /markets
+        - link "Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Docs" [ref=e16] [cursor=pointer]:
+          - /url: /docs
+      - button "0xE958...8342" [ref=e17] [cursor=pointer]:
+        - generic [ref=e19]: 0xE958...8342
+  - main [ref=e20]:
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - paragraph [ref=e24]: Wallet
+          - paragraph [ref=e25]: "0xE958DaE545e5dAd0b4bE2E58432298dfd5178342"
+        - generic [ref=e26]:
+          - paragraph [ref=e27]: Portfolio Value
+          - paragraph [ref=e28]: $0.00
+      - heading "Open Positions" [level=2] [ref=e30]
+      - heading "Liquidity Positions" [level=2] [ref=e36]
+  - contentinfo [ref=e40]:
+    - generic [ref=e41]:
+      - paragraph [ref=e42]: OmniCurve — Arbitrum Sepolia Testnet
+      - generic [ref=e43]:
+        - link "Factory ↗" [ref=e44] [cursor=pointer]:
+          - /url: https://sepolia.arbiscan.io/address/0x1bbdb700863309ab2588c9d64786bd0ac376d150
+        - generic [ref=e45]: ·
+        - generic [ref=e46]: v0.1.0

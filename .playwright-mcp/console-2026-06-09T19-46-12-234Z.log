@@ -1,0 +1,27 @@
+[      61ms] [LOG] Snow detected a new realm creation attempt in MetaMask. Performing scuttling on new realm. Window @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[      65ms] [LOG] Snow detected a new realm creation attempt in MetaMask. Performing scuttling on new realm. Window @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[     209ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[     787ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://tokens.api.cx.metamask.io/v3/assets?assetIds=eip155%3A421614%2Ferc20%3A0x093299b9f0a8cd57319e3a3611ba867b9b5b1323&includeIconUrl=true:0
+[  529504ms] [WARNING] MetaMask: Lost connection to "MetaMask RpcProvider".
+Error: Premature close
+  at new r (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/vendor-0c1fb56a.d1067c389749c6eb9b9c.js:2069:15371)
+  at r.y (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/vendor-0c1fb56a.d1067c389749c6eb9b9c.js:2070:4008)
+  at r.emit (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/vendor-d2eb5610.964f79ea6f97d6b00bff.js:19:543637)
+  at r (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/vendor-0c1fb56a.d1067c389749c6eb9b9c.js:2071:47571)
+  at p.run (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/vendor-5a94f17d.9cae07bb5ea2b1914a4b.js:104:13992)
+  at d (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/vendor-5a94f17d.9cae07bb5ea2b1914a4b.js:104:13684)
+  at u (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:458:672) @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[  529504ms] [ERROR] MetaMask: Lost connection to "MetaMask RpcProvider".
+Error: Premature close
+  at new r (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/vendor-0c1fb56a.d1067c389749c6eb9b9c.js:2069:15371)
+  at r.y (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/vendor-0c1fb56a.d1067c389749c6eb9b9c.js:2070:4008)
+  at r.emit (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/vendor-d2eb5610.964f79ea6f97d6b00bff.js:19:543637)
+  at r (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/vendor-0c1fb56a.d1067c389749c6eb9b9c.js:2071:47571)
+  at p.run (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/vendor-5a94f17d.9cae07bb5ea2b1914a4b.js:104:13992)
+  at d (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/vendor-5a94f17d.9cae07bb5ea2b1914a4b.js:104:13684)
+  at u (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:458:672) @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[  529505ms] [ERROR] a: Premature close @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[  575332ms] [ERROR] Failed to load resource: the server responded with a status of 429 () @ https://sentry.io/api/273505/envelope/?sentry_key=3567c198f8a8412082d32655da2961d0&sentry_version=7&sentry_client=sentry.javascript.browser%2F8.33.1:0
+[  577042ms] [ERROR] SES_UNHANDLED_REJECTION: Error: Cannot call write after a stream was destroyed @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[  577043ms] [ERROR] SES_UNHANDLED_REJECTION: Error: Cannot call write after a stream was destroyed @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[  577678ms] [ERROR] SES_UNHANDLED_REJECTION: Error: Cannot call write after a stream was destroyed @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19

@@ -1,0 +1,59 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - generic [ref=e6]: OMNICURVE
+    - generic [ref=e7]:
+      - link "Docs" [ref=e8] [cursor=pointer]:
+        - /url: /docs
+      - button "0xE958...8342" [ref=e9] [cursor=pointer]:
+        - generic [ref=e11]: 0xE958...8342
+  - main [ref=e12]:
+    - generic [ref=e13]:
+      - img [ref=e15]
+      - heading "E v e r y O u t c o m e , O n e C u r v e" [level=1] [ref=e20]:
+        - generic [ref=e21]: E
+        - generic [ref=e22]: v
+        - generic [ref=e23]: e
+        - generic [ref=e24]: r
+        - generic [ref=e25]: "y"
+        - generic [ref=e27]: O
+        - generic [ref=e28]: u
+        - generic [ref=e29]: t
+        - generic [ref=e30]: c
+        - generic [ref=e31]: o
+        - generic [ref=e32]: m
+        - generic [ref=e33]: e
+        - generic [ref=e34]: ","
+        - generic [ref=e36]: O
+        - generic [ref=e37]: "n"
+        - generic [ref=e38]: e
+        - generic [ref=e40]: C
+        - generic [ref=e41]: u
+        - generic [ref=e42]: r
+        - generic [ref=e43]: v
+        - generic [ref=e44]: e
+      - paragraph [ref=e45]: OmniCurve collapses prediction markets into a single continuous liquidity curve — one pool, infinite strikes.
+      - generic [ref=e46]:
+        - link "Enter Markets →" [ref=e47] [cursor=pointer]:
+          - /url: /markets
+        - link "Read the Docs" [ref=e48] [cursor=pointer]:
+          - /url: /docs
+      - generic [ref=e49]:
+        - generic [ref=e50]:
+          - paragraph [ref=e51]: "0"
+          - paragraph [ref=e52]: Markets
+        - generic [ref=e53]:
+          - paragraph [ref=e54]: $0
+          - paragraph [ref=e55]: TVL
+        - generic [ref=e56]:
+          - paragraph [ref=e57]: "0"
+          - paragraph [ref=e58]: Resolved
+  - generic [ref=e60]:
+    - generic [ref=e61]: Arbitrum Sepolia
+    - generic [ref=e62]: ·
+    - generic [ref=e63]: Gaussian CDF Pricing
+    - generic [ref=e64]: ·
+    - generic [ref=e65]: EIP-1167 Proxies
+    - generic [ref=e66]: ·
+    - generic [ref=e67]: Rust/WASM
+    - generic [ref=e68]: ·
+    - generic [ref=e69]: Non-custodial

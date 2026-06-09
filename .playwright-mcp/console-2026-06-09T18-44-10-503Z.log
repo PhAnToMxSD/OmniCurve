@@ -1,0 +1,7 @@
+[      72ms] [LOG] Snow detected a new realm creation attempt in MetaMask. Performing scuttling on new realm. Window @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[      75ms] [LOG] Snow detected a new realm creation attempt in MetaMask. Performing scuttling on new realm. Window @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[     275ms] [WARNING] ObjectMultiplex - malformed chunk without name "[object Object]" @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[     414ms] [WARNING] Timer '[ExtensionStore]: Reading from local store' already exists @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/js-2c7117ce.c4e34cfecf0ab27b2e9d.js:106
+[     458ms] [WARNING] Rive source file or data buffer required @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/bootstrap.8ba8c95f25659c470e88.js:19
+[     500ms] [TIMEEND] [ExtensionStore]: Reading from local store: 85.610107421875 ms @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/js-2c7117ce.c4e34cfecf0ab27b2e9d.js:106
+[     522ms] [WARNING] Timer '[ExtensionStore]: Reading from local store' does not exist @ chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/js-2c7117ce.c4e34cfecf0ab27b2e9d.js:106

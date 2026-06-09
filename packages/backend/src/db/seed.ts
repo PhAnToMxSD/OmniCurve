@@ -18,6 +18,13 @@ import { config } from '../config';
 import prisma from '../models/db';
 import { factoryAbi, ammAbi } from './abis';
 
+// Curated, human-readable titles per market id. Titles are off-chain metadata
+// (the factory stores none), so they live here and in the DB. Markets not listed
+// fall back to "Market #i". Listed markets have their title kept in sync on re-seed.
+const MARKET_TITLES: Record<string, { title: string; category: string }> = {
+  '0': { title: 'What will eth price be by the end of 2026?', category: 'Crypto' },
+};
+
 async function seed() {
   console.log('🌱 Starting database seed...\n');
 
@@ -99,6 +106,7 @@ async function seed() {
 
     const rawMu = await readAmmField<bigint>('globalMu', 0n);
     const rawSigma = await readAmmField<bigint>('globalSigma', 0n);
+    const rawSigmaMin = await readAmmField<bigint>('sigmaMin', 0n);
     const rawLiquidity = await readAmmField<bigint>('availableLiquidity', 0n);
     const rawIsResolved = await readAmmField<boolean>('isResolved', false);
     const rawWinningId = await readAmmField<bigint>('winningTokenId', 0n);
@@ -106,8 +114,10 @@ async function seed() {
     // Convert WAD (1e18) I256 values to JS floats
     currentMu = parseFloat(formatEther(rawMu));
     currentSigma = parseFloat(formatEther(rawSigma));
+    minVarianceBound = parseFloat(formatEther(rawSigmaMin));
     totalLiquidity = parseFloat(formatEther(rawLiquidity));
     isResolved = rawIsResolved;
+    console.log(`  σ_min:          ${minVarianceBound}`);
 
     if (isResolved) {
       winningTokenId = rawWinningId.toString();
@@ -120,6 +130,7 @@ async function seed() {
 
     // ─── Upsert into Prisma ───
     const marketId = i.toString();
+    const curated = MARKET_TITLES[marketId];
 
     const market = await prisma.market.upsert({
       where: { marketId },
@@ -133,11 +144,13 @@ async function seed() {
         lpTokenAddress,
         isResolved,
         winningTokenId,
+        // Keep curated titles in sync on re-seed; leave others untouched.
+        ...(curated ? { title: curated.title, category: curated.category } : {}),
       },
       create: {
         marketId,
-        title: `Market #${i}`,
-        category: 'general',
+        title: curated?.title ?? `Market #${i}`,
+        category: curated?.category ?? 'general',
         currentMu,
         currentSigma,
         totalLiquidity,

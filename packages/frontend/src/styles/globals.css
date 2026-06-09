@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base: #060810;
+  --bg-surface: rgba(255, 255, 255, 0.04);
+  --bg-surface-2: rgba(255, 255, 255, 0.07);
+  --border: rgba(255, 255, 255, 0.08);
+  --text-primary: #e2ddd4;
+  --text-muted: rgba(226, 221, 212, 0.45);
+  --accent-yes: #22d3a3;
+  --accent-no: #ff4560;
+  --accent-data: #ffb800;
+  --accent-data-dim: rgba(255, 184, 0, 0.15);
+  --grid-line: rgba(255, 255, 255, 0.04);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-base);
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: var(--text-primary);
+  font-family: 'DM Serif Text', serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mono for all numbers */
+.mono,
+[data-mono],
+input[type='number'],
+.tabular-nums {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* RainbowKit overrides */
+[data-rk] {
+  --rk-colors-accentColor: #ffb800 !important;
+  --rk-colors-accentColorForeground: #060810 !important;
+  --rk-colors-actionButtonBorder: rgba(255, 255, 255, 0.08) !important;
+  --rk-colors-actionButtonBorderMobile: rgba(255, 255, 255, 0.08) !important;
+  --rk-colors-actionButtonSecondaryBackground: rgba(255, 255, 255, 0.04) !important;
+  --rk-colors-closeButton: rgba(226, 221, 212, 0.45) !important;
+  --rk-colors-closeButtonBackground: rgba(255, 255, 255, 0.07) !important;
+  --rk-colors-connectButtonBackground: rgba(255, 255, 255, 0.04) !important;
+  --rk-colors-connectButtonBackgroundError: #ff4560 !important;
+  --rk-colors-connectButtonInnerBackground: rgba(255, 255, 255, 0.07) !important;
+  --rk-colors-connectButtonText: #e2ddd4 !important;
+  --rk-colors-connectButtonTextError: #e2ddd4 !important;
+  --rk-colors-connectionIndicator: #22d3a3 !important;
+  --rk-colors-downloadBottomCardBackground: #060810 !important;
+  --rk-colors-downloadTopCardBackground: rgba(255, 255, 255, 0.04) !important;
+  --rk-colors-error: #ff4560 !important;
+  --rk-colors-generalBorder: rgba(255, 255, 255, 0.08) !important;
+  --rk-colors-generalBorderDim: rgba(255, 255, 255, 0.04) !important;
+  --rk-colors-menuItemBackground: rgba(255, 255, 255, 0.04) !important;
+  --rk-colors-modalBackdrop: rgba(6, 8, 16, 0.85) !important;
+  --rk-colors-modalBackground: #0d1020 !important;
+  --rk-colors-modalBorder: rgba(255, 255, 255, 0.08) !important;
+  --rk-colors-modalText: #e2ddd4 !important;
+  --rk-colors-modalTextDim: rgba(226, 221, 212, 0.45) !important;
+  --rk-colors-modalTextSecondary: rgba(226, 221, 212, 0.45) !important;
+  --rk-colors-profileAction: rgba(255, 255, 255, 0.04) !important;
+  --rk-colors-profileActionHover: rgba(255, 255, 255, 0.07) !important;
+  --rk-colors-profileForeground: rgba(255, 255, 255, 0.04) !important;
+  --rk-colors-selectedOptionBorder: #ffb800 !important;
+  --rk-colors-standby: #ffb800 !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 184, 0, 0.4);
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 1px solid var(--accent-data);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 184, 0, 0.2);
+  color: var(--text-primary);
+}

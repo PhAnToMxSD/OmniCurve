@@ -1,0 +1,100 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "OMNICURVE" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img [ref=e8]
+        - generic [ref=e12]: OMNICURVE
+      - navigation [ref=e13]:
+        - link "Markets" [ref=e14] [cursor=pointer]:
+          - /url: /markets
+        - link "Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Docs" [ref=e16] [cursor=pointer]:
+          - /url: /docs
+      - button "0xE958...8342 0.0959 ETH" [ref=e120] [cursor=pointer]:
+        - generic [ref=e19]: 0xE958...8342
+        - generic [ref=e121]: 0.0959 ETH
+  - main [ref=e20]:
+    - generic [ref=e21]:
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - generic [ref=e25]: Live
+          - generic [ref=e27]: "#0"
+          - generic [ref=e28]: general
+        - 'heading "Market #0" [level=1] [ref=e29]'
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - paragraph [ref=e32]: μ
+          - paragraph [ref=e33]: 3,000
+        - generic [ref=e34]:
+          - paragraph [ref=e35]: σ
+          - paragraph [ref=e36]: "690.13"
+        - generic [ref=e37]:
+          - paragraph [ref=e38]: Liquidity
+          - paragraph [ref=e39]: $5.00
+        - generic [ref=e42]: Live
+      - img [ref=e45]:
+        - generic [ref=e46]:
+          - generic [ref=e49]: μ
+          - generic [ref=e50]:
+            - generic [ref=e53]: 1,000
+            - generic [ref=e55]: 2,000
+            - generic [ref=e57]: 3,000
+            - generic [ref=e59]: 4,000
+            - generic [ref=e61]: 5,000
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - button "Trade" [ref=e64] [cursor=pointer]
+          - button "Provide Liquidity" [active] [ref=e66] [cursor=pointer]: Provide Liquidity
+        - generic [ref=e122]:
+          - generic [ref=e123]:
+            - button "Deposit" [ref=e124] [cursor=pointer]: Deposit
+            - button "Withdraw" [ref=e126] [cursor=pointer]
+            - button "Claim" [ref=e127] [cursor=pointer]
+          - generic [ref=e128]:
+            - generic [ref=e129]:
+              - generic [ref=e130]:
+                - paragraph [ref=e131]: LP Balance
+                - paragraph [ref=e132]: "5.0000"
+              - generic [ref=e133]:
+                - paragraph [ref=e134]: Pending Fees
+                - paragraph [ref=e135]: $0.0000
+              - generic [ref=e136]:
+                - paragraph [ref=e137]: Pool TVL
+                - paragraph [ref=e138]: $5.00
+            - generic [ref=e139]:
+              - generic [ref=e140]: Amount
+              - generic [ref=e141]:
+                - spinbutton [ref=e142]
+                - generic [ref=e143]: USDC
+            - generic [ref=e144]:
+              - generic [ref=e145]:
+                - generic [ref=e146]: Target μ (required)
+                - spinbutton [ref=e148]: "3000"
+              - generic [ref=e149]:
+                - generic [ref=e150]: "Target σ (min: 0)"
+                - spinbutton [ref=e152]: "690.130434783"
+            - button "Add Liquidity" [disabled] [ref=e153]
+      - generic [ref=e102]:
+        - heading "Contract Addresses" [level=3] [ref=e103]
+        - generic [ref=e104]:
+          - generic [ref=e105]: AMM
+          - link "0x7cd2...fB0f ↗" [ref=e106] [cursor=pointer]:
+            - /url: https://sepolia.arbiscan.io/address/0x7cd2d6c56fbC52552C5014b00FC30176E388fB0f
+        - generic [ref=e107]:
+          - generic [ref=e108]: Router
+          - link "0xF1FB...4CdB ↗" [ref=e109] [cursor=pointer]:
+            - /url: https://sepolia.arbiscan.io/address/0xF1FB7FA83E5Cdfbe975ad139dbD35b223E554CdB
+        - generic [ref=e110]:
+          - generic [ref=e111]: LP Token
+          - link "0x2Cd7...6250 ↗" [ref=e112] [cursor=pointer]:
+            - /url: https://sepolia.arbiscan.io/address/0x2Cd7b0016134D5dcf92da81A981e0dFcaC3e6250
+  - contentinfo [ref=e113]:
+    - generic [ref=e114]:
+      - paragraph [ref=e115]: OmniCurve — Arbitrum Sepolia Testnet
+      - generic [ref=e116]:
+        - link "Factory ↗" [ref=e117] [cursor=pointer]:
+          - /url: https://sepolia.arbiscan.io/address/0x1bbdb700863309ab2588c9d64786bd0ac376d150
+        - generic [ref=e118]: ·
+        - generic [ref=e119]: v0.1.0

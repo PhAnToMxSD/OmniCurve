@@ -1,0 +1,100 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "OMNICURVE" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img [ref=e8]
+        - generic [ref=e12]: OMNICURVE
+      - navigation [ref=e13]:
+        - link "Markets" [ref=e14] [cursor=pointer]:
+          - /url: /markets
+        - link "Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Docs" [ref=e16] [cursor=pointer]:
+          - /url: /docs
+      - button "0xE958...8342 0.0959 ETH" [ref=e120] [cursor=pointer]:
+        - generic [ref=e19]: 0xE958...8342
+        - generic [ref=e121]: 0.0959 ETH
+  - main [ref=e20]:
+    - generic [ref=e21]:
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - generic [ref=e25]: Live
+          - generic [ref=e27]: "#0"
+          - generic [ref=e28]: general
+        - 'heading "Market #0" [level=1] [ref=e29]'
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - paragraph [ref=e32]: μ
+          - paragraph [ref=e33]: 3,000
+        - generic [ref=e34]:
+          - paragraph [ref=e35]: σ
+          - paragraph [ref=e36]: "690.13"
+        - generic [ref=e37]:
+          - paragraph [ref=e38]: Liquidity
+          - paragraph [ref=e39]: $5.00
+        - generic [ref=e42]: Live
+      - img [ref=e45]:
+        - generic [ref=e46]:
+          - generic [ref=e49]: μ
+          - generic [ref=e50]:
+            - generic [ref=e53]: 1,000
+            - generic [ref=e55]: 2,000
+            - generic [ref=e57]: 3,000
+            - generic [ref=e59]: 4,000
+            - generic [ref=e61]: 5,000
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - button "Trade" [ref=e64] [cursor=pointer]: Trade
+          - button "Provide Liquidity" [ref=e66] [cursor=pointer]
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - generic [ref=e69]:
+              - generic [ref=e71]:
+                - generic [ref=e72]: Strike Price
+                - spinbutton [ref=e74]: "3000"
+              - generic [ref=e75]:
+                - generic [ref=e76]:
+                  - text: "YES"
+                  - generic [ref=e77]: 50.0%
+                - generic [ref=e78]:
+                  - text: "NO"
+                  - generic [ref=e79]: 50.0%
+            - slider [ref=e85] [cursor=pointer]: "3000"
+            - generic [ref=e86]:
+              - generic [ref=e87]: "929.609"
+              - generic [ref=e88]: μ = 3,000
+              - generic [ref=e89]: 5,070.391
+          - generic [ref=e90]:
+            - paragraph [ref=e91]: Direction
+            - generic [ref=e92]:
+              - button "YES ↑" [ref=e93] [cursor=pointer]
+              - button "NO ↓" [ref=e94] [cursor=pointer]
+          - generic [ref=e95]:
+            - generic [ref=e96]: Amount
+            - generic [ref=e97]:
+              - spinbutton [ref=e98]
+              - generic [ref=e99]: USDC
+          - button "Buy YES" [disabled] [ref=e101]
+      - generic [ref=e102]:
+        - heading "Contract Addresses" [level=3] [ref=e103]
+        - generic [ref=e104]:
+          - generic [ref=e105]: AMM
+          - link "0x7cd2...fB0f ↗" [ref=e106] [cursor=pointer]:
+            - /url: https://sepolia.arbiscan.io/address/0x7cd2d6c56fbC52552C5014b00FC30176E388fB0f
+        - generic [ref=e107]:
+          - generic [ref=e108]: Router
+          - link "0xF1FB...4CdB ↗" [ref=e109] [cursor=pointer]:
+            - /url: https://sepolia.arbiscan.io/address/0xF1FB7FA83E5Cdfbe975ad139dbD35b223E554CdB
+        - generic [ref=e110]:
+          - generic [ref=e111]: LP Token
+          - link "0x2Cd7...6250 ↗" [ref=e112] [cursor=pointer]:
+            - /url: https://sepolia.arbiscan.io/address/0x2Cd7b0016134D5dcf92da81A981e0dFcaC3e6250
+  - contentinfo [ref=e113]:
+    - generic [ref=e114]:
+      - paragraph [ref=e115]: OmniCurve — Arbitrum Sepolia Testnet
+      - generic [ref=e116]:
+        - link "Factory ↗" [ref=e117] [cursor=pointer]:
+          - /url: https://sepolia.arbiscan.io/address/0x1bbdb700863309ab2588c9d64786bd0ac376d150
+        - generic [ref=e118]: ·
+        - generic [ref=e119]: v0.1.0

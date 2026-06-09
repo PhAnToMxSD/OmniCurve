@@ -1,0 +1,24 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "OMNICURVE" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img [ref=e8]
+        - generic [ref=e12]: OMNICURVE
+      - navigation [ref=e13]:
+        - link "Markets" [ref=e14] [cursor=pointer]:
+          - /url: /markets
+        - link "Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Docs" [ref=e16] [cursor=pointer]:
+          - /url: /docs
+      - button "Connect Wallet" [ref=e17] [cursor=pointer]
+  - main [ref=e18]
+  - contentinfo [ref=e24]:
+    - generic [ref=e25]:
+      - paragraph [ref=e26]: OmniCurve — Arbitrum Sepolia Testnet
+      - generic [ref=e27]:
+        - link "Factory ↗" [ref=e28] [cursor=pointer]:
+          - /url: https://sepolia.arbiscan.io/address/0x1bbdb700863309ab2588c9d64786bd0ac376d150
+        - generic [ref=e29]: ·
+        - generic [ref=e30]: v0.1.0

@@ -1,6 +1,12 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import prisma from '../models/db';
 import { calculateExpectedPrices } from '../services/mathService';
+import {
+  getLpTokenBalance,
+  getAccFeePerShare,
+  getRewardDebt,
+  computePendingRewards,
+} from '../services/chainService';
 
 const router = Router();
 
@@ -64,6 +70,10 @@ router.get('/:address/portfolio', async (req: Request, res: Response, next: Next
         currentValue,
         status,
         market: {
+          title: market.title,
+          ammAddress: market.ammAddress,
+          routerAddress: market.routerAddress,
+          lpTokenAddress: market.lpTokenAddress,
           currentMu: market.currentMu,
           currentSigma: market.currentSigma,
           totalLiquidity: market.totalLiquidity,
@@ -73,12 +83,60 @@ router.get('/:address/portfolio', async (req: Request, res: Response, next: Next
       };
     });
 
+    // ─── LP positions ────────────────────────────────────────────────────
+    // Trade positions only cover users who bought YES/NO tokens. Liquidity
+    // providers never create Position rows, so their on-chain LP balance must
+    // be read directly. Scan every market and include any with a non-zero LP
+    // balance for this wallet, enriched with pending fee rewards.
+    const markets = await prisma.market.findMany();
+
+    const lpPositionResults = await Promise.all(
+      markets.map(async (market) => {
+        try {
+          const lpBalance = await getLpTokenBalance(market.ammAddress, address);
+          if (lpBalance <= 0) return null;
+
+          const accFeePerShare = await getAccFeePerShare(market.ammAddress);
+          const rewardDebt = await getRewardDebt(market.ammAddress, address);
+          const pendingRewards = computePendingRewards(lpBalance, accFeePerShare, rewardDebt);
+
+          return {
+            marketId: market.marketId,
+            marketTitle: market.title,
+            lpBalance,
+            pendingRewards,
+            market: {
+              title: market.title,
+              ammAddress: market.ammAddress,
+              routerAddress: market.routerAddress,
+              lpTokenAddress: market.lpTokenAddress,
+              totalLiquidity: market.totalLiquidity,
+              isResolved: market.isResolved,
+              winningTokenId: market.winningTokenId,
+            },
+          };
+        } catch (err) {
+          // A single market's read failing shouldn't blank the whole portfolio
+          console.error(`LP read failed for market ${market.marketId}:`, err);
+          return null;
+        }
+      }),
+    );
+
+    const lpPositions = lpPositionResults.filter(
+      (p): p is NonNullable<typeof p> => p !== null,
+    );
+
+    const totalValue = enrichedPositions.reduce((sum, p) => sum + p.currentValue, 0);
+
     res.status(200).json({
       success: true,
       data: {
         address,
         positionCount: enrichedPositions.length,
         positions: enrichedPositions,
+        lpPositions,
+        totalValue,
       },
     });
   } catch (error) {

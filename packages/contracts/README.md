@@ -2,25 +2,32 @@
 
 ## Deployed Addresses (Arbitrum Sepolia)
 
+> **Current deployment — stake-weighted-curve contracts (2026-06-09).** Bettors move μ/σ;
+> LPs are pure collateral. Verified on-chain (2 USDC YES bet moved μ 3500→3358.17; LP add
+> left μ unchanged).
+
 ### Implementation Contracts (deployed once, shared by all markets)
 
 | Contract | Address |
 |----------|---------|
-| AMM Implementation | `0xd74a08ebf625f864200bd63a88c43a12841c0c4c` |
-| Router Implementation | `0xeb9e1bd457a3ff85e6bdc68448bab5b604d65a92` |
-| LP Token Implementation | `0xdd3aec1a025c0748a66d2bc888074eee58881295` |
-| Factory | `0xa2e57ff3fdba560ae853279df511cd4fa4fb9d93` |
+| AMM Implementation | `0x0d08e6c457bfe0794b258e66c20a788cc8a8fa32` |
+| Router Implementation | `0x98846991e02802b20bf947cfe11b4ac6ff463d9f` |
+| LP Token Implementation | `0xce5ce25964af3c917ebca5c972abec94022b868a` (reused — unchanged) |
+| Factory | `0xf6bfadc33c3c42755d9634defbfcc52b8b2d5e24` |
 
-### Market #0 Proxy Contracts (deployed by factory)
+### Market #0 Proxy Contracts (deployed by factory) — "What will eth price be by the end of 2026?"
 
 | Contract | Address |
 |----------|---------|
-| AMM Proxy | `0x9073e29A9218CA0588F9f04d339665525004Fb63` |
-| Router Proxy | `0xa5c72C337E0b72600675d42fc6D984c065885B73` |
-| LP Token Proxy | `0x9C22f7257fCAce295fa390C64ad60ecD7591162d` |
+| AMM Proxy | `0x9736E98CA898Bf69daA126e715Eb639D2DaBFb46` |
+| Router Proxy | `0xA65b5453a177d3C34654Ec4Be60754d0aD7ec6A5` |
+| LP Token Proxy | `0x731489Ab2A0029a22a95b5Ea3f72335b18D40CCf` |
 
-**Owner (AMM + Router):** `0x2154E13EC2399ebd6e81f9900389396Cfa760f98`
-**LP Token Owner:** AMM Proxy (`0x9073e29A9218CA0588F9f04d339665525004Fb63`)
+**Owner (AMM + Router):** `0xE958DaE545e5dAd0b4bE2E58432298dfd5178342`
+**LP Token Owner:** AMM Proxy (`0x9736E98CA898Bf69daA126e715Eb639D2DaBFb46`)
+
+> Previous frozen-curve deployment (superseded): Factory `0xfd6df452d106c6bf5ee1cf6749d4d0afbacf40d9`,
+> AMM impl `0xbb3f4468928bc97e50c78c19688554a838d18906`, Router impl `0xae756b1e3d2eb887758f47545d91fdda8604677e`.
 
 ---
 

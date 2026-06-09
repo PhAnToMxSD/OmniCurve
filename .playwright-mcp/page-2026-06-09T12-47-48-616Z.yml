@@ -1,0 +1,58 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "OMNICURVE" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img [ref=e8]
+        - generic [ref=e12]: OMNICURVE
+      - navigation [ref=e13]:
+        - link "Markets" [ref=e14] [cursor=pointer]:
+          - /url: /markets
+        - link "Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Docs" [ref=e16] [cursor=pointer]:
+          - /url: /docs
+      - button "Connect Wallet" [ref=e17] [cursor=pointer]
+  - main [ref=e18]:
+    - generic [ref=e19]:
+      - generic [ref=e21]:
+        - heading "Markets" [level=1] [ref=e22]
+        - paragraph [ref=e23]: Continuous distribution prediction markets on Arbitrum
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - img [ref=e26]
+          - textbox "Search markets..." [ref=e29]
+        - button "Resolved" [ref=e31] [cursor=pointer]
+      - generic [ref=e32]:
+        - button "All" [ref=e33] [cursor=pointer]: All
+        - button "Crypto" [ref=e35] [cursor=pointer]
+        - button "Macro" [ref=e36] [cursor=pointer]
+        - button "Sports" [ref=e37] [cursor=pointer]
+        - button "Other" [ref=e38] [cursor=pointer]
+      - 'link "Market #0 Live μ 0 σ 0 TVL $0 general #0" [ref=e41] [cursor=pointer]':
+        - /url: /markets/0
+        - generic [ref=e44]:
+          - generic [ref=e45]:
+            - 'heading "Market #0" [level=3] [ref=e46]'
+            - generic [ref=e47]: Live
+          - generic [ref=e49]:
+            - generic [ref=e50]:
+              - paragraph [ref=e51]: μ
+              - paragraph [ref=e52]: "0"
+            - generic [ref=e53]:
+              - paragraph [ref=e54]: σ
+              - paragraph [ref=e55]: "0"
+            - generic [ref=e56]:
+              - paragraph [ref=e57]: TVL
+              - paragraph [ref=e58]: $0
+          - generic [ref=e59]:
+            - generic [ref=e60]: general
+            - generic [ref=e61]: "#0"
+  - contentinfo [ref=e62]:
+    - generic [ref=e63]:
+      - paragraph [ref=e64]: OmniCurve — Arbitrum Sepolia Testnet
+      - generic [ref=e65]:
+        - link "Factory ↗" [ref=e66] [cursor=pointer]:
+          - /url: https://sepolia.arbiscan.io/address/0x1bbdb700863309ab2588c9d64786bd0ac376d150
+        - generic [ref=e67]: ·
+        - generic [ref=e68]: v0.1.0

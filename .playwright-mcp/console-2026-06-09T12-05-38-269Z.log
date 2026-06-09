@@ -1,0 +1,4 @@
+[     241ms] The requested module '/node_modules/.vite/deps/viem.js?v=e43092c2' does not provide an export named 'MaxUint256'
+[   41264ms] The requested module '/node_modules/.vite/deps/viem.js?v=e43092c2' does not provide an export named 'MaxUint256'
+[   42482ms] The requested module '/node_modules/.vite/deps/viem.js?v=e43092c2' does not provide an export named 'MaxUint256'
+[   42846ms] The requested module '/node_modules/.vite/deps/viem.js?v=e43092c2' does not provide an export named 'MaxUint256'
