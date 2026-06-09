@@ -33,6 +33,11 @@ model Market {
   totalLiquidity    Float      @default(0)
   globalAccumulator Float      @default(0)
   minVarianceBound  Float
+  ammAddress        String     @default("")
+  routerAddress     String     @default("")
+  lpTokenAddress    String     @default("")
+  isResolved        Boolean    @default(false)
+  winningTokenId    String?
   positions         Position[]
 }
 
