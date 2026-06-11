@@ -64,14 +64,14 @@ export default function LiquidChromeBackground({ isDark }: Props) {
 
       /* ── Color palettes ───────────────────────────────────────────────────── */
 
-      /* Dark: near-black → deep maroon — capped at dark crimson, never goes bright red */
+      /* Dark: near-black → very subtle deep maroon — stays almost black */
       vec3 darkPal(float t) {
-        vec3 col = mix(vec3(0.012, 0.000, 0.000), vec3(0.160, 0.008, 0.022),
+        vec3 col = mix(vec3(0.012, 0.000, 0.000), vec3(0.060, 0.003, 0.008),
                        smoothstep(0.00, 0.30, t));
-        col = mix(col, vec3(0.310, 0.020, 0.055), smoothstep(0.25, 0.55, t));
-        col = mix(col, vec3(0.400, 0.028, 0.075), smoothstep(0.50, 0.72, t));
-        col = mix(col, vec3(0.440, 0.032, 0.085), smoothstep(0.68, 0.88, t));
-        col = mix(col, vec3(0.460, 0.035, 0.090), smoothstep(0.84, 1.00, t));
+        col = mix(col, vec3(0.110, 0.007, 0.020), smoothstep(0.25, 0.55, t));
+        col = mix(col, vec3(0.150, 0.010, 0.030), smoothstep(0.50, 0.72, t));
+        col = mix(col, vec3(0.170, 0.012, 0.035), smoothstep(0.68, 0.88, t));
+        col = mix(col, vec3(0.180, 0.013, 0.038), smoothstep(0.84, 1.00, t));
         return col;
       }
 
