@@ -21,7 +21,11 @@ import { factoryAbi, ammAbi } from './abis';
 // Curated, human-readable titles per market id. Titles are off-chain metadata
 // (the factory stores none), so they live here and in the DB. Markets not listed
 // fall back to "Market #i". Listed markets have their title kept in sync on re-seed.
-const MARKET_TITLES: Record<string, { title: string; category: string }> = {};
+const MARKET_TITLES: Record<string, { title: string; category: string }> = {
+  '1': { title: 'What will the price of BTC be by the end of 2026?', category: 'crypto' },
+  '2': { title: 'What will the price of ETH be by the end of 2026?', category: 'crypto' },
+  '6': { title: 'Which year will Anthropic release a new Claude model?', category: 'other' },
+};
 
 async function seed() {
   console.log('🌱 Starting database seed...\n');
