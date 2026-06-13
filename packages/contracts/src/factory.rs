@@ -313,3 +313,161 @@ impl OmniCurveFactory {
         Ok(self.lp_token_implementation.get())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use stylus_sdk::testing::*;
+
+    fn addr(n: u8) -> Address { Address::from([n; 20]) }
+
+    const AMM_IMPL: u8 = 0x10;
+    const ROUTER_IMPL: u8 = 0x11;
+    const LP_IMPL: u8 = 0x12;
+
+    fn setup(vm: &TestVM, owner: Address) -> OmniCurveFactory {
+        let mut f = OmniCurveFactory::from(vm);
+        vm.set_sender(owner);
+        f.initialize(owner, addr(AMM_IMPL), addr(ROUTER_IMPL), addr(LP_IMPL)).unwrap();
+        f
+    }
+
+    // ── EIP-1167 creation code ────────────────────────────────────────
+
+    #[test]
+    fn eip1167_creation_code_is_well_formed() {
+        let implementation = addr(0xAB);
+        let code = build_eip1167_creation_code(implementation);
+        // 10-byte init + 45-byte runtime = 55 bytes total.
+        assert_eq!(code.len(), 55);
+        // Init prefix and runtime prefix bytes match OpenZeppelin Clones.
+        assert_eq!(&code[0..10], &[0x3d, 0x60, 0x2d, 0x80, 0x60, 0x0a, 0x3d, 0x39, 0x81, 0xf3]);
+        assert_eq!(&code[10..20], &[0x36, 0x3d, 0x3d, 0x37, 0x3d, 0x3d, 0x3d, 0x36, 0x3d, 0x73]);
+        // Implementation address embedded at bytes 20..40.
+        let embedded: [u8; 20] = code[20..40].try_into().unwrap();
+        assert_eq!(Address::from(embedded), implementation);
+        // Runtime suffix.
+        assert_eq!(
+            &code[40..55],
+            &[0x5a, 0xf4, 0x3d, 0x82, 0x80, 0x3e, 0x90, 0x3d, 0x91, 0x60, 0x2b, 0x57, 0xfd, 0x5b, 0xf3]
+        );
+    }
+
+    #[test]
+    fn market_salt_distinct_per_id_and_domain() {
+        let s00 = market_salt(U256::from(0u8), 0);
+        let s01 = market_salt(U256::from(0u8), 1);
+        let s10 = market_salt(U256::from(1u8), 0);
+        assert_ne!(s00, s01, "domain tag must change the salt");
+        assert_ne!(s00, s10, "market_id must change the salt");
+        // Regression: ids 0..256 must not collide (the bug fixed by using the
+        // least-significant bytes of the id).
+        assert_ne!(market_salt(U256::from(255u8), 0), market_salt(U256::from(0u8), 0));
+    }
+
+    // ── Init / ownership ──────────────────────────────────────────────
+
+    #[test]
+    fn initialize_twice_reverts() {
+        let vm = TestVM::default();
+        let mut f = setup(&vm, addr(1));
+        assert_eq!(
+            f.initialize(addr(2), addr(AMM_IMPL), addr(ROUTER_IMPL), addr(LP_IMPL)).unwrap_err(),
+            b"Already initialized".to_vec()
+        );
+    }
+
+    #[test]
+    fn implementation_setters_are_owner_only() {
+        let vm = TestVM::default();
+        let mut f = setup(&vm, addr(1));
+        vm.set_sender(addr(9));
+        assert_eq!(f.set_amm_implementation(addr(2)).unwrap_err(), b"Unauthorized".to_vec());
+        assert_eq!(f.set_router_implementation(addr(2)).unwrap_err(), b"Unauthorized".to_vec());
+        assert_eq!(f.set_lp_token_implementation(addr(2)).unwrap_err(), b"Unauthorized".to_vec());
+    }
+
+    #[test]
+    fn ownership_transfer_is_two_step() {
+        let vm = TestVM::default();
+        let mut f = setup(&vm, addr(1));
+        vm.set_sender(addr(1));
+        f.transfer_ownership(addr(2)).unwrap();
+        vm.set_sender(addr(2));
+        assert_eq!(f.set_amm_implementation(addr(3)).unwrap_err(), b"Unauthorized".to_vec());
+        f.accept_ownership().unwrap();
+        f.set_amm_implementation(addr(3)).unwrap();
+        assert_eq!(f.get_amm_implementation().unwrap(), addr(3));
+    }
+
+    #[test]
+    fn implementations_are_recorded_on_init() {
+        let vm = TestVM::default();
+        let f = setup(&vm, addr(1));
+        assert_eq!(f.get_amm_implementation().unwrap(), addr(AMM_IMPL));
+        assert_eq!(f.get_router_implementation().unwrap(), addr(ROUTER_IMPL));
+        assert_eq!(f.get_lp_token_implementation().unwrap(), addr(LP_IMPL));
+        assert_eq!(f.get_market_count().unwrap(), U256::ZERO);
+    }
+
+    // ── create_market ─────────────────────────────────────────────────
+
+    /// Register the three CREATE2 clone deployments for market `id`, returning
+    /// the proxy addresses (amm, router, lp). Wiring/init calls on the proxies
+    /// are void and succeed automatically under TestVM.
+    fn mock_market_deploys(vm: &TestVM, id: u64, amm: Address, router: Address, lp: Address) {
+        let id = U256::from(id);
+        vm.mock_deploy(
+            build_eip1167_creation_code(addr(AMM_IMPL)).to_vec(),
+            Some(market_salt(id, 0)),
+            Ok(amm),
+        );
+        vm.mock_deploy(
+            build_eip1167_creation_code(addr(ROUTER_IMPL)).to_vec(),
+            Some(market_salt(id, 1)),
+            Ok(router),
+        );
+        vm.mock_deploy(
+            build_eip1167_creation_code(addr(LP_IMPL)).to_vec(),
+            Some(market_salt(id, 2)),
+            Ok(lp),
+        );
+    }
+
+    #[test]
+    fn create_market_deploys_wires_and_records() {
+        let vm = TestVM::default();
+        let mut f = setup(&vm, addr(1));
+
+        mock_market_deploys(&vm, 0, addr(0x20), addr(0x21), addr(0x22));
+
+        // M3: creation is permissionless — a non-owner can create a market.
+        vm.set_sender(addr(7));
+        f.create_market(addr(0xCC), I256::try_from(1000i64).unwrap()).unwrap();
+
+        assert_eq!(f.get_market_amm(U256::ZERO).unwrap(), addr(0x20));
+        assert_eq!(f.get_market_router(U256::ZERO).unwrap(), addr(0x21));
+        assert_eq!(f.get_market_lp_token(U256::ZERO).unwrap(), addr(0x22));
+        assert_eq!(f.get_market_count().unwrap(), U256::from(1u8));
+
+        // MarketCreated emitted.
+        assert!(!vm.get_emitted_logs().is_empty());
+    }
+
+    #[test]
+    fn create_market_increments_count_and_uses_distinct_salts() {
+        let vm = TestVM::default();
+        let mut f = setup(&vm, addr(1));
+
+        mock_market_deploys(&vm, 0, addr(0x20), addr(0x21), addr(0x22));
+        mock_market_deploys(&vm, 1, addr(0x30), addr(0x31), addr(0x32));
+
+        vm.set_sender(addr(7));
+        f.create_market(addr(0xCC), I256::try_from(1000i64).unwrap()).unwrap();
+        f.create_market(addr(0xCC), I256::try_from(1000i64).unwrap()).unwrap();
+
+        assert_eq!(f.get_market_count().unwrap(), U256::from(2u8));
+        assert_eq!(f.get_market_amm(U256::from(1u8)).unwrap(), addr(0x30));
+        assert_eq!(f.get_market_router(U256::from(1u8)).unwrap(), addr(0x31));
+    }
+}
