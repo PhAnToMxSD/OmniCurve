@@ -554,3 +554,348 @@ impl DistributionAmm {
         Ok(())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use stylus_sdk::testing::*;
+
+    fn addr(n: u8) -> Address { Address::from([n; 20]) }
+    fn i(v: i128) -> I256 { I256::try_from(v).unwrap() }
+    fn wad_c() -> I256 { i(1_000_000_000_000_000_000) }
+    /// Word `1` — see the router test notes on TestVM's single shared return
+    /// buffer. Used so mocked LP `balanceOf`/USDC `transfer*` reads yield 1/true.
+    fn word_one() -> Vec<u8> { let mut w = [0u8; 32]; w[31] = 1; w.to_vec() }
+
+    const LP: u8 = 0xBB;
+    const USDC: u8 = 0xCC;
+    const RTR: u8 = 0xDD;
+
+    /// Owner-initialized AMM wired to mock router/lp/usdc, with sigma_min set.
+    fn setup(vm: &TestVM, owner: Address) -> DistributionAmm {
+        let mut amm = DistributionAmm::from(vm);
+        vm.set_sender(owner);
+        amm.initialize(owner).unwrap();
+        amm.set_router_address(addr(RTR)).unwrap();
+        amm.set_lp_token(addr(LP)).unwrap();
+        amm.set_usdc_token(addr(USDC)).unwrap();
+        amm.set_sigma_min(i(1_000_000_000_000_000)).unwrap(); // 0.001 WAD
+        amm
+    }
+
+    // ── Init / ownership ──────────────────────────────────────────────
+
+    #[test]
+    fn initialize_twice_reverts() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        assert_eq!(amm.initialize(addr(2)).unwrap_err(), b"Already initialized".to_vec());
+    }
+
+    #[test]
+    fn ownership_transfer_is_two_step() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(1));
+        amm.transfer_ownership(addr(2)).unwrap();
+        // Not yet effective.
+        vm.set_sender(addr(2));
+        assert_eq!(amm.set_sigma_min(i(2)).unwrap_err(), b"Unauthorized".to_vec());
+        amm.accept_ownership().unwrap();
+        amm.set_sigma_min(i(2)).unwrap();
+        assert_eq!(amm.owner().unwrap(), addr(2));
+    }
+
+    #[test]
+    fn config_setters_are_owner_only() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(9));
+        assert_eq!(amm.set_usdc_token(addr(2)).unwrap_err(), b"Unauthorized".to_vec());
+        assert_eq!(amm.set_router_address(addr(2)).unwrap_err(), b"Unauthorized".to_vec());
+        assert_eq!(amm.set_lp_token(addr(2)).unwrap_err(), b"Unauthorized".to_vec());
+        assert_eq!(amm.set_sigma_min(i(2)).unwrap_err(), b"Unauthorized".to_vec());
+        assert_eq!(amm.set_distribution(i(0), i(2)).unwrap_err(), b"Unauthorized".to_vec());
+        assert_eq!(amm.set_prior_weight(i(2)).unwrap_err(), b"Unauthorized".to_vec());
+    }
+
+    // ── Parameter validation ──────────────────────────────────────────
+
+    #[test]
+    fn set_sigma_min_rejects_non_positive() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(1));
+        assert_eq!(amm.set_sigma_min(I256::ZERO).unwrap_err(), b"VarianceTooLow".to_vec());
+        assert_eq!(amm.set_sigma_min(i(-1)).unwrap_err(), b"VarianceTooLow".to_vec());
+    }
+
+    #[test]
+    fn set_prior_weight_validations() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(1));
+        assert_eq!(amm.set_prior_weight(I256::ZERO).unwrap_err(), b"NegativeValue".to_vec());
+        amm.set_prior_weight(i(50_000_000_000_000_000_000)).unwrap();
+        assert_eq!(amm.prior_weight().unwrap(), i(50_000_000_000_000_000_000));
+    }
+
+    #[test]
+    fn set_distribution_rejects_sigma_at_or_below_min() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(1));
+        // sigma_min is 0.001 WAD; equal is not allowed (strict >).
+        assert_eq!(amm.set_distribution(i(0), i(1_000_000_000_000_000)).unwrap_err(), b"VarianceTooLow".to_vec());
+        assert_eq!(amm.set_distribution(i(0), i(500_000_000_000_000)).unwrap_err(), b"VarianceTooLow".to_vec());
+    }
+
+    #[test]
+    fn set_distribution_seeds_curve_and_accumulators() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(1));
+        let mu = i(2_000_000_000_000_000_000);    // 2.0
+        let sigma = wad_c();                        // 1.0
+        amm.set_distribution(mu, sigma).unwrap();
+        assert_eq!(amm.global_mu().unwrap(), mu);
+        assert_eq!(amm.global_sigma().unwrap(), sigma);
+        // Default prior weight (100 WAD) backs the seeded curve.
+        assert_eq!(amm.acc_stake_weight().unwrap(), i(100_000_000_000_000_000_000));
+        // CurveUpdated emitted.
+        assert_eq!(vm.get_emitted_logs().len(), 1);
+    }
+
+    #[test]
+    fn get_price_for_x_yes_and_no_are_complementary() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(1));
+        amm.set_distribution(I256::ZERO, wad_c()).unwrap();
+        let x = I256::ZERO;
+        let p_yes = amm.get_price_for_x(x, true).unwrap();
+        let p_no = amm.get_price_for_x(x, false).unwrap();
+        // p_yes + p_no == 1 WAD by construction (1 - cdf) + cdf.
+        assert_eq!(p_yes + p_no, wad_c());
+    }
+
+    // ── underwrite_trade (no external calls) ──────────────────────────
+
+    #[test]
+    fn underwrite_trade_is_router_only() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(9));
+        assert_eq!(
+            amm.underwrite_trade(U256::from(1u8), I256::ZERO, U256::from(1u8), U256::from(1u8)).unwrap_err(),
+            b"Unauthorized".to_vec()
+        );
+    }
+
+    #[test]
+    fn underwrite_trade_requires_liquidity() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(1));
+        amm.set_distribution(I256::ZERO, wad_c()).unwrap();
+        // No liquidity available, liability exceeds it.
+        vm.set_sender(addr(RTR));
+        assert_eq!(
+            amm.underwrite_trade(U256::from(1u8), wad_c(), U256::from(1u8), U256::from(1_000_000u64)).unwrap_err(),
+            b"InsufficientLiquidity".to_vec()
+        );
+    }
+
+    #[test]
+    fn underwrite_trade_locks_collateral_and_moves_curve() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(1));
+        // Seed μ=0, σ=1 with the default prior weight of 100 WAD.
+        amm.set_distribution(I256::ZERO, wad_c()).unwrap();
+
+        // Seed available liquidity via a deposit (buffer=1 ⇒ LP/USDC reads succeed).
+        vm.mock_call(addr(USDC), alloc::vec![], U256::ZERO, Ok(word_one()));
+        let deposit = U256::from(1_000_000_000_000_000_000_000u128); // 1000 WAD
+        vm.set_sender(addr(5));
+        amm.add_liquidity(deposit, I256::ZERO, I256::ZERO).unwrap();
+        assert_eq!(amm.available_liquidity().unwrap(), i(1_000_000_000_000_000_000_000));
+
+        // Underwrite a bet: premium = 100 WAD (== prior), strike x = 2.0,
+        // liability = 1 WAD. New μ = (prior·0 + premium·2)/(prior+premium) = 1.0.
+        let premium = U256::from(100_000_000_000_000_000_000u128); // 100 WAD
+        let liability = U256::from(1_000_000_000_000_000_000u128); // 1 WAD
+        let strike = i(2_000_000_000_000_000_000);                 // 2.0
+        vm.set_sender(addr(RTR));
+        amm.underwrite_trade(U256::from(1u8), strike, premium, liability).unwrap();
+
+        assert_eq!(amm.global_mu().unwrap(), wad_c(), "μ should land exactly at 1.0");
+        assert!(amm.global_sigma().unwrap() > I256::ZERO);
+        // available = 1000 + premium(100) - liability(1) = 1099 WAD.
+        assert_eq!(amm.available_liquidity().unwrap(), i(1_099_000_000_000_000_000_000));
+    }
+
+    #[test]
+    fn set_distribution_locked_after_trades_start() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(1));
+        amm.set_distribution(I256::ZERO, wad_c()).unwrap();
+        vm.mock_call(addr(USDC), alloc::vec![], U256::ZERO, Ok(word_one()));
+        vm.set_sender(addr(5));
+        amm.add_liquidity(U256::from(1_000_000_000_000_000_000_000u128), I256::ZERO, I256::ZERO).unwrap();
+        // First underwrite flips trades_started.
+        vm.set_sender(addr(RTR));
+        amm.underwrite_trade(U256::from(1u8), wad_c(), U256::from(1u8), U256::from(1u8)).unwrap();
+        // Now set_distribution / set_prior_weight are locked.
+        vm.set_sender(addr(1));
+        assert_eq!(amm.set_distribution(I256::ZERO, wad_c()).unwrap_err(), b"TradesAlreadyStarted".to_vec());
+        assert_eq!(amm.set_prior_weight(i(5)).unwrap_err(), b"TradesAlreadyStarted".to_vec());
+    }
+
+    // ── Resolution lifecycle ──────────────────────────────────────────
+
+    #[test]
+    fn propose_resolution_is_router_only() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(9));
+        assert_eq!(amm.propose_resolution(U256::from(1u8)).unwrap_err(), b"Unauthorized".to_vec());
+    }
+
+    #[test]
+    fn resolution_timelock_and_execution() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_block_timestamp(1_000_000);
+
+        // Router proposes YES (id 1).
+        vm.set_sender(addr(RTR));
+        amm.propose_resolution(U256::from(1u8)).unwrap();
+        // Double-propose guarded.
+        assert_eq!(amm.propose_resolution(U256::from(1u8)).unwrap_err(), b"Already proposed".to_vec());
+
+        // Owner cannot execute before the 24h timelock elapses.
+        vm.set_sender(addr(1));
+        assert_eq!(amm.execute_resolution().unwrap_err(), b"Time-lock active".to_vec());
+
+        // Advance past 24h and execute.
+        vm.set_block_timestamp(1_000_000 + 86_400 + 1);
+        amm.execute_resolution().unwrap();
+        assert!(amm.is_resolved().unwrap());
+        assert_eq!(amm.winning_token_id().unwrap(), U256::from(1u8));
+        // Cannot execute twice.
+        assert_eq!(amm.execute_resolution().unwrap_err(), b"Already resolved".to_vec());
+    }
+
+    #[test]
+    fn execute_resolution_is_owner_only() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_block_timestamp(10);
+        vm.set_sender(addr(RTR));
+        amm.propose_resolution(U256::from(1u8)).unwrap();
+        vm.set_block_timestamp(10 + 86_400 + 1);
+        vm.set_sender(addr(9));
+        assert_eq!(amm.execute_resolution().unwrap_err(), b"Unauthorized".to_vec());
+    }
+
+    #[test]
+    fn cancel_resolution_resets_proposal() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_block_timestamp(10);
+        vm.set_sender(addr(RTR));
+        amm.propose_resolution(U256::from(2u8)).unwrap();
+        // Owner cancels.
+        vm.set_sender(addr(1));
+        amm.cancel_resolution().unwrap();
+        // After cancel, a fresh proposal is allowed again.
+        vm.set_sender(addr(RTR));
+        amm.propose_resolution(U256::from(1u8)).unwrap();
+    }
+
+    #[test]
+    fn cancel_resolution_is_owner_only() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(9));
+        assert_eq!(amm.cancel_resolution().unwrap_err(), b"Unauthorized".to_vec());
+    }
+
+    // ── release_collateral ────────────────────────────────────────────
+
+    #[test]
+    fn release_collateral_is_router_only() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(9));
+        assert_eq!(amm.release_collateral(U256::from(1u8)).unwrap_err(), b"Unauthorized".to_vec());
+    }
+
+    #[test]
+    fn release_collateral_frees_locked_liability() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(1));
+        amm.set_distribution(I256::ZERO, wad_c()).unwrap();
+        vm.mock_call(addr(USDC), alloc::vec![], U256::ZERO, Ok(word_one()));
+        vm.set_sender(addr(5));
+        amm.add_liquidity(U256::from(1_000_000_000_000_000_000_000u128), I256::ZERO, I256::ZERO).unwrap();
+
+        let liability = U256::from(10_000_000_000_000_000_000u128); // 10 WAD
+        vm.set_sender(addr(RTR));
+        amm.underwrite_trade(U256::from(1u8), wad_c(), U256::from(1u8), liability).unwrap();
+        let before = amm.available_liquidity().unwrap();
+        // Release the losing token's collateral back to available liquidity.
+        amm.release_collateral(U256::from(1u8)).unwrap();
+        assert_eq!(amm.available_liquidity().unwrap(), before + i(10_000_000_000_000_000_000));
+        // Idempotent: releasing again is a no-op (liability already zero).
+        amm.release_collateral(U256::from(1u8)).unwrap();
+        assert_eq!(amm.available_liquidity().unwrap(), before + i(10_000_000_000_000_000_000));
+    }
+
+    // ── Fee distribution ──────────────────────────────────────────────
+
+    #[test]
+    fn distribute_fee_is_router_only() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        vm.set_sender(addr(9));
+        assert_eq!(amm.distribute_fee(U256::from(1u8)).unwrap_err(), b"Unauthorized".to_vec());
+    }
+
+    #[test]
+    fn distribute_fee_updates_accumulator() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        // lp_token.totalSupply() (view) reads the shared buffer ⇒ set it to 2 WAD.
+        let total_supply = U256::from(2_000_000_000_000_000_000u128);
+        let mut buf = [0u8; 32];
+        buf.copy_from_slice(&total_supply.to_be_bytes::<32>());
+        vm.mock_static_call(addr(LP), alloc::vec![], Ok(buf.to_vec()));
+
+        let fee = U256::from(1_000_000_000_000_000_000u128); // 1 WAD
+        vm.set_sender(addr(RTR));
+        amm.distribute_fee(fee).unwrap();
+        // inc = fee * WAD / totalSupply = 1e18 * 1e18 / 2e18 = 0.5 WAD.
+        assert_eq!(amm.acc_fee_per_share().unwrap(), i(500_000_000_000_000_000));
+        // Fee tracked in available_liquidity.
+        assert_eq!(amm.available_liquidity().unwrap(), i(1_000_000_000_000_000_000));
+    }
+
+    // ── Liquidity removal guards ──────────────────────────────────────
+
+    #[test]
+    fn remove_liquidity_insufficient_liquidity_reverts() {
+        let vm = TestVM::default();
+        let mut amm = setup(&vm, addr(1));
+        // available_liquidity is 0; removing 1 WAD breaches the solvency check.
+        vm.mock_call(addr(USDC), alloc::vec![], U256::ZERO, Ok(word_one()));
+        vm.set_sender(addr(5));
+        assert_eq!(
+            amm.remove_liquidity(U256::from(1_000_000_000_000_000_000u128)).unwrap_err(),
+            b"InsufficientLiquidity".to_vec()
+        );
+    }
+}
