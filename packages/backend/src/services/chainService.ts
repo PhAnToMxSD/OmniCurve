@@ -207,11 +207,129 @@ const watchedAmms = new Set<string>();
 const allUnwatchers: WatchContractEventReturnType[] = [];
 
 /**
+ * Reconstructs all Position rows for a market from its full TradeExecuted log
+ * history. `watchContractEvent` only sees future events, so any trade that
+ * landed while the backend was down — or before the DB was last wiped/seeded —
+ * would otherwise never appear in the portfolio (LP balances always show
+ * because they are read live on-chain; trade positions are not). This reads
+ * every past TradeExecuted log, aggregates them by deterministic positionId,
+ * and writes ABSOLUTE totals. Unlike the live handler (which increments per
+ * event), writing absolutes makes this safe to re-run on every restart without
+ * double-counting.
+ */
+async function backfillTradePositions(market: WatchableMarket): Promise<void> {
+  const routerAddress = market.routerAddress as `0x${string}`;
+  const marketId = market.marketId;
+
+  let logs;
+  try {
+    logs = await publicClient.getContractEvents({
+      address: routerAddress,
+      abi: routerAbi,
+      eventName: 'TradeExecuted',
+      fromBlock: 'earliest',
+      toBlock: 'latest',
+    });
+  } catch (err) {
+    console.error(`❌ Trade backfill: getContractEvents failed for market ${marketId}:`, err);
+    return;
+  }
+  if (logs.length === 0) return;
+
+  // Current μ/σ is used only to estimate each position's USD stake — the same
+  // approximation the live TradeExecuted handler makes.
+  const state = await getMarketState(market.ammAddress);
+
+  type Agg = {
+    positionId: string;
+    userAddress: string;
+    targetValueX: number;
+    direction: 'ABOVE' | 'BELOW';
+    tokensMinted: number;
+    stakeAmount: number;
+  };
+  const byId = new Map<string, Agg>();
+
+  for (const log of logs) {
+    const { user, target_price, is_yes, tokens_minted } = log.args as {
+      user?: string;
+      target_price?: bigint;
+      is_yes?: boolean;
+      tokens_minted?: bigint;
+    };
+    if (user === undefined || target_price === undefined || is_yes === undefined || tokens_minted === undefined) {
+      continue;
+    }
+
+    const targetPriceAbs = target_price < 0n ? -target_price : target_price;
+    const tokensFloat = parseFloat(formatEther(tokens_minted));
+    const targetValueX = parseFloat(formatEther(targetPriceAbs));
+    const prices = calculateExpectedPrices(targetValueX, state.mu, state.sigma);
+    const priceFloat = is_yes ? prices.pYes : prices.pNo;
+    const stakeAmount = Math.ceil(priceFloat * tokensFloat * 1.01 * 1e6);
+    const direction: 'ABOVE' | 'BELOW' = is_yes ? 'ABOVE' : 'BELOW';
+    const positionId = `${user.toLowerCase()}-${marketId}-${direction}-${Math.round(targetValueX * 1000)}`;
+
+    const existing = byId.get(positionId);
+    if (existing) {
+      existing.tokensMinted += tokensFloat;
+      existing.stakeAmount += stakeAmount;
+    } else {
+      byId.set(positionId, {
+        positionId,
+        userAddress: user.toLowerCase(),
+        targetValueX,
+        direction,
+        tokensMinted: tokensFloat,
+        stakeAmount,
+      });
+    }
+  }
+
+  for (const agg of byId.values()) {
+    await prisma.user.upsert({
+      where: { walletAddress: agg.userAddress },
+      create: { walletAddress: agg.userAddress },
+      update: {},
+    });
+    await prisma.position.upsert({
+      where: { positionId: agg.positionId },
+      create: {
+        positionId: agg.positionId,
+        userAddress: agg.userAddress,
+        marketId,
+        targetValueX: agg.targetValueX,
+        direction: agg.direction,
+        tokensMinted: agg.tokensMinted,
+        stakeAmount: agg.stakeAmount,
+      },
+      // Absolute totals (not increment) → idempotent across restarts.
+      update: {
+        tokensMinted: agg.tokensMinted,
+        stakeAmount: agg.stakeAmount,
+      },
+    });
+  }
+
+  console.log(
+    `📦 Trade backfill — market ${marketId}: reconstructed ${byId.size} position(s) ` +
+    `from ${logs.length} TradeExecuted log(s)`
+  );
+}
+
+/**
  * Registers the 5 per-market event watchers (CurveUpdated, LiquidityAdded,
  * LiquidityRemoved, MarketResolved on the AMM; TradeExecuted on the Router).
  * No-op if this AMM is already being watched.
+ *
+ * Backfills historical trade positions BEFORE subscribing to live events: the
+ * absolute-write backfill plus the increment-on-event live handler share the
+ * same deterministic positionId, so doing the backfill first avoids the live
+ * watcher double-counting a trade that the backfill already captured. A trade
+ * landing in the tiny gap between the backfill snapshot and the subscription is
+ * recovered by the next restart's backfill.
  */
-function watchMarket(market: WatchableMarket): void {
+async function watchMarket(market: WatchableMarket): Promise<void> {
   const ammKey = market.ammAddress.toLowerCase();
   if (watchedAmms.has(ammKey)) return;
   watchedAmms.add(ammKey);
@@ -219,6 +337,8 @@ function watchMarket(market: WatchableMarket): void {
   const ammAddress = market.ammAddress as `0x${string}`;
   const routerAddress = market.routerAddress as `0x${string}`;
   const marketId = market.marketId;
+
+  await backfillTradePositions(market);
 
   console.log(`⛓️  Watching market ${marketId} — AMM ${ammAddress}, Router ${routerAddress}`);
 
@@ -505,7 +625,7 @@ async function handleMarketCreatedOnChain(
     },
   });
 
-  watchMarket({ marketId, ammAddress, routerAddress });
+  await watchMarket({ marketId, ammAddress, routerAddress });
   broadcastMarketCreated(marketId);
 }
 
@@ -584,7 +704,7 @@ export async function startChainWatcher(): Promise<WatchContractEventReturnType[
       console.error(`❌ Startup liquidity resync failed for market ${market.marketId}:`, err);
     }
 
-    watchMarket(market);
+    await watchMarket(market);
   }
 
   // ── MarketCreated (Factory) ────────────────────────────────────────────
