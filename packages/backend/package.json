@@ -26,6 +26,7 @@
     "start": "pnpm db:push && pnpm db:seed && pnpm start:api",
     "start:api": "tsx src/server.ts",
     "db:seed": "tsx src/db/seed.ts",
+    "db:backfill": "tsx src/db/backfill.ts",
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
     "deploy:subgraph:amm": "goldsky subgraph deploy omnicurve-amm/1.0.2 --from-abi ./goldsky-amm.json"

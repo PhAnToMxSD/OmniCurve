@@ -217,7 +217,7 @@ const allUnwatchers: WatchContractEventReturnType[] = [];
  * event), writing absolutes makes this safe to re-run on every restart without
  * double-counting.
  */
-async function backfillTradePositions(market: WatchableMarket): Promise<void> {
+export async function backfillTradePositions(market: WatchableMarket): Promise<void> {
   const routerAddress = market.routerAddress as `0x${string}`;
   const marketId = market.marketId;
 
