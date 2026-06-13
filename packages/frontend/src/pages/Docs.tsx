@@ -893,6 +893,337 @@ const LIFECYCLE = [
   },
 ]
 
+/* ════════════════════════════════════════════════════════════════════════
+   12 — Future: a multi-agent AI oracle for resolution
+   A second pinned scroll story. The same morphing-stage technique as the
+   protocol story above, but here the stage is the resolution *pipeline* from
+   Kota, "Design and Evaluation of Multi-Agent AI Oracle Systems for
+   Prediction Market Resolution" (arXiv:2605.30802): question → evidence →
+   debate → consensus → confidence threshold → set_final_price.
+   ════════════════════════════════════════════════════════════════════════ */
+
+const ORACLE_AGENTS = [
+  { x: 215, label: 'model α', verdict: 'YES · 0.91', tone: 'yes' as const },
+  { x: 405, label: 'model β', verdict: 'YES · 0.88', tone: 'yes' as const },
+  { x: 595, label: 'model γ', verdict: 'ABSTAIN', tone: 'mute' as const },
+  { x: 785, label: 'model δ', verdict: 'YES · 0.95', tone: 'yes' as const },
+]
+
+const O_AGENT_Y = 255
+const O_AGENT_W = 132
+const O_AGENT_H = 58
+const O_Q_CY = 78
+const O_CONS_CX = 500
+const O_CONS_CY = 418
+const O_CONS_W = 232
+const O_CONS_H = 64
+const O_BAR_X = 360
+const O_BAR_W = 280
+const O_BAR_Y = 496
+const O_TAU = 0.75
+
+const oAgentTop = O_AGENT_Y - O_AGENT_H / 2
+const oAgentBot = O_AGENT_Y + O_AGENT_H / 2
+const oConsTop = O_CONS_CY - O_CONS_H / 2
+
+/* one agent: a labelled verdict card that rises in, its verdict revealed
+   only once the debate phase resolves */
+function OracleAgent({
+  t, agent, i,
+}: {
+  t: MotionValue<number>
+  agent: (typeof ORACLE_AGENTS)[number]
+  i: number
+}) {
+  const inS = 0.33 + i * 0.025
+  const opacity = useTransform(t, [inS, inS + 0.05], [0, 1])
+  const y = useTransform(t, [inS, inS + 0.06], [16, 0])
+  const verdictO = useTransform(t, [0.45, 0.51], [0, 1])
+  const tone = agent.tone === 'yes' ? 'var(--accent-yes)' : 'var(--text-subtle)'
+  const left = agent.x - O_AGENT_W / 2
+
+  return (
+    <motion.g style={{ opacity, y }}>
+      <rect
+        x={left} y={oAgentTop} width={O_AGENT_W} height={O_AGENT_H} rx={4}
+        fill="var(--bg-surface)" stroke="rgba(62,44,30,0.30)" strokeWidth={1}
+      />
+      <text
+        x={agent.x} y={oAgentTop + 23} textAnchor="middle"
+        fontSize={12} fontFamily="'JetBrains Mono', monospace" fill="var(--text-primary)"
+      >
+        {agent.label}
+      </text>
+      <motion.text
+        x={agent.x} y={oAgentTop + 43} textAnchor="middle"
+        style={{ opacity: verdictO }}
+        fontSize={12} fontFamily="'JetBrains Mono', monospace" fill={tone}
+      >
+        {agent.verdict}
+      </motion.text>
+    </motion.g>
+  )
+}
+
+function OracleScroll() {
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
+  const t = useSpring(scrollYProgress, { stiffness: 110, damping: 28, restDelta: 0.0001 })
+
+  /* — phase reveals — */
+  const qO = useTransform(t, [0.02, 0.08], [0, 1])
+  const qY = useTransform(t, [0.02, 0.09], [14, 0])
+  const evO = useTransform(t, [0.17, 0.27, 0.5, 0.56], [0, 1, 1, 0])
+  const debO = useTransform(t, [0.34, 0.4, 0.52, 0.57], [0, 1, 1, 0])
+  const consEdgeO = useTransform(t, [0.54, 0.63], [0, 1])
+  const consNodeO = useTransform(t, [0.6, 0.66], [0, 1])
+  const consNodeY = useTransform(t, [0.6, 0.66], [14, 0])
+  const consValO = useTransform(t, [0.62, 0.68], [0, 1])
+  const barO = useTransform(t, [0.68, 0.72], [0, 1])
+  const fillW = useTransform(t, [0.7, 0.82], [0, 0.92 * O_BAR_W])
+  const resolveO = useTransform(t, [0.8, 0.85], [0, 1])
+  const outO = useTransform(t, [0.86, 0.92], [0, 1])
+  const outY = useTransform(t, [0.86, 0.92], [12, 0])
+
+  const phaseText = useTransform(t, (v): string => {
+    if (v < 0.15) return 'A — QUESTION INTAKE'
+    if (v < 0.32) return 'B — EVIDENCE GATHERING'
+    if (v < 0.52) return 'C — MULTI-AGENT DELIBERATION'
+    if (v < 0.68) return 'D — CONSENSUS AGGREGATION'
+    if (v < 0.84) return 'E — CONFIDENCE THRESHOLD'
+    return 'F — RESOLUTION OUTPUT'
+  })
+
+  const tauX = O_BAR_X + O_TAU * O_BAR_W
+
+  return (
+    <div ref={ref} className="relative h-[560vh]">
+      <div className="sticky top-14 h-[calc(100vh-3.5rem)] overflow-hidden flex items-start justify-center lg:justify-end px-1 lg:pr-12">
+        <svg
+          viewBox={`0 0 ${VB_W} ${VB_H}`}
+          preserveAspectRatio="xMidYMid meet"
+          className="w-full max-w-6xl h-[82%] mt-4 px-2"
+        >
+          {/* evidence — fan of retrieval lines from the question to each agent */}
+          <motion.g style={{ opacity: evO }}>
+            {ORACLE_AGENTS.map((a) => (
+              <line
+                key={a.x}
+                x1={O_CONS_CX} y1={O_Q_CY + 26} x2={a.x} y2={oAgentTop - 4}
+                stroke="rgba(62,44,30,0.30)" strokeWidth={1} strokeDasharray="3 4"
+              />
+            ))}
+            <text
+              x={O_CONS_CX} y={O_Q_CY + 52} textAnchor="middle"
+              fontSize={10} fontFamily="'JetBrains Mono', monospace" fill="var(--text-subtle)"
+            >
+              retrieve · fact-check
+            </text>
+          </motion.g>
+
+          {/* debate — agents argue with one another */}
+          <motion.g style={{ opacity: debO }}>
+            {[[0, 1], [1, 2], [2, 3], [0, 2], [1, 3]].map(([a, b]) => (
+              <line
+                key={`${a}-${b}`}
+                x1={ORACLE_AGENTS[a].x} y1={O_AGENT_Y}
+                x2={ORACLE_AGENTS[b].x} y2={O_AGENT_Y}
+                stroke="#C8102E" strokeWidth={1} strokeDasharray="2 4" opacity={0.55}
+              />
+            ))}
+          </motion.g>
+
+          {/* consensus edges — agent verdicts flow into the aggregator */}
+          <motion.g style={{ opacity: consEdgeO }}>
+            {ORACLE_AGENTS.map((a) => (
+              <line
+                key={a.x}
+                x1={a.x} y1={oAgentBot} x2={O_CONS_CX} y2={oConsTop - 4}
+                stroke="rgba(62,44,30,0.30)" strokeWidth={1}
+              />
+            ))}
+          </motion.g>
+
+          {/* question node */}
+          <motion.g style={{ opacity: qO, y: qY }}>
+            <rect
+              x={O_CONS_CX - 195} y={O_Q_CY - 26} width={390} height={52} rx={4}
+              fill="#FDF8EE" stroke="rgba(200,16,46,0.45)" strokeWidth={1}
+            />
+            <text
+              x={O_CONS_CX} y={O_Q_CY - 4} textAnchor="middle"
+              fontSize={10} fontFamily="'JetBrains Mono', monospace" fill="#C8102E"
+            >
+              QUESTION
+            </text>
+            <text
+              x={O_CONS_CX} y={O_Q_CY + 14} textAnchor="middle"
+              fontSize={13} fontFamily="'JetBrains Mono', monospace" fill="var(--text-primary)"
+            >
+              Did ETH close ≥ $3,000 on 2026-12-31?
+            </text>
+          </motion.g>
+
+          {/* agents */}
+          {ORACLE_AGENTS.map((a, i) => (
+            <OracleAgent key={a.x} t={t} agent={a} i={i} />
+          ))}
+
+          {/* consensus node */}
+          <motion.g style={{ opacity: consNodeO, y: consNodeY }}>
+            <rect
+              x={O_CONS_CX - O_CONS_W / 2} y={oConsTop} width={O_CONS_W} height={O_CONS_H} rx={4}
+              fill="var(--bg-surface)" stroke="rgba(200,16,46,0.5)" strokeWidth={1.5}
+            />
+            <text
+              x={O_CONS_CX} y={oConsTop + 22} textAnchor="middle"
+              fontSize={10} fontFamily="'JetBrains Mono', monospace" fill="#C8102E"
+            >
+              WEIGHTED CONSENSUS
+            </text>
+            <motion.text
+              x={O_CONS_CX} y={oConsTop + 46} textAnchor="middle"
+              style={{ opacity: consValO }}
+              fontSize={14} fontFamily="'JetBrains Mono', monospace" fill="var(--text-primary)"
+            >
+              final_price ≈ $3,200
+            </motion.text>
+          </motion.g>
+
+          {/* confidence bar + threshold */}
+          <motion.g style={{ opacity: barO }}>
+            <text
+              x={O_BAR_X} y={O_BAR_Y - 10}
+              fontSize={10} fontFamily="'JetBrains Mono', monospace" fill="var(--text-subtle)"
+            >
+              aggregate confidence
+            </text>
+            <rect x={O_BAR_X} y={O_BAR_Y} width={O_BAR_W} height={8} rx={4} fill="rgba(62,44,30,0.14)" />
+            <motion.rect
+              x={O_BAR_X} y={O_BAR_Y} width={fillW} height={8} rx={4}
+              fill="var(--accent-yes)"
+            />
+            <line x1={tauX} x2={tauX} y1={O_BAR_Y - 6} y2={O_BAR_Y + 14} stroke="#C8102E" strokeWidth={1.5} />
+            <text
+              x={tauX} y={O_BAR_Y - 10} textAnchor="middle"
+              fontSize={10} fontFamily="'JetBrains Mono', monospace" fill="#C8102E"
+            >
+              τ
+            </text>
+            <motion.text
+              x={O_BAR_X + O_BAR_W} y={O_BAR_Y + 28} textAnchor="end"
+              style={{ opacity: resolveO }}
+              fontSize={11} fontFamily="'JetBrains Mono', monospace" fill="var(--accent-yes)"
+            >
+              0.92 ≥ τ 0.75 → RESOLVE  (else ABSTAIN)
+            </motion.text>
+          </motion.g>
+
+          {/* resolution output — hands the one number to the Router */}
+          <motion.g style={{ opacity: outO, y: outY }}>
+            <text
+              x={O_CONS_CX} y={552} textAnchor="middle"
+              fontSize={12} fontFamily="'JetBrains Mono', monospace" fill="#0E7490"
+            >
+              Router.set_final_price($3,200) → YES pays $1 / token
+            </text>
+          </motion.g>
+        </svg>
+
+        {/* phase indicator — top left */}
+        <div
+          className="absolute top-5 left-4 sm:left-10 pointer-events-none rounded px-3.5 py-2.5 border border-[rgba(62,44,30,0.16)]"
+          style={{ background: 'rgba(253,248,238,0.94)', boxShadow: '0 6px 20px rgba(62,44,30,0.10)' }}
+        >
+          <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-[rgba(35,24,18,0.60)]">
+            Planned · AI oracle
+          </p>
+          <motion.p className="font-mono text-xs tracking-[0.2em] uppercase text-[#C8102E] mt-1.5">
+            {phaseText}
+          </motion.p>
+        </div>
+
+        {/* scroll progress rail */}
+        <div className="absolute right-1.5 sm:right-3 top-[12%] bottom-[12%] w-px bg-[color:var(--border-dim)]">
+          <motion.div
+            style={{ scaleY: t, transformOrigin: 'top' }}
+            className="absolute inset-0 bg-[#C8102E]"
+          />
+        </div>
+
+        {/* captions — crux on top, a verbatim line from the paper underneath */}
+        <Caption
+          t={t} win={[0.02, 0.05, 0.12, 0.15]} num="A / 06" title="Why not one model"
+          foot="“Single AI models are prone to hallucinations, sycophancy, and systematic biases that undermine oracle reliability.”"
+        >
+          Resolution is the last manual step in OmniCurve — today the owner types the final
+          price by hand. The fix isn't a single price feed or a single LLM; it's a panel of
+          diverse models, because a lone oracle fails in correlated, invisible ways.
+        </Caption>
+        <Caption t={t} win={[0.17, 0.2, 0.29, 0.32]} num="B / 06" title="Evidence, gathered">
+          The market's question and resolution criteria become one normalized prompt. Each
+          agent independently retrieves sources and fact-checks them — no single source can
+          decide the outcome on its own.
+        </Caption>
+        <Caption
+          t={t} win={[0.34, 0.37, 0.49, 0.52]} num="C / 06" title="Agents deliberate"
+          foot="“Multiple AI agents debate competing resolutions, exposing errors through adversarial discussion.”"
+        >
+          Architecturally diverse models (α, β, γ, δ) argue competing resolutions and surface
+          each other's mistakes. Disagreement is the feature — monoculture is the risk being
+          defended against.
+        </Caption>
+        <Caption
+          t={t} win={[0.54, 0.57, 0.65, 0.68]} num="D / 06" title="Consensus, weighted"
+          foot="“Agent predictions are aggregated using weighted voting schemes that account for confidence calibration.”"
+        >
+          A confidence-weighted vote collapses every agent's verdict into exactly one
+          candidate number — the single `final_price` settlement actually needs.
+        </Caption>
+        <Caption
+          t={t} win={[0.7, 0.73, 0.81, 0.84]} num="E / 06" title="Know when to abstain"
+          foot="“Confidence thresholds enable oracles to abstain when uncertainty exceeds acceptable bounds.”"
+        >
+          If aggregate confidence clears the threshold τ, the price resolves. If it doesn't,
+          the oracle writes nothing — degrading gracefully to the 24-hour timelock and human
+          dispute path rather than guessing.
+        </Caption>
+        <Caption
+          t={t} win={[0.86, 0.89, 0.97, 0.995]} num="F / 06" title="One number, on-chain"
+          foot="Plugs into propose_resolution → execute_resolution; settlement math (Section 1.4) is untouched."
+        >
+          The accepted price is written via `set_final_price`, and the existing per-position
+          rule pays $1 per winning token. The AI never touches μ, σ, or pricing — belief and
+          settlement stay cleanly separated.
+        </Caption>
+      </div>
+    </div>
+  )
+}
+
+const ORACLE_TENETS = [
+  {
+    label: 'Redundancy',
+    quote: '“Multiple independent models reduce single-point failures.”',
+    note: 'A panel, not a feed — no single model can mis-resolve a market on its own.',
+  },
+  {
+    label: 'Adversarial debate',
+    quote: '“Agents present arguments and counterarguments to improve collective accuracy.”',
+    note: "Agents challenge each other's reasoning before any price is written on-chain.",
+  },
+  {
+    label: 'Calibrated voting',
+    quote: '“Aggregated using weighted voting schemes that account for confidence calibration.”',
+    note: 'Well-calibrated, confident agents carry more weight in the final number.',
+  },
+  {
+    label: 'Selective abstention',
+    quote: '“Oracles abstain when uncertainty exceeds acceptable bounds.”',
+    note: 'Below τ the oracle stays silent and the 24h dispute window keeps control.',
+  },
+]
+
 export default function Docs() {
   return (
     <div className="overflow-x-clip">
@@ -1066,6 +1397,62 @@ export default function Docs() {
             <span className="text-[#C8102E]">·</span>
             <span>Non-custodial</span>
           </div>
+        </Reveal>
+      </section>
+
+      {/* ── 12 / FUTURE — multi-agent AI oracle ── */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-28 pb-4">
+        <SectionHead
+          num="12 / The road ahead"
+          title="An AI oracle for resolution"
+          sub="Today the owner sets the final price by hand. Next: a multi-agent AI oracle that debates, votes with calibrated weights, and knows when to abstain — after Kota, arXiv:2605.30802. Scroll the pipeline."
+        />
+      </section>
+      <OracleScroll />
+
+      {/* ── 12½ / FROM THE PAPER ── */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-28 pb-8">
+        <SectionHead
+          num="12½ / From the paper"
+          title="Why a panel, not a feed"
+          sub="The design principles behind the planned oracle — each a one-line claim from the paper, mapped to what it buys OmniCurve."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {ORACLE_TENETS.map((tn, i) => (
+            <Reveal key={tn.label} delay={i * 0.08}>
+              <div
+                className="border border-[color:var(--border-dim)] rounded p-5 h-full"
+                style={{ background: 'var(--bg-surface)' }}
+              >
+                <p className="font-mono text-[10px] tracking-[0.25em] uppercase text-[#C8102E] mb-3">
+                  {tn.label}
+                </p>
+                <p className="font-serif italic text-[15px] leading-relaxed text-[color:var(--text-primary)]">
+                  {tn.quote}
+                </p>
+                <p className="font-serif text-sm leading-relaxed mt-3 text-[color:var(--text-muted)]">
+                  {tn.note}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={0.2}>
+          <p className="font-mono text-[11px] mt-8 text-[color:var(--text-subtle)]">
+            Source —{' '}
+            <a
+              href="https://arxiv.org/pdf/2605.30802"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#C8102E] hover:underline"
+            >
+              Kota, “Design and Evaluation of Multi-Agent AI Oracle Systems for Prediction
+              Market Resolution” (arXiv:2605.30802)
+            </a>
+            . Resolution math (Section 1.4) is unchanged — the oracle only ever supplies a
+            single <span className="text-[color:var(--text-primary)]">final_price</span>, or
+            abstains.
+          </p>
         </Reveal>
       </section>
 
