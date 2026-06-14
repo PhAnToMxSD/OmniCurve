@@ -288,7 +288,8 @@ Non-transferable ERC-20:
 
 Market deployer:
 - Stores implementation addresses for AMM, Router, LP Token
-- `create_market(usdc, sigma_min)` — Deploys 3 EIP-1167 clones via CREATE2, initializes and wires them
+- `create_market(usdc, sigma_min, title)` — Deploys 3 EIP-1167 clones via CREATE2, initializes and wires them, and stores `title` immutably on-chain. Emits `MarketCreated(market_id, amm, router, lp_token, title)`
+- `get_market_title(id)` — Reads back a market's on-chain title (empty string for markets that predate on-chain titles)
 - Two-step ownership: Factory transfers AMM + Router ownership to caller; caller must `acceptOwnership()`
 - LP Token owner is always the AMM proxy (set during factory `initialize`)
 - Currently owner-only for market creation
@@ -317,7 +318,7 @@ All functions use I256 (signed 256-bit integer) with 18-decimal fixed-point (WAD
 | AMM Implementation | `0x56a2a3d3d5b50ff40f84188d1f975fedb819d882` |
 | Router Implementation | `0xa4ed547186b992eecd7244743577baf4c541ff9d` |
 | LP Token Implementation | `0x0e382e38342f28493568b98e5cab30348d6b2cab` |
-| Factory | `0x9c8d052ff1f0e6419a6a323e86ffa893cb6ce817` |
+| Factory | `0xde6b999e488d9b723a3409e80ea390c079f88016` |
 
 ### Live Markets (as of 2026-06-14)
 | Market | AMM Proxy | Router Proxy | LP Token Proxy |
@@ -408,7 +409,7 @@ Position: positionId (PK), userAddress (FK), marketId (FK), targetValueX,
 4. **Two ABI directories**: `types/abis/` (root, PascalCase) and `packages/types/abis/` (canonical, snake/camel). Now synced to the same contents; the canonical one is what the frontend imports
 5. **1% fee hardcoded**: No governance or per-market configuration
 6. **`execute_settlement` is dead code**: Does nothing, misleading for integrators
-7. **Market title not stored on-chain**: The factory emits only a numeric `market_id`. Titles are stored in the DB via `PATCH /api/markets/:id/metadata`, called by the frontend after `createMarket` confirms. If the backend is unreachable at that moment the title stays as "Market #N" and must be patched manually: `curl -X PATCH http://localhost:3001/api/markets/:id/metadata -d '{"title":"..."}'`.
+7. **Market category still off-chain**: As of the 2026-06-14 factory redeploy, the title *is* stored on-chain (`create_market(usdc, sigma_min, title)`, read via `get_market_title(id)`, emitted in `MarketCreated`). Category is still off-chain only, set via `PATCH /api/markets/:id/metadata`. If the backend is unreachable when that patch fires, the off-chain category/title cache stays as "Market #N" and must be patched manually: `curl -X PATCH http://localhost:3001/api/markets/:id/metadata -d '{"title":"..."}'`.
 
 ### Not Yet Built
 - **docker-compose.yml**: Mentioned in DEVELOPER_CONTEXT.md but not created
