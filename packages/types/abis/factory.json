@@ -17,6 +17,11 @@
         "internalType": "int256",
         "name": "sigma_min",
         "type": "int256"
+      },
+      {
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
       }
     ],
     "name": "createMarket",
@@ -77,6 +82,25 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "market_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getMarketTitle",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
       }
     ],
     "stateMutability": "view",
@@ -241,6 +265,12 @@
         "type": "address",
         "indexed": false,
         "internalType": "address"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
       }
     ]
   }

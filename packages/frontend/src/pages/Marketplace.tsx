@@ -55,6 +55,8 @@ export default function Marketplace() {
 
   const { data: markets, isLoading, error } = useMarkets()
 
+  // market.title is served by the backend, which reads it from the on-chain
+  // Factory — so it is the immutable title without any per-card RPC call here.
   const filtered = (markets ?? []).filter((m) => {
     if (category !== 'All' && m.category !== category) return false
     if (!showResolved && m.isResolved) return false
@@ -132,7 +134,7 @@ export default function Marketplace() {
 
       {/* Grid */}
       {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[...Array(6)].map((_, i) => (
             <div key={i} className={`h-[240px] border rounded animate-pulse transition-colors duration-300 ${T.skeleton}`} />
           ))}
@@ -150,7 +152,7 @@ export default function Marketplace() {
         </div>
       ) : (
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
           initial="hidden"
           animate="visible"
           variants={{

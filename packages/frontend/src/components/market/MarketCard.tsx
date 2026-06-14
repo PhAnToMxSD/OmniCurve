@@ -93,7 +93,7 @@ export function MarketCard({ market }: MarketCardProps) {
                 className="font-mono text-xs"
                 style={{ color: 'var(--text-muted)' }}
               >
-                ${market.totalLiquidity.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                ${Math.max(0, market.totalLiquidity).toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </p>
             </div>
           </div>

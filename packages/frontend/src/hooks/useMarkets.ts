@@ -7,5 +7,6 @@ export function useMarkets(params?: { category?: string; active?: boolean }) {
     queryFn: () => api.getMarkets(params),
     staleTime: 30_000,
     refetchOnWindowFocus: true,
+    refetchOnMount: 'always',
   })
 }

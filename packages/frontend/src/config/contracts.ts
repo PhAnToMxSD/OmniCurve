@@ -2,7 +2,7 @@ import AMM_ABI from '@omnicurve/types/abis/distribution_amm.json'
 import ROUTER_ABI from '@omnicurve/types/abis/binary_router.json'
 import FACTORY_ABI from '@omnicurve/types/abis/factory.json'
 
-export const FACTORY_ADDRESS = '0x9c8d052ff1f0e6419a6a323e86ffa893cb6ce817' as const
+export const FACTORY_ADDRESS = '0xde6b999e488d9b723a3409e80ea390c079f88016' as const
 export const USDC_ADDRESS = '0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d' as const
 export const CHAIN_ID = 421614
 

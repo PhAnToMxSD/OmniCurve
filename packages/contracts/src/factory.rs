@@ -11,7 +11,7 @@ use alloc::string::String;
 use crate::interfaces::{IProxyAmm, IProxyRouter, ILpToken};
 
 sol! {
-    event MarketCreated(uint256 indexed market_id, address amm, address router, address lp_token);
+    event MarketCreated(uint256 indexed market_id, address amm, address router, address lp_token, string title);
 }
 
 sol_storage! {
@@ -26,6 +26,9 @@ sol_storage! {
         mapping(uint256 => address) amm_proxies;
         mapping(uint256 => address) router_proxies;
         mapping(uint256 => address) lp_token_proxies;
+        // Immutable, on-chain human-readable market name, keyed by market_id.
+        // Set once at create_market and never mutated thereafter.
+        mapping(uint256 => string) market_titles;
     }
 }
 
@@ -188,6 +191,7 @@ impl OmniCurveFactory {
         &mut self,
         usdc: Address,
         sigma_min: I256,
+        title: String,
     ) -> Result<(), Vec<u8>> {
         // M3: Anyone can create markets (no owner restriction)
 
@@ -279,7 +283,8 @@ impl OmniCurveFactory {
         self.amm_proxies.setter(current_count).set(amm_proxy);
         self.router_proxies.setter(current_count).set(router_proxy);
         self.lp_token_proxies.setter(current_count).set(lp_proxy);
-        self.vm().log(MarketCreated { market_id: current_count, amm: amm_proxy, router: router_proxy, lp_token: lp_proxy });
+        self.market_titles.setter(current_count).set_str(&title);
+        self.vm().log(MarketCreated { market_id: current_count, amm: amm_proxy, router: router_proxy, lp_token: lp_proxy, title });
         self.market_count.set(current_count + U256::from(1));
 
         Ok(())
@@ -295,6 +300,12 @@ impl OmniCurveFactory {
 
     pub fn get_market_count(&self) -> Result<U256, Vec<u8>> {
         Ok(self.market_count.get())
+    }
+
+    /// The immutable, on-chain title for a market. Empty string if the market
+    /// does not exist (or predates on-chain titles).
+    pub fn get_market_title(&self, market_id: U256) -> Result<String, Vec<u8>> {
+        Ok(self.market_titles.getter(market_id).get_string())
     }
 
     pub fn get_amm_implementation(&self) -> Result<Address, Vec<u8>> {
@@ -443,12 +454,14 @@ mod tests {
 
         // M3: creation is permissionless — a non-owner can create a market.
         vm.set_sender(addr(7));
-        f.create_market(addr(0xCC), I256::try_from(1000i64).unwrap()).unwrap();
+        f.create_market(addr(0xCC), I256::try_from(1000i64).unwrap(), String::from("Will ETH top $5k?")).unwrap();
 
         assert_eq!(f.get_market_amm(U256::ZERO).unwrap(), addr(0x20));
         assert_eq!(f.get_market_router(U256::ZERO).unwrap(), addr(0x21));
         assert_eq!(f.get_market_lp_token(U256::ZERO).unwrap(), addr(0x22));
         assert_eq!(f.get_market_count().unwrap(), U256::from(1u8));
+        // Title is recorded on-chain and immutable.
+        assert_eq!(f.get_market_title(U256::ZERO).unwrap(), "Will ETH top $5k?");
 
         // MarketCreated emitted.
         assert!(!vm.get_emitted_logs().is_empty());
@@ -463,11 +476,14 @@ mod tests {
         mock_market_deploys(&vm, 1, addr(0x30), addr(0x31), addr(0x32));
 
         vm.set_sender(addr(7));
-        f.create_market(addr(0xCC), I256::try_from(1000i64).unwrap()).unwrap();
-        f.create_market(addr(0xCC), I256::try_from(1000i64).unwrap()).unwrap();
+        f.create_market(addr(0xCC), I256::try_from(1000i64).unwrap(), String::from("Market zero")).unwrap();
+        f.create_market(addr(0xCC), I256::try_from(1000i64).unwrap(), String::from("Market one")).unwrap();
 
         assert_eq!(f.get_market_count().unwrap(), U256::from(2u8));
         assert_eq!(f.get_market_amm(U256::from(1u8)).unwrap(), addr(0x30));
         assert_eq!(f.get_market_router(U256::from(1u8)).unwrap(), addr(0x31));
+        // Each market keeps its own distinct title.
+        assert_eq!(f.get_market_title(U256::ZERO).unwrap(), "Market zero");
+        assert_eq!(f.get_market_title(U256::from(1u8)).unwrap(), "Market one");
     }
 }

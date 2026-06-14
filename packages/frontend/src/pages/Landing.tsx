@@ -20,7 +20,7 @@ export default function Landing() {
   const { data: markets } = useMarkets()
   const [showIntro, setShowIntro] = useState(() => !introPlayedThisLoad)
 
-  const totalLiquidity = markets?.reduce((s, m) => s + m.totalLiquidity, 0) ?? 0
+  const totalLiquidity = markets?.reduce((s, m) => s + Math.max(0, m.totalLiquidity), 0) ?? 0
   const resolvedCount  = markets?.filter(m => m.isResolved).length ?? 0
 
   useEffect(() => {

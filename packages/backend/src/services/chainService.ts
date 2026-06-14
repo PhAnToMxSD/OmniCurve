@@ -86,6 +86,26 @@ export async function getSigmaMin(ammAddress: string): Promise<number> {
   }
 }
 
+/**
+ * Reads a market's immutable title from the Factory (`getMarketTitle`). Titles
+ * are stored on-chain at create time and are the authoritative source. Returns
+ * an empty string if the getter reverts (e.g. a factory deployed before on-chain
+ * titles existed) so callers can fall back to a placeholder.
+ */
+export async function getMarketTitle(marketId: string): Promise<string> {
+  try {
+    const title = await publicClient.readContract({
+      address: config.FACTORY_ADDRESS as `0x${string}`,
+      abi: factoryAbi,
+      functionName: 'getMarketTitle',
+      args: [BigInt(marketId)],
+    });
+    return typeof title === 'string' ? title.trim() : '';
+  } catch {
+    return '';
+  }
+}
+
 // ─── Event watcher ───────────────────────────────────────────────────────────
 
 // ─── LP Stats helpers (Section 3) ────────────────────────────────────────────
@@ -227,7 +247,10 @@ export async function backfillTradePositions(market: WatchableMarket): Promise<v
       address: routerAddress,
       abi: routerAbi,
       eventName: 'TradeExecuted',
-      fromBlock: 'earliest',
+      // Arbitrum Sepolia's public RPC rejects the 'earliest' block tag for
+      // eth_getLogs ("expected fromBlock to be a hex string starting with 0x"),
+      // so pass an explicit block number that viem hex-encodes (0n -> 0x0).
+      fromBlock: 0n,
       toBlock: 'latest',
     });
   } catch (err) {
@@ -608,12 +631,26 @@ async function handleMarketCreatedOnChain(
   }
   minVarianceBound = await getSigmaMin(ammAddress);
 
+  // Title is immutable on-chain — read it from the Factory. Only overwrite an
+  // existing row's title when the chain returns a non-empty value, so a factory
+  // without the getter never clobbers a good title with a placeholder.
+  const onChainTitle = await getMarketTitle(marketId);
+
   await prisma.market.upsert({
     where: { marketId },
-    update: { ammAddress, routerAddress, lpTokenAddress, currentMu, currentSigma, totalLiquidity, minVarianceBound },
+    update: {
+      ammAddress,
+      routerAddress,
+      lpTokenAddress,
+      currentMu,
+      currentSigma,
+      totalLiquidity,
+      minVarianceBound,
+      ...(onChainTitle ? { title: onChainTitle } : {}),
+    },
     create: {
       marketId,
-      title: `Market #${marketId}`,
+      title: onChainTitle || `Market #${marketId}`,
       category: 'general',
       currentMu,
       currentSigma,
@@ -678,6 +715,9 @@ export async function startChainWatcher(): Promise<WatchContractEventReturnType[
   }
 
   const markets = await prisma.market.findMany({
+    where: config.EXCLUDED_MARKET_IDS.length > 0
+      ? { marketId: { notIn: config.EXCLUDED_MARKET_IDS } }
+      : undefined,
     select: { marketId: true, ammAddress: true, routerAddress: true },
   });
 
@@ -691,13 +731,21 @@ export async function startChainWatcher(): Promise<WatchContractEventReturnType[
       continue;
     }
 
-    // Resync liquidity from the AMM's actual USDC balance so the persisted
-    // value is correct on boot (not just on the next event).
+    // Resync liquidity from the AMM's actual USDC balance, and the immutable
+    // title from the Factory, so the persisted values are correct on boot (not
+    // just on the next event). Title is only overwritten when the chain returns
+    // a non-empty value.
     try {
-      const state = await getMarketState(market.ammAddress);
+      const [state, onChainTitle] = await Promise.all([
+        getMarketState(market.ammAddress),
+        getMarketTitle(market.marketId),
+      ]);
       await prisma.market.update({
         where: { marketId: market.marketId },
-        data: { totalLiquidity: state.totalLiquidity },
+        data: {
+          totalLiquidity: state.totalLiquidity,
+          ...(onChainTitle ? { title: onChainTitle } : {}),
+        },
       });
       console.log(`🧹 Synced market ${market.marketId} liquidity from chain: $${state.totalLiquidity}`);
     } catch (err) {

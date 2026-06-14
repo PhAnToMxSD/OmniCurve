@@ -33,6 +33,13 @@ export const factoryAbi = [
     stateMutability: 'view',
   },
   {
+    type: 'function',
+    name: 'getMarketTitle',
+    inputs: [{ name: 'market_id', type: 'uint256' }],
+    outputs: [{ name: '', type: 'string' }],
+    stateMutability: 'view',
+  },
+  {
     type: 'event',
     name: 'MarketCreated',
     inputs: [
@@ -40,6 +47,7 @@ export const factoryAbi = [
       { name: 'amm', type: 'address', indexed: false },
       { name: 'router', type: 'address', indexed: false },
       { name: 'lp_token', type: 'address', indexed: false },
+      { name: 'title', type: 'string', indexed: false },
     ],
   },
 ] as const;

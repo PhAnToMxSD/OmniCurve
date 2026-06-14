@@ -92,6 +92,7 @@ export default function MarketDetail() {
   const { data: market, isLoading, error } = useMarket(marketId)
   const { liveState, isResolved: socketResolved, winningTokenId } = useMarketSocket(marketId)
   const { data: portfolio } = usePortfolio(address)
+  // market.title is the immutable on-chain title (served by the backend).
   const spotSymbol = detectSpotSymbol(market?.title)
   const { spotUsd } = useSpotPrice(spotSymbol)
   const [activeTab, setActiveTab] = useState('trade')

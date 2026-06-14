@@ -27,6 +27,8 @@ export function useCreateMarket() {
       try {
         setStep('submitting')
         const sigmaMinWad = floatToWad(sigmaMin)
+        // The market title is now stored immutably on-chain by the factory.
+        const title = meta?.title ?? ''
         const gasFees = await getGasFees(publicClient)
         // createMarket deploys 3 proxies + wiring — heavy, and MetaMask can't estimate
         // gas for the Stylus factory. Provide an explicit limit (generous fallback).
@@ -37,7 +39,7 @@ export function useCreateMarket() {
                 address: FACTORY_ADDRESS,
                 abi: FACTORY_ABI,
                 functionName: 'createMarket',
-                args: [USDC_ADDRESS, sigmaMinWad],
+                args: [USDC_ADDRESS, sigmaMinWad, title],
                 account: address,
               },
               6_000_000n,
@@ -47,7 +49,7 @@ export function useCreateMarket() {
           address: FACTORY_ADDRESS,
           abi: FACTORY_ABI,
           functionName: 'createMarket',
-          args: [USDC_ADDRESS, sigmaMinWad],
+          args: [USDC_ADDRESS, sigmaMinWad, title],
           ...gasFees,
           gas,
         })
@@ -58,9 +60,10 @@ export function useCreateMarket() {
           throw new Error('createMarket transaction reverted on-chain')
         }
 
-        // The question/category live off-chain: pull the new market id from the
-        // MarketCreated log and store the metadata in the backend so the market
-        // shows its question instead of the "Market #N" placeholder.
+        // The title is now stored on-chain by the factory, but we still mirror
+        // title + category into the backend so its REST endpoints (markets list,
+        // portfolio) and the category filter keep working without a chain read.
+        // Pull the new market id from the MarketCreated log to do so.
         if (meta?.title) {
           try {
             const [created] = parseEventLogs({

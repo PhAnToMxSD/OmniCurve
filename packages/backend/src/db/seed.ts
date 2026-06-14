@@ -18,9 +18,10 @@ import { config } from '../config';
 import prisma from '../models/db';
 import { factoryAbi, ammAbi } from './abis';
 
-// Curated, human-readable titles per market id. Titles are off-chain metadata
-// (the factory stores none), so they live here and in the DB. Markets not listed
-// fall back to "Market #i". Listed markets have their title kept in sync on re-seed.
+// Titles are now stored immutably on-chain by the Factory (`getMarketTitle`) and
+// read live during seeding. This curated map only supplies a category (still
+// off-chain) and a title fallback for markets created before on-chain titles
+// existed. Markets not listed and without an on-chain title fall back to "Market #i".
 const MARKET_TITLES: Record<string, { title: string; category: string }> = {
   '1': { title: 'What will the price of BTC be by the end of 2026?', category: 'crypto' },
   '2': { title: 'What will the price of ETH be by the end of 2026?', category: 'crypto' },
@@ -148,6 +149,22 @@ async function seed() {
     const marketId = i.toString();
     const curated = MARKET_TITLES[marketId];
 
+    // Read the immutable on-chain title from the Factory. Falls back to the
+    // curated map (pre-on-chain markets), then to a numeric placeholder.
+    let onChainTitle = '';
+    try {
+      onChainTitle = (await publicClient.readContract({
+        address: factoryAddress,
+        abi: factoryAbi,
+        functionName: 'getMarketTitle',
+        args: [marketIdBigInt],
+      }) as string).trim();
+    } catch {
+      // Factory predates on-chain titles — fall back below.
+    }
+    const resolvedTitle = onChainTitle || curated?.title;
+    console.log(`  Title:          ${resolvedTitle ?? `Market #${i}`}${onChainTitle ? ' (on-chain)' : ''}`);
+
     const market = await prisma.market.upsert({
       where: { marketId },
       update: {
@@ -160,12 +177,14 @@ async function seed() {
         lpTokenAddress,
         isResolved,
         winningTokenId,
-        // Keep curated titles in sync on re-seed; leave others untouched.
-        ...(curated ? { title: curated.title, category: curated.category } : {}),
+        // On-chain title is the source of truth; only write a title when we have
+        // a meaningful one so an old factory never clobbers an existing title.
+        ...(resolvedTitle ? { title: resolvedTitle } : {}),
+        ...(curated ? { category: curated.category } : {}),
       },
       create: {
         marketId,
-        title: curated?.title ?? `Market #${i}`,
+        title: resolvedTitle ?? `Market #${i}`,
         category: curated?.category ?? 'general',
         currentMu,
         currentSigma,
