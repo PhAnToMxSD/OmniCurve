@@ -15,6 +15,11 @@ import { startChainWatcher } from './services/chainService';
 
 const app = express();
 
+// Trust the first proxy hop (Render/Vercel/Heroku terminate TLS in front of us).
+// Required so req.ip and express-rate-limit read the real client IP from
+// X-Forwarded-For instead of throwing ERR_ERL_UNEXPECTED_X_FORWARDED_FOR.
+app.set('trust proxy', 1);
+
 // CORS allowlist — set CORS_ORIGINS as a comma-separated list in .env for production.
 // Falls back to localhost dev origins when the var is absent.
 const allowedOrigins = process.env.CORS_ORIGINS
